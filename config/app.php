@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -168,6 +168,24 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+
+        /*
+         * Modules Service Providers...
+         */
+
+        Modules\Article\Providers\ArticleServiceProvider::class,
+        Modules\Category\Providers\CategoryServiceProvider::class,
+        Modules\Comment\Providers\CommentServiceProvider::class,
+        Modules\Discount\Providers\DiscountServiceProvider::class,
+        Modules\Feature\Providers\FeatureServiceProvider::class,
+        Modules\Market\Providers\MarketServiceProvider::class,
+        Modules\Notification\Providers\NotificationServiceProvider::class,
+        Modules\Order\Providers\OrderServiceProvider::class,
+        Modules\Payment\Providers\PaymentServiceProvider::class,
+        Modules\RolePermission\Providers\RolePermissionServiceProvider::class,
+        Modules\Settings\Providers\SettingsServiceProvider::class,
+        Modules\Ticket\Providers\TicketServiceProvider::class,
     ])->toArray(),
 
     /*

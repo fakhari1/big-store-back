@@ -25,6 +25,18 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
+            "Modules\\Article\\": "modules/Article/",
+            "Modules\\Category\\": "modules/Category/",
+            "Modules\\Comment\\": "modules/Comment/",
+            "Modules\\Discount\\": "modules/Discount/",
+            "Modules\\Feature\\": "modules/Feature/",
+            "Modules\\Market\\": "modules/Market/",
+            "Modules\\Notification\\": "modules/Notification/",
+            "Modules\\Order\\": "modules/Order/",
+            "Modules\\Payment\\": "modules/Payment/",
+            "Modules\\RolePermission\\": "modules/RolePermission/",
+            "Modules\\Settings\\": "modules/Settings/",
+            "Modules\\Ticket\\": "modules/Ticket/",
             "Modules\\User\\": "modules/User/"
         }
     },
