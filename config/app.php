@@ -186,6 +186,7 @@ return [
         Modules\RolePermission\Providers\RolePermissionServiceProvider::class,
         Modules\Settings\Providers\SettingsServiceProvider::class,
         Modules\Ticket\Providers\TicketServiceProvider::class,
+        Modules\User\Providers\UserServiceProvider::class,
     ])->toArray(),
 
     /*
