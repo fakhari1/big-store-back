@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Market\Http\Controllers\BrandController;
 use Modules\Market\Http\Controllers\ProductController;
+use Modules\Market\Http\Controllers\DeliveryMethodController;
 
 Route::middleware(['api'])->prefix('api')->group(function () {
 
@@ -24,6 +25,16 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::patch('{product}', [ProductController::class, 'update'])->name('admin.market.products.update');
                 Route::delete('{product}', [ProductController::class, 'destroy'])->name('admin.market.products.delete');
             });
+
+            Route::prefix('deliveries')->group(function () {
+                Route::get('/', [DeliveryMethodController::class, 'index'])->name('admin.market.deliveries.index');
+                Route::post('/', [DeliveryMethodController::class, 'store'])->name('admin.market.deliveries.store');
+                Route::get('{delivery_method}', [DeliveryMethodController::class, 'show'])->name('admin.market.deliveries.show');
+                Route::patch('{delivery_method}', [DeliveryMethodController::class, 'update'])->name('admin.market.deliveries.update');
+                Route::delete('{delivery_method}', [DeliveryMethodController::class, 'destroy'])->name('admin.market.deliveries.delete');
+            });
+
+
         });
     });
 });
