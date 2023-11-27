@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->tinyInteger('status')->default(0);
             $table->tinyInteger('show_in_menu')->default(0);
             $table->text('tags');
-            $table->foreignId('parent_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('parent_id');
             $table->timestamps();
             $table->softDeletes();
         });

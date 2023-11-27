@@ -24,9 +24,9 @@ class Product extends Model
         'status',
         'is_marketable',
         'tags',
-        'sold_number',
-        'frozen_number',
-        'marketable_number',
+        'sold_count',
+        'frozen_count',
+        'marketable_count',
         'brand_id',
         'category_id',
         'published_at'
