@@ -7,7 +7,6 @@ use Modules\Market\Http\Controllers\ProductController;
 use Modules\Market\Http\Controllers\DeliveryMethodController;
 
 Route::middleware(['api'])->prefix('api')->group(function () {
-
     Route::prefix('admin')->group(function () {
         Route::prefix('market')->group(function () {
             Route::prefix('brands')->group(function () {
@@ -33,8 +32,6 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::patch('{delivery_method}', [DeliveryMethodController::class, 'update'])->name('admin.market.deliveries.update');
                 Route::delete('{delivery_method}', [DeliveryMethodController::class, 'destroy'])->name('admin.market.deliveries.delete');
             });
-
-
         });
     });
 });
