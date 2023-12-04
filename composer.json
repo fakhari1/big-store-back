@@ -27,7 +27,7 @@
             "Database\\Seeders\\": "database/seeders/",
             "Modules\\Article\\": "modules/Article/",
             "Modules\\Category\\": "modules/Category/",
-            "Modules\\Comment\\": "modules/Comment/",
+            "Modules\\Content\\": "modules/Content/",
             "Modules\\Discount\\": "modules/Discount/",
             "Modules\\Feature\\": "modules/Feature/",
             "Modules\\Market\\": "modules/Market/",
