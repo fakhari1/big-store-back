@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Market;
+namespace Modules\Market\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\Images\ImageService;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Order\Http\Controllers;
+namespace Modules\Market\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 

@@ -174,7 +174,6 @@ return [
          * Modules Service Providers...
          */
 
-        Modules\Article\Providers\ArticleServiceProvider::class,
         Modules\Category\Providers\CategoryServiceProvider::class,
         Modules\Content\Providers\ContentServiceProvider::class,
         Modules\Discount\Providers\DiscountServiceProvider::class,

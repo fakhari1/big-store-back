@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Article\Http\Controllers;
+namespace Modules\Content\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Content\PostRequest;

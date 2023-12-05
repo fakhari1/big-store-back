@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Article\Models;
+namespace Modules\Content\Models;
 
 use App\Models\Admin\Content\Comment;
 use App\Models\Admin\Content\PostCategory;
