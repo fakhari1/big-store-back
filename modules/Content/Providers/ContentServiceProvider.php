@@ -4,13 +4,13 @@ namespace Modules\Comment\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class CommentServiceProvider extends ServiceProvider
+class ContentServiceProvider extends ServiceProvider
 {
 
     public function register()
     {
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
-        $this->loadRoutesFrom(__DIR__ . '/../Routes/comment_routes.php');
+        $this->loadRoutesFrom(__DIR__ . '/../Routes/content_routes.php');
     }
 
 }
