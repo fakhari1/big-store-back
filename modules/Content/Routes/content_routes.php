@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Comment\Http\Controller\CommentController;
+use Modules\Content\Http\Controllers\CommentController;
 
 Route::middleware(['api'])->prefix('api')->group(function () {
 
