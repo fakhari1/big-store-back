@@ -180,7 +180,6 @@ return [
         Modules\Feature\Providers\FeatureServiceProvider::class,
         Modules\Market\Providers\MarketServiceProvider::class,
         Modules\Notification\Providers\NotificationServiceProvider::class,
-        Modules\Order\Providers\OrderServiceProvider::class,
         Modules\Payment\Providers\PaymentServiceProvider::class,
         Modules\RolePermission\Providers\RolePermissionServiceProvider::class,
         Modules\Settings\Providers\SettingsServiceProvider::class,
