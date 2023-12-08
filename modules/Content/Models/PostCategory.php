@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PostCategory extends Model
 {
-    use HasFactory, SoftDeletes, Sluggable;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'post_categories';
 
