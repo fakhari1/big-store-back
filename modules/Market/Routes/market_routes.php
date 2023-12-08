@@ -10,6 +10,7 @@ use Modules\Market\Http\Controllers\ProductPropertyValueController;
 use Modules\Market\Http\Controllers\ProductPropertyController;
 use Modules\Market\Http\Controllers\DeliveryMethodController;
 use Modules\Market\Http\Controllers\OrderController;
+use Modules\Market\Http\Controllers\WarehouseController;
 
 Route::middleware(['api'])->prefix('api')->group(function () {
     Route::prefix('admin')->group(function () {
@@ -61,13 +62,11 @@ Route::middleware(['api'])->prefix('api')->group(function () {
 
 
                 Route::prefix('{property}/values')->group(function () {
-
                     Route::get('/', [ProductPropertyValueController::class, 'index'])->name('admin.market.properties.values');
                     Route::get('create', [ProductPropertyValueController::class, 'create'])->name('admin.market.properties.values.create');
                     Route::post('/', [ProductPropertyValueController::class, 'store'])->name('admin.market.properties.values.store');
                     Route::patch('{value}', [ProductPropertyValueController::class, 'update'])->name('admin.market.properties.values.update');
                     Route::delete('{value}', [ProductPropertyValueController::class, 'destroy'])->name('admin.market.properties.values.delete');
-
                 });
             });
 
@@ -87,6 +86,19 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::get('returned', [OrderController::class, 'returnedOrders']);
                 Route::get('canceled', [OrderController::class, 'canceledOrders']);
                 Route::patch('{order}', [OrderController::class, 'update']);
+            });
+
+            Route::prefix('warehouse')->group(function () {
+
+                Route::get('/', [WarehouseController::class, 'index']);
+                Route::get('{warehouse}', [WarehouseController::class, 'show']);
+                Route::post('/', [WarehouseController::class, 'store']);
+                Route::patch('{warehouse}', [WarehouseController::class, 'update']);
+                Route::delete('{warehouse}', [WarehouseController::class, 'destroy']);
+
+                Route::get('add', [WarehouseController::class, 'add']);
+                Route::post('add', [WarehouseController::class, 'adding']);
+
             });
 
         });

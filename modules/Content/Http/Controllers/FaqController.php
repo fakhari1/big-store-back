@@ -7,7 +7,7 @@ use App\Models\Admin\Content\FAQ;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\Content\FAQRequest;
 
-class FAQController extends Controller
+class FaqController extends Controller
 {
     public function index()
     {

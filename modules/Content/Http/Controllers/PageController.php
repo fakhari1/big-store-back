@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Content\PageBuilderRequest;
 use App\Models\Admin\Content\PageBuilder;
 
-class PageBuilderController extends Controller
+class PageController extends Controller
 {
     public function index()
     {
