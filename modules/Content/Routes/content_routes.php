@@ -14,15 +14,6 @@ Route::middleware(['api'])->prefix('api')->group(function () {
 
         Route::prefix('content')->group(function () {
 
-            Route::prefix('categories')->group(function () {
-                Route::get('/', [PostCategoryController::class, 'index'])->name('admin.content.categories.index');
-                Route::get('create', [PostCategoryController::class, 'create'])->name('admin.content.categories.create');
-                Route::post('/', [PostCategoryController::class, 'store'])->name('admin.content.categories.store');
-                Route::patch('{post_category}', [PostCategoryController::class, 'update'])->name('admin.content.categories.update');
-                Route::delete('{post_category}', [PostCategoryController::class, 'destroy'])->name('admin.content.categories.delete');
-            });
-
-
             Route::prefix('comments')->group(function () {
                 Route::get('/', [CommentController::class, 'index'])->name('admin.market.comments.index');
                 Route::post('/', [CommentController::class, 'store'])->name('admin.market.comments.store');
