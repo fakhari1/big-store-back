@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Content;
+namespace Modules\Content\Http\Controllers;
 
 use App\Http\Requests\Admin\Content\BannerRequest;
 use App\Http\Services\Images\ImageService;
