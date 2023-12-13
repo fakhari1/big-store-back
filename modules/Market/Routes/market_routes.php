@@ -17,19 +17,19 @@ Route::middleware(['api'])->prefix('api')->group(function () {
         Route::prefix('market')->group(function () {
 
             Route::prefix('brands')->group(function () {
-                Route::get('/', [BrandController::class, 'index'])->name('admin.market.brands.index');
-                Route::post('/', [BrandController::class, 'store'])->name('admin.market.brands.store');
-                Route::get('{brand}', [BrandController::class, 'show'])->name('admin.market.brands.show');
-                Route::patch('{brand}', [BrandController::class, 'update'])->name('admin.market.brands.update');
-                Route::delete('{brand}', [BrandController::class, 'destroy'])->name('admin.market.brands.delete');
+                Route::get('/', [BrandController::class, 'index']);
+                Route::post('/', [BrandController::class, 'store']);
+                Route::get('{brand}', [BrandController::class, 'show']);
+                Route::patch('{brand}', [BrandController::class, 'update']);
+                Route::delete('{brand}', [BrandController::class, 'destroy']);
             });
 
             Route::prefix('products')->group(function () {
-                Route::get('/', [ProductController::class, 'index'])->name('admin.market.products.index');
-                Route::post('/', [ProductController::class, 'store'])->name('admin.market.products.store');
-                Route::get('{product}', [ProductController::class, 'show'])->name('admin.market.products.show');
-                Route::patch('{product}', [ProductController::class, 'update'])->name('admin.market.products.update');
-                Route::delete('{product}', [ProductController::class, 'destroy'])->name('admin.market.products.delete');
+                Route::get('/', [ProductController::class, 'index']);
+                Route::post('/', [ProductController::class, 'store']);
+                Route::get('{product}', [ProductController::class, 'show']);
+                Route::patch('{product}', [ProductController::class, 'update']);
+                Route::delete('{product}', [ProductController::class, 'destroy']);
 
                 Route::prefix('{product}')->group(function () {
                     Route::prefix('gallery')->group(function () {
@@ -39,43 +39,43 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                     });
 
                     Route::prefix('colors')->group(function () {
-                        Route::get('/', [ProductColorController::class, 'index'])->name('admin.market.products.colors.index');
-                        Route::post('/', [ProductColorController::class, 'store'])->name('admin.market.products.colors.store');
-                        Route::delete('{color}', [ProductColorController::class, 'destroy'])->name('admin.market.products.colors.delete');
+                        Route::get('/', [ProductColorController::class, 'index']);
+                        Route::post('/', [ProductColorController::class, 'store']);
+                        Route::delete('{color}', [ProductColorController::class, 'destroy']);
                     });
 
                     Route::prefix('guaranties')->group(function () {
-                        Route::get('/', [ProductGuarantyController::class, 'index'])->name('admin.market.products.guaranties.index');
-                        Route::post('/', [ProductGuarantyController::class, 'store'])->name('admin.market.products.guaranties.store');
-                        Route::delete('{guaranty}', [ProductGuarantyController::class, 'destroy'])->name('admin.market.products.guaranties.delete');
+                        Route::get('/', [ProductGuarantyController::class, 'index']);
+                        Route::post('/', [ProductGuarantyController::class, 'store']);
+                        Route::delete('{guaranty}', [ProductGuarantyController::class, 'destroy']);
                     });
                 });
 
             });
 
             Route::prefix('properties')->group(function () {
-                Route::get("/", [ProductPropertyController::class, 'index'])->name("admin.market.properties.index");
-                Route::get("create", [ProductPropertyController::class, 'create'])->name("admin.market.properties.create");
-                Route::post("/", [ProductPropertyController::class, 'store'])->name("admin.market.properties.store");
-                Route::patch("{property}", [ProductPropertyController::class, 'update'])->name("admin.market.properties.update");
-                Route::delete("{property}", [ProductPropertyController::class, 'destroy'])->name("admin.market.properties.delete");
+                Route::get("/", [ProductPropertyController::class, 'index']);
+                Route::get("create", [ProductPropertyController::class, 'create']);
+                Route::post("/", [ProductPropertyController::class, 'store']);
+                Route::patch("{property}", [ProductPropertyController::class, 'update']);
+                Route::delete("{property}", [ProductPropertyController::class, 'destroy']);
 
 
                 Route::prefix('{property}/values')->group(function () {
-                    Route::get('/', [ProductPropertyValueController::class, 'index'])->name('admin.market.properties.values');
-                    Route::get('create', [ProductPropertyValueController::class, 'create'])->name('admin.market.properties.values.create');
-                    Route::post('/', [ProductPropertyValueController::class, 'store'])->name('admin.market.properties.values.store');
-                    Route::patch('{value}', [ProductPropertyValueController::class, 'update'])->name('admin.market.properties.values.update');
-                    Route::delete('{value}', [ProductPropertyValueController::class, 'destroy'])->name('admin.market.properties.values.delete');
+                    Route::get('/', [ProductPropertyValueController::class, 'index']);
+                    Route::get('create', [ProductPropertyValueController::class, 'create']);
+                    Route::post('/', [ProductPropertyValueController::class, 'store']);
+                    Route::patch('{value}', [ProductPropertyValueController::class, 'update']);
+                    Route::delete('{value}', [ProductPropertyValueController::class, 'destroy']);
                 });
             });
 
             Route::prefix('deliveries')->group(function () {
-                Route::get('/', [DeliveryMethodController::class, 'index'])->name('admin.market.deliveries.index');
-                Route::post('/', [DeliveryMethodController::class, 'store'])->name('admin.market.deliveries.store');
-                Route::get('{delivery_method}', [DeliveryMethodController::class, 'show'])->name('admin.market.deliveries.show');
-                Route::patch('{delivery_method}', [DeliveryMethodController::class, 'update'])->name('admin.market.deliveries.update');
-                Route::delete('{delivery_method}', [DeliveryMethodController::class, 'destroy'])->name('admin.market.deliveries.delete');
+                Route::get('/', [DeliveryMethodController::class, 'index']);
+                Route::post('/', [DeliveryMethodController::class, 'store']);
+                Route::get('{delivery_method}', [DeliveryMethodController::class, 'show']);
+                Route::patch('{delivery_method}', [DeliveryMethodController::class, 'update']);
+                Route::delete('{delivery_method}', [DeliveryMethodController::class, 'destroy']);
             });
 
             Route::prefix('orders')->group(function () {
