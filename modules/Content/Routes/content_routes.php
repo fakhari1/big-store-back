@@ -39,7 +39,7 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::get('/', [MenuController::class, 'index']);
                 Route::get('create', [MenuController::class, 'create']);
                 Route::post('/', [MenuController::class, 'store']);
-                Route::put('{menu}', [MenuController::class, 'update']);
+                Route::patch('{menu}', [MenuController::class, 'update']);
                 Route::delete('{menu}', [MenuController::class, 'destroy']);
             });
 
@@ -48,7 +48,7 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::get('/', [PageController::class, 'index']);
                 Route::get('create', [PageController::class, 'create']);
                 Route::post('/', [PageController::class, 'store']);
-                Route::put('{page}', [PageController::class, 'update']);
+                Route::patch('{page}', [PageController::class, 'update']);
                 Route::delete('{page}', [PageController::class, 'destroy']);
             });
 
@@ -58,7 +58,7 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::get('/create', [PostController::class, 'create']);
                 Route::post('/create', [PostController::class, 'store']);
                 Route::get('/edit/{post}', [PostController::class, 'edit']);
-                Route::put('/update/{post}', [PostController::class, 'update']);
+                Route::patch('/update/{post}', [PostController::class, 'update']);
                 Route::delete('/delete/{post}', [PostController::class, 'destroy']);
                 Route::get('/status/{post}', [PostController::class, 'status']);
                 Route::get('/commentability/{post}', [PostController::class, 'commentability']);
@@ -70,7 +70,7 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::get('create', [BannerController::class, 'create']);
                 Route::post('store', [BannerController::class, 'store']);
                 Route::get('edit/{banner}', [BannerController::class, 'edit']);
-                Route::put('update/{banner}', [BannerController::class, 'update']);
+                Route::patch('update/{banner}', [BannerController::class, 'update']);
                 Route::delete('destroy/{banner}', [BannerController::class, 'destroy']);
                 Route::get('status/{banner}', [BannerController::class, 'status']);
             });
