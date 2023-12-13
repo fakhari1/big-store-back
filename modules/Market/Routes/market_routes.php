@@ -13,7 +13,9 @@ use Modules\Market\Http\Controllers\OrderController;
 use Modules\Market\Http\Controllers\WarehouseController;
 
 Route::middleware(['api'])->prefix('api')->group(function () {
+
     Route::prefix('admin')->group(function () {
+
         Route::prefix('market')->group(function () {
 
             Route::prefix('brands')->group(function () {
@@ -89,7 +91,6 @@ Route::middleware(['api'])->prefix('api')->group(function () {
             });
 
             Route::prefix('warehouse')->group(function () {
-
                 Route::get('/', [WarehouseController::class, 'index']);
                 Route::get('{warehouse}', [WarehouseController::class, 'show']);
                 Route::post('/', [WarehouseController::class, 'store']);
@@ -98,9 +99,10 @@ Route::middleware(['api'])->prefix('api')->group(function () {
 
                 Route::get('add', [WarehouseController::class, 'add']);
                 Route::post('add', [WarehouseController::class, 'adding']);
-
             });
 
         });
+
     });
+
 });

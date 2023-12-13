@@ -55,12 +55,10 @@ Route::middleware(['api'])->prefix('api')->group(function () {
 
             Route::prefix('posts')->group(function () {
                 Route::get('/', [PostController::class, 'index']);
-                Route::get('/create', [PostController::class, 'create']);
-                Route::post('/create', [PostController::class, 'store']);
-                Route::get('/edit/{post}', [PostController::class, 'edit']);
-                Route::patch('/update/{post}', [PostController::class, 'update']);
-                Route::delete('/delete/{post}', [PostController::class, 'destroy']);
-                Route::get('/status/{post}', [PostController::class, 'status']);
+                Route::get('create', [PostController::class, 'create']);
+                Route::post('/', [PostController::class, 'store']);
+                Route::patch('{post}', [PostController::class, 'update']);
+                Route::delete('{post}', [PostController::class, 'destroy']);
                 Route::get('/commentability/{post}', [PostController::class, 'commentability']);
             });
 
@@ -68,11 +66,9 @@ Route::middleware(['api'])->prefix('api')->group(function () {
             Route::prefix('banners')->group(function () {
                 Route::get('/', [BannerController::class, 'index']);
                 Route::get('create', [BannerController::class, 'create']);
-                Route::post('store', [BannerController::class, 'store']);
-                Route::get('edit/{banner}', [BannerController::class, 'edit']);
-                Route::patch('update/{banner}', [BannerController::class, 'update']);
-                Route::delete('destroy/{banner}', [BannerController::class, 'destroy']);
-                Route::get('status/{banner}', [BannerController::class, 'status']);
+                Route::post('/', [BannerController::class, 'store']);
+                Route::patch('{banner}', [BannerController::class, 'update']);
+                Route::delete('{banner}', [BannerController::class, 'destroy']);
             });
 
         });
