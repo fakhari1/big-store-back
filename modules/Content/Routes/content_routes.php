@@ -25,7 +25,6 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::delete('{comment}', [CommentController::class, 'destroy']);
             });
 
-
             Route::prefix("faqs")->group(function () {
                 Route::get('/', [FaqController::class, 'index']);
                 Route::get('create', [FaqController::class, 'create']);

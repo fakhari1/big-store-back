@@ -2,9 +2,9 @@
 
 namespace Modules\Content\Http\Controllers;
 
-use App\Http\Requests\Admin\Content\BannerRequest;
-use App\Http\Services\Images\ImageService;
-use App\Models\Admin\Content\Banner;
+use Modules\Content\Http\Requests\BannerRequest;
+use Modules\Content\Http\Services\Images\ImageService;
+use Modules\Content\Models\Banner;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
