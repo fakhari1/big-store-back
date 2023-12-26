@@ -22,11 +22,10 @@ Route::middleware(['api'])->prefix('api')->group(function () {
             Route::prefix('permissions')->group(function () {
 
                 Route::get('/', []);
-                Route::get('create', []);
-                Route::post('/', []);
-                Route::patch('{permission}', []);
-                Route::delete('{permission}', []);
-
+//                Route::get('create', []);
+//                Route::post('/', []);
+//                Route::patch('{permission}', []);
+//                Route::delete('{permission}', []);
             });
 
         });

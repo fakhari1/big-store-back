@@ -19,7 +19,6 @@ class RolePermissionSeeder extends Seeder
     {
         foreach (Permission::$permissions as $permission) {
             SpatiePermission::findOrCreate($permission);
-
         }
 
         foreach (Role::$roles as $name => $permissions) {
