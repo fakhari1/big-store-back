@@ -10,7 +10,10 @@ class RolePermissionServiceProvider extends ServiceProvider
     public function register()
     {
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
-//        $this->loadRoutesFrom(__DIR__ . '/../Routes/role_permission_routes.php');
+
+        $this->loadRoutesFrom(__DIR__ . '/../Routes/role_permission_routes.php');
+
+        $this->mergeConfigFrom(__DIR__ . '/../Config/permission.php', 'permission');
     }
 
 }
