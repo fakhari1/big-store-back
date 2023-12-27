@@ -184,6 +184,7 @@ class Permission extends SpatiePermission
         self::PERMISSION_VIEW_VENDORS,
         self::PERMISSION_MANAGE_CUSTOMERS,
         self::PERMISSION_VIEW_CUSTOMERS,
+        self::PERMISSION_VIEW_OWN_CUSTOMERS,
 
         self::PERMISSION_MANAGE_OWN_PROFILE,
 
