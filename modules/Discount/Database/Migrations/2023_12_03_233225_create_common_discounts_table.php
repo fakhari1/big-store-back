@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('common_discounts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->integer('percentage');
+            $table->unsignedTinyInteger('percentage');
             $table->unsignedBigInteger('discount_ceiling')->nullable();
             $table->unsignedBigInteger('minimal_order_amount')->nullable();
             $table->tinyInteger('status')->default(0);

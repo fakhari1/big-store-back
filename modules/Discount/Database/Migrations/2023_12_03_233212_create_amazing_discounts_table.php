@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('amazing_discounts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id');
-            $table->integer('percentage');
+            $table->unsignedTinyInteger('percentage');
             $table->tinyInteger('status')->default(0);
             $table->timestamp('start_date')->useCurrent();
             $table->timestamp('end_date')->useCurrent();
