@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('title');
             $table->text('description');
             $table->string('slug')->unique()->nullable();
-            $table->text('image')->nullable();
+            $table->text('image_id')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->tinyInteger('show_in_menu')->default(0);
             $table->text('tags');

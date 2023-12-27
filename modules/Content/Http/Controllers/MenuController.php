@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Content\Http\Controllers;
+namespace Modules\Content\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Content\MenuRequest;

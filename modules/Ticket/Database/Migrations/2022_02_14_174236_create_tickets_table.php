@@ -18,9 +18,10 @@ class CreateTicketsTable extends Migration
             $table->string('subject')->nullable();
             $table->text('description');
             $table->tinyInteger('status')->default(0);
-            $table->tinyInteger('seen')->default(0);
-            $table->unsignedBigInteger('reference_id');
-            $table->unsignedBigInteger('user_id');
+            $table->boolean('is_seen')->default(false);
+            $table->unsignedBigInteger('file_id')->nullable();
+            $table->unsignedBigInteger('reference_id')->comment('who admins this ticket was sent');
+            $table->unsignedBigInteger('sender_id');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('priority_id');
             $table->unsignedBigInteger('ticket_id')->nullable();

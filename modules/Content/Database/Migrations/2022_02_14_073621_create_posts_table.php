@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostsTable extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -21,7 +20,7 @@ class CreatePostsTable extends Migration
             $table->text('body');
             $table->text('image');
             $table->tinyInteger('status')->default(0);
-            $table->tinyInteger('commentability')->default(0)->comment('0 => uncommentablity, 1 => commentability');
+            $table->boolean('has_comment')->default(false);
             $table->string('tags');
             $table->timestamp('published_at');
             $table->unsignedBigInteger('author_id');
@@ -40,4 +39,4 @@ class CreatePostsTable extends Migration
     {
         Schema::dropIfExists('posts');
     }
-}
+};

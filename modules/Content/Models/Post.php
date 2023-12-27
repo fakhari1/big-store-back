@@ -13,21 +13,7 @@ class Post extends Model
 {
     use HasFactory, SoftDeletes, Sluggable;
 
-    protected $table = 'posts';
-
-    protected $fillable = [
-        'title',
-        'slug',
-        'summary',
-        'body',
-        'image',
-        'status',
-        'commentability',
-        'tags',
-        'published_at',
-        'author_id',
-        'category_id'
-    ];
+    protected $guarded = [];
 
     public function sluggable(): array
     {

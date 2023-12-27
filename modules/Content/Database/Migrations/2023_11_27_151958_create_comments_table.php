@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('author_id');
             $table->unsignedBigInteger('commentable_id');
             $table->string('commentable_type');
-            $table->tinyInteger('seen')->default(0);
-            $table->tinyInteger('approved')->default(0);
+            $table->boolean('is_seen')->default(false);
+            $table->boolean('is_confirmed')->default(false);
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
             $table->softDeletes();

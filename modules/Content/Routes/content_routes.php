@@ -34,13 +34,6 @@ Route::middleware(['api'])->prefix('api')->group(function () {
             });
 
 
-            Route::prefix('menus')->group(function () {
-                Route::get('/', [MenuController::class, 'index']);
-                Route::get('create', [MenuController::class, 'create']);
-                Route::post('/', [MenuController::class, 'store']);
-                Route::patch('{menu}', [MenuController::class, 'update']);
-                Route::delete('{menu}', [MenuController::class, 'destroy']);
-            });
 
 
             Route::prefix('pages')->group(function () {
