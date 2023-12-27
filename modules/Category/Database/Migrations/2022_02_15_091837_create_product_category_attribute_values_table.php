@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoryAttributeDefaultValuesTable extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,10 +12,11 @@ class CreateCategoryAttributeDefaultValuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_attribute_values', function (Blueprint $table) {
+        Schema::create('product_category_attribute_values', function (Blueprint $table) {
             $table->id();
             $table->string('value');
-            $table->unsignedBigInteger('category_attribute_id');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('product_category_attribute_id');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,4 +31,4 @@ class CreateCategoryAttributeDefaultValuesTable extends Migration
     {
         Schema::dropIfExists('category_attribute_default_values');
     }
-}
+};

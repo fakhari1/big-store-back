@@ -12,11 +12,11 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('meta_product', function (Blueprint $table) {
+        Schema::create('product_properties', function (Blueprint $table) {
             $table->id();
-            $table->string('meta_key');
-            $table->string('meta_value');
             $table->unsignedBigInteger('product_id');
+            $table->string('property');
+            $table->string('value');
             $table->timestamps();
             $table->softDeletes();
         });

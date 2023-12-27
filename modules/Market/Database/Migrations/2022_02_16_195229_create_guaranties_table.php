@@ -14,7 +14,7 @@ return new class extends Migration {
     {
         Schema::create('guaranties', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('title')->unique();
             $table->unsignedBigInteger('product_id');
             $table->decimal('price_increase', 10, 1)->default(0);
             $table->tinyInteger('status')->default(0);

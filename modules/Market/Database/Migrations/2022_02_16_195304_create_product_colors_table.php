@@ -12,7 +12,7 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('color_product', function (Blueprint $table) {
+        Schema::create('product_colors', function (Blueprint $table) {
             $table->id();
             $table->string('color_name');
             $table->string('color_code')->unique();
@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->decimal('price_increase', 20, 3)->default(0);
             $table->tinyInteger('status')->default(0);
             $table->tinyInteger('sold_number')->default(0);
-            $table->tinyInteger('frozen_number')->default(0);
+            $table->tinyInteger('quantity_in_cart')->default(0);
             $table->tinyInteger('marketable_number')->default(0);
             $table->timestamps();
             $table->softDeletes();
