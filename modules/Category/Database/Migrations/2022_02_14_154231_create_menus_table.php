@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->string('url');
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status')->default(1);
             $table->unsignedBigInteger('parent_id');
             $table->timestamps();
             $table->softDeletes();

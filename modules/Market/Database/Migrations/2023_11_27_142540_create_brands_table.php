@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('brands', function (Blueprint $table) {
             $table->id();
             $table->string('persian_name');
-            $table->string('original_name');
+            $table->string('english_name');
             $table->string('slug')->unique()->nullable();
-            $table->text('logo');
+            $table->unsignedBigInteger('logo_id');
             $table->string('tags');
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

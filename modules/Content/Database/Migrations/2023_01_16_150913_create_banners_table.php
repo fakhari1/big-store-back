@@ -20,7 +20,7 @@ class CreateBannersTable extends Migration
             $table->string('url');
             $table->unsignedBigInteger('author_id');
             $table->tinyInteger('position')->default(0)->comment('developer explain 0 or 1 or ... in Admin\\Content\\Banner model');
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

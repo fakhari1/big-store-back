@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('commentable_type');
             $table->boolean('is_seen')->default(false);
             $table->boolean('is_confirmed')->default(false);
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

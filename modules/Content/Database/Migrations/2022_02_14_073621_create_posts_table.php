@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->text('summary');
             $table->text('body');
             $table->text('image');
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status')->default(1);
             $table->boolean('has_comment')->default(false);
             $table->string('tags');
             $table->timestamp('published_at');
