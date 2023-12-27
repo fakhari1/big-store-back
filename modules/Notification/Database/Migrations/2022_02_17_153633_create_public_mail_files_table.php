@@ -16,10 +16,7 @@ class CreatePublicMailFilesTable extends Migration
         Schema::create('public_mail_files', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('public_mail_id');
-            $table->text('file_path');
-            $table->bigInteger('file_size');
-            $table->string('file_type');
-            $table->tinyInteger('status')->default(0);
+            $table->unsignedBigInteger('file_id');
             $table->timestamps();
             $table->softDeletes();
         });

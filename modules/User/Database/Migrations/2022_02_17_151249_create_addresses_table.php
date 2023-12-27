@@ -18,9 +18,9 @@ class CreateAddressesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('city_id');
             $table->string('postal_code');
-            $table->text('address');
-            $table->string('no');
-            $table->string('unit');
+            $table->text('text');
+            $table->string('house_number');
+            $table->string('unit_number');
             $table->string('recipient_first_name');
             $table->string('recipient_last_name');
             $table->string('mobile');

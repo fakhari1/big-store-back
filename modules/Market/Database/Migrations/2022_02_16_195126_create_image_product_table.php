@@ -13,11 +13,8 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('image_product', function (Blueprint $table) {
-            $table->id();
             $table->unsignedBigInteger('image_id');
             $table->unsignedBigInteger('product_id');
-            $table->timestamps();
-            $table->softDeletes();
         });
     }
 
