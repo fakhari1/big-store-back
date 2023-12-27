@@ -12,6 +12,7 @@ Route::middleware(['api'])->prefix('api')->group(function () {
             Route::get('open-tickets', [TicketController::class, 'getOpenTickets']);
             Route::get('closed-tickets', [TicketController::class, 'getClosedTickets']);
             Route::get('{ticket}', [TicketController::class, 'getTicket']);
+
         });
     });
 });
