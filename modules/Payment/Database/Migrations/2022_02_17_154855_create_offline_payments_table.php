@@ -18,7 +18,7 @@ class CreateOfflinePaymentsTable extends Migration
             $table->decimal('amount', 20, 3);
             $table->unsignedBigInteger('user_id');
             $table->string('transaction_id')->nullable();
-            $table->timestamp('pay_date');
+            $table->timestamp('payed_at');
             $table->timestamps();
             $table->softDeletes();
         });
