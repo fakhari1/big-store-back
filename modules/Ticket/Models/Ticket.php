@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models\Admin\Ticket;
+namespace Modules\Ticket\Models;
 
-use App\Models\User;
+use Modules\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

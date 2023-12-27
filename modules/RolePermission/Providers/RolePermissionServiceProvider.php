@@ -17,7 +17,7 @@ class RolePermissionServiceProvider extends ServiceProvider
 
         $this->mergeConfigFrom(__DIR__ . '/../Config/permission.php', 'permission');
 
-        DatabaseSeeder::$seeders[1] = RolePermissionSeeder::class;
+        DatabaseSeeder::$seeders[0] = RolePermissionSeeder::class;
     }
 
 }

@@ -4,7 +4,7 @@ namespace Modules\User\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\Images\ImageService;
-use App\Models\User;
+use Modules\User\Models\User;
 use App\Notifications\NewUserRegistered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;

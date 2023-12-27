@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductUserTable extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -16,7 +15,6 @@ class CreateProductUserTable extends Migration
         Schema::create('product_user', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
-            $table->primary(['product_id', 'user_id']);
         });
     }
 
@@ -29,4 +27,4 @@ class CreateProductUserTable extends Migration
     {
         Schema::dropIfExists('product_user');
     }
-}
+};

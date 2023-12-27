@@ -18,9 +18,7 @@ class CreateCategoryAttributesTable extends Migration
             $table->string('name');
             $table->tinyInteger('type')->default(0);
             $table->string('unit');
-//            $table->foreignId('category_id')->constrained('product_categories')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductMetaTable extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,11 +12,11 @@ class CreateProductMetaTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_meta', function (Blueprint $table) {
+        Schema::create('meta_product', function (Blueprint $table) {
             $table->id();
             $table->string('meta_key');
             $table->string('meta_value');
-            $table->foreignId('product_id')->constrained('products')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('product_id');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,4 +31,4 @@ class CreateProductMetaTable extends Migration
     {
         Schema::dropIfExists('product_meta');
     }
-}
+};

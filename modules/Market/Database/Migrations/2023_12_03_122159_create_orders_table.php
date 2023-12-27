@@ -28,15 +28,10 @@ return new class extends Migration
             $table->decimal('order_final_amount', 20, 3)->nullable();
             $table->decimal('order_discount_amount', 20, 3)->nullable();
             $table->unsignedBigInteger('coupon_id');
-            $table->foreign('coupon_id')->references('id')->on('coupons')->cascadeOnDelete()->cascadeOnUpdate();
 
             $table->longText('coupon_object')->nullable();
             $table->decimal('order_coupon_discount_amount', 20, 3)->nullable();
-
-//            $table->foreignId('common_discount_id')->nullable()->constrained('common_discounts')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('common_discount_id');
-            $table->foreign('common_discount_id')->references('id')->on('common_discounts')->cascadeOnDelete()->cascadeOnUpdate();
-
             $table->longText('common_discount_object')->nullable();
             $table->decimal('order_common_discount_amount', 20, 3)->nullable();
             $table->decimal('order_total_products_discount_amount', 20, 3)->nullable();

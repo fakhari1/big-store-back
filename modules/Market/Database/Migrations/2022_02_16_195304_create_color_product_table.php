@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductColorsTable extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,7 +12,7 @@ class CreateProductColorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_colors', function (Blueprint $table) {
+        Schema::create('color_product', function (Blueprint $table) {
             $table->id();
             $table->string('color_name');
             $table->string('color_code')->unique();
@@ -37,4 +36,4 @@ class CreateProductColorsTable extends Migration
     {
         Schema::dropIfExists('product_colors');
     }
-}
+};

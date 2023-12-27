@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\User;
+use Modules\User\Models\User;
 
 class CreateOtpsTable extends Migration
 {
@@ -17,7 +17,7 @@ class CreateOtpsTable extends Migration
         Schema::create('otps', function (Blueprint $table) {
             $table->id();
             $table->string('token');
-            $table->foreignIdFor(User::class);
+            $table->unsignedBigInteger('user_id');
             $table->string('otp_code');
             $table->string('login_identify')->comment('email/phone number');
             $table->tinyInteger('type')->default(0)->comment('0 => phone number, 1 => email address');

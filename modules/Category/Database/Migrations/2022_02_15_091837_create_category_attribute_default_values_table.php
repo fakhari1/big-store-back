@@ -16,7 +16,7 @@ class CreateCategoryAttributeDefaultValuesTable extends Migration
         Schema::create('category_attribute_default_values', function (Blueprint $table) {
             $table->id();
             $table->string('value');
-            $table->foreignId('category_attribute_id')->constrained('category_attributes')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('category_attribute_id');
             $table->timestamps();
             $table->softDeletes();
         });

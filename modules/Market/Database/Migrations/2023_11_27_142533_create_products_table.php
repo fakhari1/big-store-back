@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->decimal('length', 10, 1);
             $table->decimal('width', 10, 1);
             $table->decimal('height', 10, 1);
-            $table->unsignedBigInteger('price', 20);
+            $table->unsignedInteger('price');
             $table->tinyInteger('status')->default(0);
             $table->tinyInteger('is_marketable')->default(0);
             $table->string('tags');
