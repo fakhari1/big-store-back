@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePublicMailFilesTable extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,12 +12,9 @@ class CreatePublicMailFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('public_mail_files', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('public_mail_id');
+        Schema::create('email_file', function (Blueprint $table) {
             $table->unsignedBigInteger('file_id');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->unsignedBigInteger('public_mail_id');
         });
     }
 
@@ -31,4 +27,4 @@ class CreatePublicMailFilesTable extends Migration
     {
         Schema::dropIfExists('public_mail_files');
     }
-}
+};

@@ -14,9 +14,10 @@ return new class extends Migration {
     {
         Schema::create('product_category_attribute_values', function (Blueprint $table) {
             $table->id();
-            $table->string('value');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('product_category_attribute_id');
+            $table->string('value');
+            $table->unsignedTinyInteger('type')->default(0)->comment('0 => simple, 1 => multiple values selected by customers (affected on price)');
             $table->timestamps();
             $table->softDeletes();
         });

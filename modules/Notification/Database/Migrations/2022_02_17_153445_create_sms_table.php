@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePublicSmsTable extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,7 +12,7 @@ class CreatePublicSmsTable extends Migration
      */
     public function up()
     {
-        Schema::create('public_sms', function (Blueprint $table) {
+        Schema::create('sms', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->text('body');
@@ -33,4 +32,4 @@ class CreatePublicSmsTable extends Migration
     {
         Schema::dropIfExists('public_sms');
     }
-}
+};
