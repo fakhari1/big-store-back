@@ -21,7 +21,7 @@ return new class extends Migration
             $table->decimal('amazing_discount_sale_amount', 20, 3)->nullable();
             $table->unsignedTinyInteger('count')->default(1);
             $table->decimal('final_product_price', 20, 3)->nullable();
-            $table->decimal('final_total_price', 20, 30)->nullable();
+            $table->decimal('final_total_price', 20, 3)->nullable();
             $table->unsignedBigInteger('product_color_id')->nullable();
             $table->unsignedBigInteger('guaranty_id')->nullable();
             $table->timestamps();
