@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Content;
+namespace Modules\Category\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Content\MenuRequest;
-use App\Models\Admin\Content\Menu;
+use Modules\Http\Requests\MenuRequest;
+use Modules\Models\Menu;
 
 
 class MenuController extends Controller
