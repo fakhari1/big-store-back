@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('order_item_attribute', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('order_item_id');
+            $table->unsignedBigInteger('product_category_attribute_id');
+            $table->unsignedBigInteger('product_category_value_id');
+            $table->string('value')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

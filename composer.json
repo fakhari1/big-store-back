@@ -32,6 +32,7 @@
             "Modules\\Discount\\": "modules/Discount/",
             "Modules\\Feature\\": "modules/Feature/",
             "Modules\\Market\\": "modules/Market/",
+            "Modules\\Order\\": "modules/Order/",
             "Modules\\Notification\\": "modules/Notification/",
             "Modules\\Payment\\": "modules/Payment/",
             "Modules\\RolePermission\\": "modules/RolePermission/",
