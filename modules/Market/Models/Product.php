@@ -90,7 +90,7 @@ class Product extends Model
 //
 //    public function CategoryValues()
 //    {
-//        return $this->hasMany(CategoryValue::class)->with('CategoryAttribute');
+//        return $this->hasMany(ProductCategoryValue::class)->with('ProductCategoryAttribute');
 //    }
 //
 //    public function getRealPriceAttribute()

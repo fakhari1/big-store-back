@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Category\Http\Controllers\ProductCategoryController;
-use Modules\Content\Http\Controllers\PostCategoryController;
-use Modules\Content\Controllers\MenuController;
+use Modules\Category\Http\Controllers\PostCategoryController;
+use Modules\Category\Http\Controllers\MenuController;
 Route::middleware(['api'])->prefix('api')->group(function () {
 
     Route::prefix('admin')->group(function () {

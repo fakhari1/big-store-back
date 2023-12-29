@@ -5,7 +5,7 @@ namespace App\Models\Admin\Market;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CategoryValue extends Model
+class ProductCategoryValue extends Model
 {
     use HasFactory;
 
@@ -15,7 +15,7 @@ class CategoryValue extends Model
 
     public function CategoryAttribute()
     {
-        return $this->belongsTo(CategoryAttribute::class);
+        return $this->belongsTo(ProductCategoryAttribute::class);
     }
 
     public function getPropertyValueAttribute()

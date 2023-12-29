@@ -180,6 +180,7 @@ return [
         Modules\Content\Providers\ContentServiceProvider::class,
         Modules\Discount\Providers\DiscountServiceProvider::class,
         Modules\Feature\Providers\FeatureServiceProvider::class,
+        Modules\File\Providers\FileServiceProvider::class,
         Modules\Market\Providers\MarketServiceProvider::class,
         Modules\Notification\Providers\NotificationServiceProvider::class,
         Modules\Payment\Providers\PaymentServiceProvider::class,

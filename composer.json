@@ -29,17 +29,18 @@
             "Database\\Seeders\\": "database/seeders/",
             "Modules\\Category\\": "modules/Category/",
             "Modules\\Content\\": "modules/Content/",
+            "Modules\\Dashboard\\": "modules/Dashboard/",
             "Modules\\Discount\\": "modules/Discount/",
             "Modules\\Feature\\": "modules/Feature/",
+            "Modules\\File\\": "modules/File/",
             "Modules\\Market\\": "modules/Market/",
-            "Modules\\Order\\": "modules/Order/",
             "Modules\\Notification\\": "modules/Notification/",
+            "Modules\\Order\\": "modules/Order/",
             "Modules\\Payment\\": "modules/Payment/",
             "Modules\\RolePermission\\": "modules/RolePermission/",
             "Modules\\Settings\\": "modules/Settings/",
             "Modules\\Ticket\\": "modules/Ticket/",
-            "Modules\\User\\": "modules/User/",
-            "Modules\\Dashboard\\": "modules/Dashboard/"
+            "Modules\\User\\": "modules/User/"
         }
     },
     "autoload-dev": {
