@@ -2,14 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Market\Http\Controllers\BrandController;
+use Modules\Market\Http\Controllers\DeliveryMethodController;
+use Modules\Market\Http\Controllers\ProductColorController;
 use Modules\Market\Http\Controllers\ProductController;
 use Modules\Market\Http\Controllers\ProductGalleryController;
-use Modules\Market\Http\Controllers\ProductColorController;
 use Modules\Market\Http\Controllers\ProductGuarantyController;
-use Modules\Market\Http\Controllers\ProductPropertyValueController;
 use Modules\Market\Http\Controllers\ProductPropertyController;
-use Modules\Market\Http\Controllers\DeliveryMethodController;
-use Modules\Market\Http\Controllers\OrderController;
+use Modules\Market\Http\Controllers\ProductPropertyValueController;
 use Modules\Market\Http\Controllers\WarehouseController;
 
 Route::middleware(['api'])->prefix('api')->group(function () {
