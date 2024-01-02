@@ -15,6 +15,8 @@ class PostCategory extends Model
 
     protected $guarded = [];
 
+    protected $table = 'post_categories';
+
     public function sluggable(): array
     {
         return [

@@ -22,10 +22,10 @@ Route::middleware(['api'])->prefix('api')->group(function () {
             Route::prefix('categories')->group(function () {
                 Route::get('/', [PostCategoryController::class, 'index']);
                 Route::get('create', [PostCategoryController::class, 'create']);
-                Route::get('{category}', [PostCategoryController::class, 'show']);
+                Route::get('{postCategory}', [PostCategoryController::class, 'show']);
                 Route::post('/', [PostCategoryController::class, 'store']);
-                Route::patch('{category}', [PostCategoryController::class, 'update']);
-                Route::delete('{category}', [PostCategoryController::class, 'destroy']);
+                Route::patch('{postCategory}', [PostCategoryController::class, 'update']);
+                Route::delete('{postCategory}', [PostCategoryController::class, 'destroy']);
 
 
                 Route::prefix('menus')->group(function () {

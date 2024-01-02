@@ -14,8 +14,6 @@ class PostCategoryController extends Controller
     {
         $categories = PostCategory::orderBy('created_at', 'desc')->get();
 
-        dd($categories);
-
         return Responder::response([
             'categories' => $categories
         ]);
@@ -70,8 +68,11 @@ class PostCategoryController extends Controller
         //
     }
 
-    public function destroy($id)
+    public function destroy(PostCategory $postCategory)
     {
-        //
+        $postCategory->delete();
+
+        return Responder::response([], 200, 'دسته بندی محتوا با موفقیت حذف شد');
+
     }
 }
