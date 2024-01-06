@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Category\Http\Controllers\ProductCategoryController;
 use Modules\Category\Http\Controllers\PostCategoryController;
 use Modules\Category\Http\Controllers\MenuController;
+
 Route::middleware(['api'])->prefix('api')->group(function () {
 
     Route::prefix('admin')->group(function () {
@@ -31,6 +32,7 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::prefix('menus')->group(function () {
                     Route::get('/', [MenuController::class, 'index']);
                     Route::get('create', [MenuController::class, 'create']);
+                    Route::get('{menu}', [MenuController::class, 'show']);
                     Route::post('/', [MenuController::class, 'store']);
                     Route::patch('{menu}', [MenuController::class, 'update']);
                     Route::delete('{menu}', [MenuController::class, 'destroy']);

@@ -14,35 +14,23 @@ class PostCategoryRequest extends FormRequest
 
     public function rules()
     {
-        switch ($this->method) {
-            case 'POST':
-                return [
-                    'title' => ['required'],
-                    'description' => ['required'],
-                    'tags' => ['required'],
-                    'status' => ['required'],
-                    'file' => ['required']
-                ];
-                break;
-            case 'PATCH':
-                return [
-                    'title' => ['required'],
-                    'description' => ['required'],
-                    'tags' => ['required'],
-                    'status' => ['required'],
-                    'file' => ['required']
-                ];
-                break;
-
-            default:
-                [];
-        }
+        return match ($this->method()) {
+            'POST' => [
+                'title' => ['required'],
+                'description' => ['required'],
+                'tags' => ['required'],
+                'status' => ['required', 'numeric', 'in:0,1'],
+                'file' => ['required']
+            ],
+            'PATCH' => [
+                'title' => ['required'],
+                'description' => ['required'],
+                'tags' => ['required'],
+                'status' => ['required', 'numeric', 'in:0,1'],
+                'file' => ['null']
+            ],
+            default => [],
+        };
 
     }
-
-    public function attributes()
-    {
-
-    }
-
 }
