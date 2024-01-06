@@ -16,7 +16,8 @@ class PostCategoryController extends Controller
         $categories = PostCategory::orderBy('created_at', 'desc')->get();
 
         return Responder::response([
-            'categories' => $categories
+            'categories' => $categories,
+            'message' => 'اطلاعات با موفقیت دریافت شد!'
         ]);
     }
 
