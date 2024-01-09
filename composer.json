@@ -40,13 +40,17 @@
             "Modules\\RolePermission\\": "modules/RolePermission/",
             "Modules\\Settings\\": "modules/Settings/",
             "Modules\\Ticket\\": "modules/Ticket/",
-            "Modules\\User\\": "modules/User/"
+            "Modules\\User\\": "modules/User/",
+            "Modules\\Common\\": "modules/Common/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "modules/Common/Utils/helpers.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": [

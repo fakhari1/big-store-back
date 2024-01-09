@@ -15,16 +15,14 @@ class PostCategory extends Model
 
     protected $guarded = [];
 
-    protected $table = 'post_categories';
-
-    public function sluggable(): array
-    {
-        return [
-            'slug' => [
-                'source' => 'name'
-            ]
-        ];
-    }
+//    public function sluggable(): array
+//    {
+//        return [
+//            'slug' => [
+//                'source' => 'name'
+//            ]
+//        ];
+//    }
 
 //    public function posts()
 //    {

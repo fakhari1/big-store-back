@@ -7,13 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class File extends Model
 {
-
-
-    protected $fillable = [
-        'name' , 'size' , 'time' , 'type' , 'is_private'
-    ];
-
-
+    protected $guarded = [];
 
     public function isMedia()
     {

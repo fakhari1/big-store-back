@@ -5,6 +5,8 @@ namespace Modules\Category\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Utils\Responder;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Modules\Category\Http\Requests\PostCategoryRequest;
 use Modules\Category\Models\PostCategory;
 use Modules\Category\Models\ProductCategory;
@@ -17,7 +19,7 @@ class PostCategoryController extends Controller
 
         return Responder::response([
             'categories' => $categories,
-            'message' => 'اطلاعات با موفقیت دریافت شد!'
+            'message' => 'اطلاعات با موفقیت دریافت شد'
         ]);
     }
 
@@ -29,15 +31,26 @@ class PostCategoryController extends Controller
 
     public function store(PostCategoryRequest $request)
     {
-//        $inputs = [
-//            'title' => $request->title,
-//            'description' => $request->description,
-//            'status' => $request->status,
-//            'show_in_menu' => $request->show_in_menu,
-//            'tags' => $request->product_tags,
-//            'parent_id' => $request->parent
-//        ];
-//
+        $inputs = [
+            'title' => $request->title,
+            'description' => $request->description,
+            'status' => $request->status,
+            'tags' => fix_tags_to_meta_format($request->tags),
+            'slug' => Str::slug($request->title, '-', 'fa'),
+        ];
+
+        $postCategory = PostCategory::create($inputs);
+
+        DB::table('image_post_category')->insert([
+            'image_id' => 1,
+            'post_category_id' => $postCategory->id
+        ]);
+
+        return Responder::response([
+            'status' => true,
+            'message' => 'اطلاعات با موفقیت ذخیره شد'
+        ]);
+
 //        if ($request->hasFile('image')) {
 //
 //            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'product-category');
