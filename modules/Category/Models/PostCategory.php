@@ -15,6 +15,7 @@ class PostCategory extends Model
 
     protected $guarded = [];
 
+
 //    public function sluggable(): array
 //    {
 //        return [
@@ -28,6 +29,7 @@ class PostCategory extends Model
 //    {
 //        return $this->hasMany(Post::class);
 //    }
+
 
     public function images()
     {

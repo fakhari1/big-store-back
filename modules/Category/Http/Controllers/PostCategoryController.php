@@ -5,7 +5,9 @@ namespace Modules\Category\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Utils\Responder;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Modules\Category\Http\Requests\PostCategoryRequest;
 use Modules\Category\Models\PostCategory;
@@ -19,14 +21,7 @@ class PostCategoryController extends Controller
 
         return Responder::response([
             'categories' => $categories,
-            'message' => 'اطلاعات با موفقیت دریافت شد'
         ]);
-    }
-
-    public function create()
-    {
-        $productCategories = ProductCategory::all();
-        return view('admin.market.category.create', compact('productCategories'));
     }
 
     public function store(PostCategoryRequest $request)
@@ -68,19 +63,32 @@ class PostCategoryController extends Controller
 //        return redirect()->route('admin.market.category.index')->with(['success_msg' => 'دسته بندی ثبت شد!']);
     }
 
-    public function show(ProductCategory $category)
+    public function show(PostCategory $postCategory)
     {
-        return Responder::response(['category' => $category]);
+        return Responder::response(['category' => $postCategory->loadMissing('images')]);
     }
 
-    public function edit(ProductCategory $category)
+    public function update(PostCategoryRequest $request, PostCategory $postCategory)
     {
+        $inputs = [
+            'title' => $request->title,
+            'description' => $request->description,
+            'status' => $request->status,
+            'tags' => fix_tags_to_meta_format($request->tags),
+            'slug' => Str::slug($request->title, '-', 'fa'),
+        ];
 
-    }
+        $postCategory->update($inputs);
 
-    public function update(Request $request, $id)
-    {
-        //
+        DB::table('image_post_category')->insert([
+            'image_id' => 1,
+            'post_category_id' => $postCategory->id
+        ]);
+
+        return Responder::response([
+            'status' => true,
+            'message' => 'اطلاعات با موفقیت ذخیره شد'
+        ]);
     }
 
     public function destroy(PostCategory $postCategory)

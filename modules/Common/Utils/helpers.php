@@ -132,9 +132,10 @@ function get_seconds_in_minute_second_format($seconds)
     return '0' . $hour . ':' . $secs;
 }
 
-function fix_tags_to_meta_format(array $tags)
+function fix_tags_to_meta_format(string $tags): string
 {
     $tags = explode(',', $tags);
+
     $finalTags = [];
     foreach ($tags as $key => $tag) {
         $finalTags[$key] = str_replace(' ', '_', $tag);

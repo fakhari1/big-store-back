@@ -22,12 +22,12 @@ class PostCategoryRequest extends FormRequest
                 'status' => ['required', 'numeric', 'in:0,1'],
                 'file' => ['required']
             ],
-            'PATCH' => [
+            'PUT', 'PATCH' => [
                 'title' => ['required'],
                 'description' => ['required'],
                 'tags' => ['required'],
                 'status' => ['required', 'numeric', 'in:0,1'],
-                'file' => ['null']
+                'file' => ['nullable']
             ],
             default => [],
         };
