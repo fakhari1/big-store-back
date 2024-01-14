@@ -8,12 +8,12 @@ Route::middleware('api')->prefix('api')->group(function () {
 
     Route::prefix('admin')->group(function () {
 
-        Route::prefix('market')->group(function () {
+        Route::prefix('files')->group(function () {
 
-            Route::get('create', [FileController::class, 'create']);
-            Route::post('/', [FileController::class, 'new']);
-//            Route::get('file/{file}', ['FileController', 'show']);
-//            Route::get('file/delete/{file}' , ['FileController', 'delete']);
+            Route::post('/', [FileController::class, 'store']);
+            Route::get('{file}', [FileController::class, 'show']);
+            Route::delete('{file}', [FileController::class, 'destroy']);
+
         });
 
     });
