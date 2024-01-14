@@ -4,6 +4,7 @@ namespace Modules\Category\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Utils\Responder;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\DB;
@@ -31,7 +32,6 @@ class PostCategoryController extends Controller
             'description' => $request->description,
             'status' => $request->status,
             'tags' => fix_tags_to_meta_format($request->tags),
-            'slug' => Str::slug($request->title, '-', 'fa'),
         ];
 
         $postCategory = PostCategory::create($inputs);
@@ -91,9 +91,29 @@ class PostCategoryController extends Controller
         ]);
     }
 
+    public function updateStatus(Request $request, PostCategory $postCategory)
+    {
+
+        try {
+            $postCategory->update([
+                'status' => $request->status
+            ]);
+
+            return Responder::response([
+                'status' => true,
+                'data' => ['status' => $postCategory->status],
+                'message' => 'اطلاعات با موفقیت بروزرسانی شد'
+            ]);
+        } catch (\Exception $ex) {
+            return 'خطا در انجام عملیات؛ دوباره تلاش کنید';
+        }
+    }
+
     public function destroy(PostCategory $postCategory)
     {
         $postCategory->delete();
+
+        //$postCategory->deleteImages();
 
         return Responder::response([], 200, 'دسته بندی محتوا با موفقیت حذف شد');
 

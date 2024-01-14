@@ -26,6 +26,7 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::get('{post_category}', [PostCategoryController::class, 'show']);
                 Route::post('/', [PostCategoryController::class, 'store']);
                 Route::patch('{post_category}', [PostCategoryController::class, 'update']);
+                Route::patch('{post_category}/update-status', [PostCategoryController::class, 'updateStatus']);
                 Route::delete('{post_category}', [PostCategoryController::class, 'destroy']);
 
 
