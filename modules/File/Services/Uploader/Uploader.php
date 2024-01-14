@@ -20,25 +20,24 @@ class Uploader
 
     private $file;
 
-    /**
-     * @var FFMpegService
-     */
-    private $ffmpeg;
+//    /**
+//     * @var FFMpegService
+//     */
+//    private $ffmpeg;
 
 
-    public function __construct(Request $request, StorageManager $storageManager, FFMpegService $ffmpeg)
+    public function __construct(Request $request, StorageManager $storageManager/*, FFMpegService $ffmpeg*/)
     {
         $this->request = $request;
         $this->storageManager = $storageManager;
         $this->file = $request->file;
-        $this->ffmpeg = $ffmpeg;
+//        $this->ffmpeg = $ffmpeg;
 
     }
 
 
     public function upload()
     {
-
         if ($this->isFileExists()) throw new FileHasExistsException('File has already uploaded');
 
         $this->putFileIntoStorage();
@@ -58,7 +57,7 @@ class Uploader
 
         $file->time = $this->getTime($file);
 
-        $file->save();
+        return $file->save();
     }
 
 
@@ -68,10 +67,6 @@ class Uploader
 
         return $this->ffmpeg->durationOf($file->absolutePath());
     }
-
-
-
-
 
     private function putFileIntoStorage()
     {
@@ -84,7 +79,7 @@ class Uploader
 
     private function isPrivate()
     {
-        return $this->request->has('is-private');
+        return $this->request->has('is_private');
     }
 
     private function getType()

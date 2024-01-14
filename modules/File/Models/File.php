@@ -2,7 +2,7 @@
 
 namespace Modules\File\Models;
 
-use App\Services\Uploader\StorageManager;
+use Modules\File\Services\Uploader\StorageManager;
 use Illuminate\Database\Eloquent\Model;
 
 class File extends Model
@@ -30,6 +30,5 @@ class File extends Model
         resolve(StorageManager::class)->deleteFile($this->name, $this->type, $this->is_private);
 
         parent::delete();
-
     }
 }

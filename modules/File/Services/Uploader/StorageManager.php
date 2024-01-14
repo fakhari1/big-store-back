@@ -48,9 +48,6 @@ class StorageManager
         return $type . DIRECTORY_SEPARATOR . $name;
     }
 
-
-
-
     private function disk(bool $isPrivate)
     {
         return $isPrivate ? Storage::disk('private') : Storage::disk('public');
