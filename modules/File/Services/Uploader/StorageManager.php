@@ -4,18 +4,21 @@ namespace Modules\File\Services\Uploader;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Morilog\Jalali\Jalalian;
 
 class StorageManager
 {
-    public function putFileAsPrivate(string $name, UploadedFile $file,string $type)
+    public function putFileAsPrivate(string $name, UploadedFile $file, string $type)
     {
-        return Storage::disk('private')->putFileAs($type, $file, $name);
+        $path = $type . DIRECTORY_SEPARATOR . $this->generatePathAsJalaliDate() . DIRECTORY_SEPARATOR;
+        return Storage::disk('private')->putFileAs($path, $file, $name);
 
     }
 
-    public function putFileAsPublic(string $name, UploadedFile $file,string $type)
+    public function putFileAsPublic(string $name, UploadedFile $file, string $type)
     {
-        return Storage::disk('public')->putFileAs($type, $file, $name);
+        $path = $type . DIRECTORY_SEPARATOR . $this->generatePathAsJalaliDate() . DIRECTORY_SEPARATOR;
+        return Storage::disk('public')->putFileAs($path, $file, $name);
     }
 
 
@@ -43,7 +46,7 @@ class StorageManager
     }
 
 
-    private function directoryPrefix($type , $name)
+    private function directoryPrefix($type, $name)
     {
         return $type . DIRECTORY_SEPARATOR . $name;
     }
@@ -53,6 +56,15 @@ class StorageManager
         return $isPrivate ? Storage::disk('private') : Storage::disk('public');
     }
 
+    private function generatePathAsJalaliDate()
+    {
+        $now = Jalalian::now();
+        return
+            DIRECTORY_SEPARATOR . $now->getYear() .
+            DIRECTORY_SEPARATOR . $now->getMonth() .
+            DIRECTORY_SEPARATOR . $now->getDay() .
+            DIRECTORY_SEPARATOR;
+    }
 
 
 }

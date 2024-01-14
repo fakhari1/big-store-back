@@ -26,11 +26,11 @@ class Uploader
 //    private $ffmpeg;
 
 
-    public function __construct(Request $request, StorageManager $storageManager/*, FFMpegService $ffmpeg*/)
+    public function __construct(StorageManager $storageManager/*, FFMpegService $ffmpeg*/)
     {
-        $this->request = $request;
+        $this->request = request();
         $this->storageManager = $storageManager;
-        $this->file = $request->file;
+        $this->file = $this->request->file;
 //        $this->ffmpeg = $ffmpeg;
 
     }
@@ -72,7 +72,7 @@ class Uploader
     {
         $method = $this->isPrivate() ? 'putFileAsPrivate' : 'putFileAsPublic';
 
-        $this->storageManager->$method($this->file->getClientOriginalName(), $this->file,$this->getType());
+        $this->storageManager->$method($this->file->getClientOriginalName(), $this->file, $this->getType());
 
     }
 
@@ -93,9 +93,8 @@ class Uploader
 
     private function isFileExists()
     {
-       return $this->storageManager->isFileExists($this->file->getClientOriginalName(), $this->getType(), $this->isPrivate());
+        return $this->storageManager->isFileExists($this->file->getClientOriginalName(), $this->getType(), $this->isPrivate());
     }
-
 
 
 }

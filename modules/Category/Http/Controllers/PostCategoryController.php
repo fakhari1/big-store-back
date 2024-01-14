@@ -13,6 +13,7 @@ use Illuminate\Support\Str;
 use Modules\Category\Http\Requests\PostCategoryRequest;
 use Modules\Category\Models\PostCategory;
 use Modules\Category\Models\ProductCategory;
+use Modules\File\Services\Uploader\Uploader;
 
 class PostCategoryController extends Controller
 {
@@ -25,7 +26,7 @@ class PostCategoryController extends Controller
         ]);
     }
 
-    public function store(PostCategoryRequest $request)
+    public function store(PostCategoryRequest $request, Uploader $uploader)
     {
         $inputs = [
             'title' => $request->title,
