@@ -15,6 +15,7 @@ class PostCategory extends Model
 
     protected $guarded = [];
 
+    protected $appends = ['image_path'];
 
     public function sluggable(): array
     {
@@ -36,11 +37,17 @@ class PostCategory extends Model
         return $this->belongsToMany(File::class, 'image_post_category', 'post_category_id', 'image_id');
     }
 
+    public function getImagePathAttribute()
+    {
+        $image = $this->images()->first();
+        return DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . $image->path . DIRECTORY_SEPARATOR . $image->name;
+    }
+
     public function deleteImages()
     {
         $images = $this->images->get();
 
-        foreach($images as $key => $image) {
+        foreach ($images as $key => $image) {
             $image->delete();
         }
     }

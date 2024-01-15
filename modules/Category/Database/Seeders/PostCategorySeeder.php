@@ -79,7 +79,7 @@ class PostCategorySeeder extends Seeder
             ]);
 
             DB::table('image_post_category')->insert([
-                'image_id' => $category['id'],
+                'image_id' => 1,
                 'post_category_id' => $category['id']
             ]);
         }

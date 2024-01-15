@@ -37,9 +37,10 @@ class PostCategoryController extends Controller
 
         $postCategory = PostCategory::create($inputs);
 
-        DB::table('image_post_category')->insert([
-            'image_id' => 1,
-            'post_category_id' => $postCategory->id
+        $file = $uploader->upload('post-categories');
+
+        $postCategory->images()->attach([
+            'image_id' => $file->id
         ]);
 
         return Responder::response([

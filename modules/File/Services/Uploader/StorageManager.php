@@ -8,16 +8,20 @@ use Morilog\Jalali\Jalalian;
 
 class StorageManager
 {
-    public function putFileAsPrivate(string $name, UploadedFile $file, string $type)
+    public function putFileAsPrivate(string $name, UploadedFile $file, string $type, string $directory)
     {
-        $path = $type . DIRECTORY_SEPARATOR . $this->generatePathAsJalaliDate() . DIRECTORY_SEPARATOR;
+        $path = $directory == '' ? $type : DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR;
+
+//        $path = $type . DIRECTORY_SEPARATOR . $this->generatePathAsJalaliDate() . DIRECTORY_SEPARATOR;
         return Storage::disk('private')->putFileAs($path, $file, $name);
 
     }
 
-    public function putFileAsPublic(string $name, UploadedFile $file, string $type)
+    public function putFileAsPublic(string $name, UploadedFile $file, string $type, string $directory)
     {
-        $path = $type . DIRECTORY_SEPARATOR . $this->generatePathAsJalaliDate() . DIRECTORY_SEPARATOR;
+        $path = $directory == '' ? $type : DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR;
+
+//        $path = $type . DIRECTORY_SEPARATOR . $this->generatePathAsJalaliDate() . DIRECTORY_SEPARATOR;
         return Storage::disk('public')->putFileAs($path, $file, $name);
     }
 

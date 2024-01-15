@@ -36,43 +36,49 @@ class Uploader
     }
 
 
-    public function upload()
+    public function upload($directory = '')
     {
         if ($this->isFileExists()) throw new FileHasExistsException('File has already uploaded');
 
-        $this->putFileIntoStorage();
+        $this->putFileIntoStorage($directory);
 
-        return $this->saveFileIntoDatabase();
+        return $this->saveFileIntoDatabase($directory);
     }
 
 
-    private function saveFileIntoDatabase()
+    private function saveFileIntoDatabase($directory = '')
     {
+        $type = $this->getType();
+
+        $path = $directory == '' ? $type : DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR;
+
         $file = new File([
             'name' => $this->file->getClientOriginalName(),
             'size' => $this->file->getSize(),
+            'path' => $path,
             'type' => $this->getType(),
             'is_private' => $this->isPrivate()
         ]);
 
-        $file->time = $this->getTime($file);
+//        $file->time = $this->getTime($file);
+        $file->save();
 
-        return $file->save();
+        return $file;
     }
 
 
-    private function getTime(File $file)
-    {
-        if (!$file->isMedia()) return null;
+//    private function getTime(File $file)
+//    {
+//        if (!$file->isMedia()) return null;
+//
+//        return $this->ffmpeg->durationOf($file->absolutePath());
+//    }
 
-        return $this->ffmpeg->durationOf($file->absolutePath());
-    }
-
-    private function putFileIntoStorage()
+    private function putFileIntoStorage($directory = '')
     {
         $method = $this->isPrivate() ? 'putFileAsPrivate' : 'putFileAsPublic';
 
-        $this->storageManager->$method($this->file->getClientOriginalName(), $this->file, $this->getType());
+        $this->storageManager->$method($this->file->getClientOriginalName(), $this->file, $this->getType(), $directory);
 
     }
 

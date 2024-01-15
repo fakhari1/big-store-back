@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->unsignedInteger('size');
+            $table->string('path');
             $table->unsignedInteger('time')->nullable()->comment('based on seconds if type is video');
             $table->string('type')->comment('video,image,archive');
             $table->boolean('is_private');
