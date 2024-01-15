@@ -75,12 +75,8 @@ class PostCategorySeeder extends Seeder
                 'title' => $category['title'],
                 'slug' => $category['slug'],
                 'description' => $category['description'],
-                'tags' => $category['tags']
-            ]);
-
-            DB::table('image_post_category')->insert([
                 'image_id' => 1,
-                'post_category_id' => $category['id']
+                'tags' => $category['tags']
             ]);
         }
 

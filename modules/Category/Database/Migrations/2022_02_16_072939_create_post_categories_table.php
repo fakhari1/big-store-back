@@ -18,6 +18,7 @@ class CreatePostCategoriesTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('slug')->unique()->nullable();
+            $table->unsignedBigInteger('image_id');
             $table->tinyInteger('status')->default(1);
             $table->string('tags');
             $table->timestamps();

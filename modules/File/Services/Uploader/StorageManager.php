@@ -33,9 +33,9 @@ class StorageManager
 
     }
 
-    public function isFileExists(string $name, string $type, bool $isPrivate)
+    public function isFileExists(string $name, string $path, bool $isPrivate)
     {
-        return $this->disk($isPrivate)->exists($this->directoryPrefix($type, $name));
+        return $this->disk($isPrivate)->exists($this->directoryPrefix($path, $name));
     }
 
     public function getFile(string $name, string $type, bool $isPrivate)
@@ -44,15 +44,19 @@ class StorageManager
     }
 
 
-    public function deleteFile(string $name, string $type, bool $isPrivate)
+    public function deleteFile(string $name, string $path, bool $isPrivate)
     {
-        return $this->disk($isPrivate)->delete($this->directoryPrefix($type, $name));
+        if ($this->isFileExists($name, $path, $isPrivate)) {
+            return $this->disk($isPrivate)->delete($this->directoryPrefix($path, $name));
+        } else {
+            return throw new \Exception('فایل مورد نظر موجود نیست');
+        }
     }
 
 
-    private function directoryPrefix($type, $name)
+    private function directoryPrefix($path, $name)
     {
-        return $type . DIRECTORY_SEPARATOR . $name;
+        return $path . DIRECTORY_SEPARATOR . $name;
     }
 
     private function disk(bool $isPrivate)

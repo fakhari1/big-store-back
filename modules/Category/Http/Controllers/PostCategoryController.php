@@ -35,42 +35,23 @@ class PostCategoryController extends Controller
             'tags' => fix_tags_to_meta_format($request->tags),
         ];
 
-        $postCategory = PostCategory::create($inputs);
-
         $file = $uploader->upload('post-categories');
+        $inputs['image_id'] = $file->id;
 
-        $postCategory->images()->attach([
-            'image_id' => $file->id
-        ]);
+        PostCategory::create($inputs);
 
         return Responder::response([
             'status' => true,
             'message' => 'اطلاعات با موفقیت ذخیره شد'
         ]);
-
-//        if ($request->hasFile('image')) {
-//
-//            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'product-category');
-//            $result = $imageService->save($request->file('image'));
-//
-//            if ($result === false) {
-//                return redirect()->back()->with('error_msg', 'آپلود تصویر با خطا مواجه شد');
-//            }
-//
-//            $inputs['image'] = $result;
-//        }
-//
-//        ProductCategory::create($inputs);
-//
-//        return redirect()->route('admin.market.category.index')->with(['success_msg' => 'دسته بندی ثبت شد!']);
     }
 
     public function show(PostCategory $postCategory)
     {
-        return Responder::response(['category' => $postCategory->loadMissing('images')]);
+        return Responder::response(['category' => $postCategory]);
     }
 
-    public function update(PostCategoryRequest $request, PostCategory $postCategory)
+    public function update(PostCategoryRequest $request, PostCategory $postCategory, Uploader $uploader)
     {
         $inputs = [
             'title' => $request->title,
@@ -80,12 +61,15 @@ class PostCategoryController extends Controller
             'slug' => Str::slug($request->title, '-', 'fa'),
         ];
 
-        $postCategory->update($inputs);
+        if ($request->hasFile('file')) {
 
-        DB::table('image_post_category')->insert([
-            'image_id' => 1,
-            'post_category_id' => $postCategory->id
-        ]);
+            $postCategory->deleteImage();
+
+            $file = $uploader->upload('post-categories');
+
+            $inputs['image_id'] = $file->id;
+        }
+        $postCategory->update($inputs);
 
         return Responder::response([
             'status' => true,

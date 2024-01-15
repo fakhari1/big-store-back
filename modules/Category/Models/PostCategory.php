@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\File\Models\File;
+use Modules\File\Services\Uploader\StorageManager;
+use Modules\File\Services\Uploader\Uploader;
 
 class PostCategory extends Model
 {
@@ -32,23 +34,27 @@ class PostCategory extends Model
 //    }
 
 
-    public function images()
+    public function image()
     {
-        return $this->belongsToMany(File::class, 'image_post_category', 'post_category_id', 'image_id');
+        return $this->belongsTo(File::class, 'image_id');
     }
 
     public function getImagePathAttribute()
     {
-        $image = $this->images()->first();
-        return DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . $image->path . DIRECTORY_SEPARATOR . $image->name;
-    }
-
-    public function deleteImages()
-    {
-        $images = $this->images->get();
-
-        foreach ($images as $key => $image) {
-            $image->delete();
+        if ($this->image) {
+            $image = $this->image;
+            return env('APP_URL') . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . $image->path . DIRECTORY_SEPARATOR . $image->name;
+        } else {
+            return null;
         }
     }
+
+    public function deleteImage()
+    {
+        $image = $this->image;
+        $storageManager = new StorageManager();
+
+        return $storageManager->deleteFile($image->name, $image->path, $image->is_private);
+    }
+
 }
