@@ -17,8 +17,7 @@ return new class extends Migration {
             $table->string('title');
             $table->string('slug')->unique()->nullable();
             $table->text('summary');
-            $table->text('body');
-            $table->text('image');
+            $table->text('content');
             $table->tinyInteger('status')->default(1);
             $table->boolean('has_comment')->default(false);
             $table->string('tags');

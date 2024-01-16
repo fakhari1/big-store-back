@@ -2,14 +2,13 @@
 
 namespace Modules\Category\Models;
 
-//use App\Models\Admin\Content\Post;
+use Modules\Content\Models\Post;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\File\Models\File;
 use Modules\File\Services\Uploader\StorageManager;
-use Modules\File\Services\Uploader\Uploader;
 
 class PostCategory extends Model
 {
@@ -28,10 +27,10 @@ class PostCategory extends Model
         ];
     }
 
-//    public function posts()
-//    {
-//        return $this->hasMany(Post::class);
-//    }
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 
 
     public function image()

@@ -48,9 +48,9 @@ class StorageManager
     {
         if ($this->isFileExists($name, $path, $isPrivate)) {
             return $this->disk($isPrivate)->delete($this->directoryPrefix($path, $name));
-        } else {
+        } /*else {
             return throw new \Exception('فایل مورد نظر موجود نیست');
-        }
+        }*/
     }
 
 

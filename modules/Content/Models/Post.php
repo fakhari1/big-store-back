@@ -2,12 +2,14 @@
 
 namespace Modules\Content\Models;
 
-use App\Models\Admin\Content\Comment;
-use App\Models\Admin\Content\PostCategory;
+use Modules\Content\Models\Comment;
+use Modules\Category\Models\PostCategory;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\File\Models\File;
+use Modules\File\Services\Uploader\StorageManager;
 
 class Post extends Model
 {
@@ -24,8 +26,6 @@ class Post extends Model
         ];
     }
 
-    protected $casts = ['image' => 'array'];
-
     public function category()
     {
         return $this->belongsTo(PostCategory::class, 'category_id');
@@ -34,5 +34,20 @@ class Post extends Model
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    public function images()
+    {
+        return $this->belongsToMany(File::class, 'image_post', 'image_id', 'post_id');
+    }
+
+    public function deleteImages()
+    {
+        $images = $this->images;
+        $storageManager = new StorageManager();
+
+        foreach ($images as $key => $image) {
+            $storageManager->deleteFile($image->name, $image->path, $image->is_boolean);
+        }
     }
 }

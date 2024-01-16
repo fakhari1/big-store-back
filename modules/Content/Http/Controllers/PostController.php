@@ -3,10 +3,11 @@
 namespace Modules\Content\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Content\PostRequest;
-use App\Http\Services\Images\ImageService;
-use App\Models\Admin\Content\Post;
-use App\Models\Admin\Content\PostCategory;
+use Modules\Common\Utils\Responder;
+use Modules\Content\Http\Requests\PostRequest;
+use Modules\File\Services\Uploader\Uploader;
+use Modules\Content\Models\Post;
+use Modules\Category\Models\PostCategory;
 
 class PostController extends Controller
 {
@@ -14,19 +15,24 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::orderBy('created_at', 'desc')->with(['category'])->get();
-        return view('admin.content.post.index', compact('posts'));
+
+        return Responder::response([
+            'posts' => $posts
+        ]);
     }
 
     public function create()
     {
         $post_categories = PostCategory::all();
-        return view('admin.content.post.create', compact("post_categories"));
+
+        return Responder::response([
+            'categories' => $post_categories
+        ]);
     }
 
-    public function store(PostRequest $request, ImageService $imageService)
+    public function store(PostRequest $request, Uploader $uploader)
     {
-        // date fixing
-        $realTimestampStart = substr($request->published_at, 0, 10);
+        dd($request->all());
 
         $inputs = [
             'title' => $request->title,
@@ -55,7 +61,10 @@ class PostController extends Controller
         $inputs['author_id'] = 1;
         $post = Post::create($inputs);
 
-        return redirect()->route('admin.content.post.index')->with(['success_msg' => 'پست با موفقیت ایجاد شد!']);
+        return Responder::response([
+            'status' => true,
+            'message' => 'اطلاعات با موفقیت ذخیره شد'
+        ]);
     }
 
     public function show($id)

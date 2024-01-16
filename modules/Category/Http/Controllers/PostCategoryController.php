@@ -97,11 +97,13 @@ class PostCategoryController extends Controller
 
     public function destroy(PostCategory $postCategory)
     {
+        $postCategory->deleteImage();
+
         $postCategory->delete();
 
-        //$postCategory->deleteImages();
-
-        return Responder::response([], 200, 'دسته بندی محتوا با موفقیت حذف شد');
-
+        return Responder::response([
+            'status' => true,
+            'message' => 'دسته بندی محتوا با موفقیت حذف شد'
+        ]);
     }
 }

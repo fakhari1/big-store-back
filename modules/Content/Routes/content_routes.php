@@ -34,8 +34,6 @@ Route::middleware(['api'])->prefix('api')->group(function () {
             });
 
 
-
-
             Route::prefix('pages')->group(function () {
                 Route::get('/', [PageController::class, 'index']);
                 Route::get('create', [PageController::class, 'create']);
@@ -51,7 +49,7 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::post('/', [PostController::class, 'store']);
                 Route::patch('{post}', [PostController::class, 'update']);
                 Route::delete('{post}', [PostController::class, 'destroy']);
-                Route::get('/commentability/{post}', [PostController::class, 'commentability']);
+                Route::patch('{post}/update_comment_ability', [PostController::class, 'updateCommentAbility']);
             });
 
 
