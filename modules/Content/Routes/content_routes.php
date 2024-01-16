@@ -49,7 +49,8 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::post('/', [PostController::class, 'store']);
                 Route::patch('{post}', [PostController::class, 'update']);
                 Route::delete('{post}', [PostController::class, 'destroy']);
-                Route::patch('{post}/update_comment_ability', [PostController::class, 'updateCommentAbility']);
+                Route::patch('{post}/update-status', [PostController::class, 'updateStatus']);
+                Route::patch('{post}/update-comment-ability-status', [PostController::class, 'updateCommentAbilityStatus']);
             });
 
 

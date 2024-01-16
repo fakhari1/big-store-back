@@ -2,7 +2,6 @@
 
 namespace Modules\Content\Models;
 
-use Modules\Content\Models\Comment;
 use Modules\Category\Models\PostCategory;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,6 +16,7 @@ class Post extends Model
 
     protected $guarded = [];
 
+    protected $appends = ['image_path'];
     public function sluggable(): array
     {
         return [
@@ -36,18 +36,22 @@ class Post extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }
 
-    public function images()
+    public function image()
     {
-        return $this->belongsToMany(File::class, 'image_post', 'image_id', 'post_id');
+        return $this->belongsTo(File::class, 'image_id');
     }
 
-    public function deleteImages()
+    public function getImagePathAttribute()
     {
-        $images = $this->images;
+        return $this->image ? $this->image->public_path : null;
+    }
+
+
+    public function deleteImage()
+    {
+        $image = $this->image;
         $storageManager = new StorageManager();
 
-        foreach ($images as $key => $image) {
-            $storageManager->deleteFile($image->name, $image->path, $image->is_boolean);
-        }
+        $storageManager->deleteFile($image->name, $image->path, $image->is_boolean);
     }
 }

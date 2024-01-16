@@ -40,13 +40,9 @@ class PostCategory extends Model
 
     public function getImagePathAttribute()
     {
-        if ($this->image) {
-            $image = $this->image;
-            return env('APP_URL') . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . $image->path . DIRECTORY_SEPARATOR . $image->name;
-        } else {
-            return null;
-        }
+        return $this->image ? $this->image->public_path : null;
     }
+
 
     public function deleteImage()
     {

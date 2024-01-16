@@ -26,10 +26,10 @@ class StorageManager
     }
 
 
-    public function getAbsolutePathOf(string $name, string $type, bool $isPrivate)
+    public function getAbsolutePathOf(string $name, string $path, bool $isPrivate)
     {
 
-        return $this->disk($isPrivate)->path($this->directoryPrefix($type, $name));
+        return $this->disk($isPrivate)->path($this->directoryPrefix($path, $name));
 
     }
 

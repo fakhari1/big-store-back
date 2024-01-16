@@ -3,11 +3,12 @@
 namespace Modules\Content\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Modules\Common\Utils\Responder;
 use Modules\Content\Http\Requests\PostRequest;
 use Modules\File\Services\Uploader\Uploader;
 use Modules\Content\Models\Post;
-use Modules\Category\Models\PostCategory;
 
 class PostController extends Controller
 {
@@ -23,7 +24,7 @@ class PostController extends Controller
 
     public function create()
     {
-        $post_categories = PostCategory::all();
+        $post_categories = Post::all();
 
         return Responder::response([
             'categories' => $post_categories
@@ -32,50 +33,27 @@ class PostController extends Controller
 
     public function store(PostRequest $request, Uploader $uploader)
     {
-        dd($request->all());
-
         $inputs = [
             'title' => $request->title,
-            'tags' => $request->tags,
+            'tags' => fix_tags_to_meta_format($request->tags),
             'category_id' => $request->category_id,
             'status' => $request->status,
-            'commentability' => $request->commentability,
-            'published_at' => date("Y-m-d H:i:s", (int)$realTimestampStart),
+            'has_comment' => $request->comment_ability,
+            'published_at' => Carbon::parse($request->published_at)->format('Y-m-d H:i:s'),
             'summary' => $request->summary,
-            'body' => $request->body,
+            'text' => $request->text,
         ];
 
-        if ($request->hasFile('image')) {
-
-            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'post');
-            $result = $imageService->createIndexAndSave($request->file('image'));
-
-            if ($result === false) {
-                return redirect()->back()->with('error_msg', 'آپلود تصویر با خطا مواجه شد');
-            }
-
-            $inputs['image'] = $result;
-
-        }
+        $file = $uploader->upload('posts');
+        $inputs['image_id'] = $file->id;
 
         $inputs['author_id'] = 1;
-        $post = Post::create($inputs);
+        Post::create($inputs);
 
         return Responder::response([
             'status' => true,
             'message' => 'اطلاعات با موفقیت ذخیره شد'
         ]);
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit(Post $post)
-    {
-        $postCategories = PostCategory::all();
-        return view('admin.content.post.edit', compact('post', 'postCategories'));
     }
 
     public function update(PostRequest $request, Post $post, ImageService $imageService)
@@ -117,6 +95,42 @@ class PostController extends Controller
         return redirect()->route('admin.content.post.index')->with(['success_msg' => 'پست با موفقیت بروزرسانی شد!']);
     }
 
+    public function updateStatus(Request $request, Post $post)
+    {
+
+        try {
+            $post->update([
+                'status' => $request->status
+            ]);
+
+            return Responder::response([
+                'status' => true,
+                'data' => ['status' => $post->status],
+                'message' => 'اطلاعات با موفقیت بروزرسانی شد'
+            ]);
+        } catch (\Exception $ex) {
+            return 'خطا در انجام عملیات؛ دوباره تلاش کنید';
+        }
+    }
+
+    public function updateCommentAbilityStatus(Request $request, Post $post)
+    {
+
+        try {
+            $post->update([
+                'has_comment' => $request->comment_ability
+            ]);
+
+            return Responder::response([
+                'status' => true,
+                'data' => ['comment_ability' => $post->has_comment],
+                'message' => 'اطلاعات با موفقیت بروزرسانی شد'
+            ]);
+        } catch (\Exception $ex) {
+            return 'خطا در انجام عملیات؛ دوباره تلاش کنید';
+        }
+    }
+
     public function destroy(Post $post, ImageService $imageService)
     {
         if (!empty($post->image)) {
@@ -128,34 +142,4 @@ class PostController extends Controller
         }
     }
 
-    public function status(Post $post)
-    {
-        // toggle post status
-        $post->status = $post->status == 0 ? 1 : 0;
-
-        if ($post->save()) {
-            if ($post->status == 1)
-                return response()->json(['status' => true, 'checked' => true]);
-            else
-                return response()->json(['status' => true, 'checked' => false]);
-        }
-
-        return response()->json(['status' => false]);
-    }
-
-    public function commentability(Post $post)
-    {
-        // toggle post commentability
-        $post->commentability = $post->commentability == 0 ? 1 : 0;
-
-        if ($post->save()) {
-            if ($post->commentability == 0) {
-                return response()->json(['status' => true, 'checked' => false]);
-            } else {
-                return response()->json(['status' => true, 'checked' => true]);
-            }
-        }
-
-        return response()->json(['status' => false]);
-    }
 }

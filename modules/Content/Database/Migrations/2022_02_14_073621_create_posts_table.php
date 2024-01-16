@@ -17,11 +17,12 @@ return new class extends Migration {
             $table->string('title');
             $table->string('slug')->unique()->nullable();
             $table->text('summary');
-            $table->text('content');
+            $table->text('text');
             $table->tinyInteger('status')->default(1);
             $table->boolean('has_comment')->default(false);
             $table->string('tags');
             $table->timestamp('published_at');
+            $table->unsignedBigInteger('image_id');
             $table->unsignedBigInteger('author_id');
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
