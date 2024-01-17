@@ -53,6 +53,8 @@ class PostCategory extends Model
         $image = $this->image;
         $storageManager = new StorageManager();
 
+        $this->image->delete();
+
         return $storageManager->deleteFile($image->name, $image->path, $image->is_private);
     }
 

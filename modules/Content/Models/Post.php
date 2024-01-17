@@ -17,6 +17,7 @@ class Post extends Model
     protected $guarded = [];
 
     protected $appends = ['image_path'];
+
     public function sluggable(): array
     {
         return [
@@ -51,7 +52,7 @@ class Post extends Model
     {
         $image = $this->image;
         $storageManager = new StorageManager();
-
-        $storageManager->deleteFile($image->name, $image->path, $image->is_private);
+        $this->image->delete();
+        return $storageManager->deleteFile($image->name, $image->path, $image->is_private);
     }
 }
