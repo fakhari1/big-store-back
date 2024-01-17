@@ -5,6 +5,7 @@ namespace Modules\Content\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Modules\Category\Models\PostCategory;
 use Modules\Common\Utils\Responder;
 use Modules\Content\Http\Requests\PostRequest;
 use Modules\File\Services\Uploader\Uploader;
@@ -24,7 +25,7 @@ class PostController extends Controller
 
     public function create()
     {
-        $post_categories = Post::all();
+        $post_categories = PostCategory::all();
 
         return Responder::response([
             'categories' => $post_categories
@@ -63,43 +64,35 @@ class PostController extends Controller
         ]);
     }
 
-    public function update(PostRequest $request, Post $post, ImageService $imageService)
+    public function update(PostRequest $request, Post $post, Uploader $uploader)
     {
-        // date fixing
-        $realTimestampStart = substr($request->published_at, 0, 10);
-
         $inputs = [
             'title' => $request->title,
-            'tags' => $request->tags,
+            'tags' => fix_tags_to_meta_format($request->tags),
             'category_id' => $request->category_id,
             'status' => $request->status,
-            'commentability' => $request->commentability,
-            'published_at' => date("Y-m-d H:i:s", (int)$realTimestampStart),
+            'has_comment' => $request->comment_ability,
+            'published_at' => Carbon::parse($request->published_at)->format('Y-m-d H:i:s'),
             'summary' => $request->summary,
-            'body' => $request->body,
+            'text' => $request->text,
         ];
 
-        if ($request->hasFile('image')) {
 
-            if (!empty($post->image)) {
-                $imageService->deleteDirectoryAndFiles($post->image['directory']);
-            }
+        if ($request->hasFile('file')) {
 
-            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'post');
-            $result = $imageService->createIndexAndSave($request->file('image'));
+            $post->deleteImage();
 
-            if ($result === false) {
-                return redirect()->back()->with('error_msg', 'آپلود تصویر با خطا مواجه شد');
-            }
+            $file = $uploader->upload('posts');
 
-            $inputs['image'] = $result;
-
+            $inputs['image_id'] = $file->id;
         }
 
-        $inputs['author_id'] = 1;
         $post->update($inputs);
 
-        return redirect()->route('admin.content.post.index')->with(['success_msg' => 'پست با موفقیت بروزرسانی شد!']);
+        return Responder::response([
+            'status' => true,
+            'message' => 'اطلاعات با موفقیت ذخیره شد'
+        ]);
     }
 
     public function updateStatus(Request $request, Post $post)
@@ -138,15 +131,16 @@ class PostController extends Controller
         }
     }
 
-    public function destroy(Post $post, ImageService $imageService)
+    public function destroy(Post $post)
     {
-        if (!empty($post->image)) {
-            $imageService->deleteDirectoryAndFiles($post->image['directory']);
-        }
+        $post->deleteImage();
 
-        if ($post->delete()) {
-            return redirect()->route('admin.content.post.index')->with(['success_msg' => 'پست با موفقیت حذف شد!']);
-        }
+        $post->delete();
+
+        return Responder::response([
+            'status' => true,
+            'message' => 'پست مورد نظر با موفقیت حذف شد'
+        ]);
     }
 
 }

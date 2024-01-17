@@ -58,7 +58,6 @@ class PostCategoryController extends Controller
             'description' => $request->description,
             'status' => $request->status,
             'tags' => fix_tags_to_meta_format($request->tags),
-            'slug' => Str::slug($request->title, '-', 'fa'),
         ];
 
         if ($request->hasFile('file')) {

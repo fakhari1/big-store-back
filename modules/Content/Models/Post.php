@@ -52,6 +52,6 @@ class Post extends Model
         $image = $this->image;
         $storageManager = new StorageManager();
 
-        $storageManager->deleteFile($image->name, $image->path, $image->is_boolean);
+        $storageManager->deleteFile($image->name, $image->path, $image->is_private);
     }
 }
