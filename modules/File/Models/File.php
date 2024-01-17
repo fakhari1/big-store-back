@@ -35,6 +35,6 @@ class File extends Model
 
     public function getPublicPathAttribute()
     {
-        return !$this->is_private ? env('APP_URL') . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . $this->path . DIRECTORY_SEPARATOR . $this->name : null;
+        return !$this->is_private ? env('APP_URL') . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . trim($this->path, '\\') . DIRECTORY_SEPARATOR . $this->name : null;
     }
 }

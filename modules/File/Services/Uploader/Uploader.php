@@ -38,7 +38,7 @@ class Uploader
 
     public function upload($directory = '')
     {
-        if ($this->isFileExists()) throw new FileHasExistsException('File has already uploaded');
+        if ($this->isFileExists($directory)) throw new FileHasExistsException('File has already uploaded');
 
         $this->putFileIntoStorage($directory);
 
@@ -50,7 +50,7 @@ class Uploader
     {
         $type = $this->getType();
 
-        $path = $directory == '' ? $type : DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR;
+        $path = $directory == '' ? $type : $type . DIRECTORY_SEPARATOR . $directory;
 
         $file = new File([
             'name' => $this->file->getClientOriginalName(),
@@ -97,9 +97,9 @@ class Uploader
         ][$this->file->getClientMimeType()];
     }
 
-    private function isFileExists()
+    private function isFileExists($directory = '')
     {
-        return $this->storageManager->isFileExists($this->file->getClientOriginalName(), $this->getType(), $this->isPrivate());
+        return $this->storageManager->isFileExists($this->file->getClientOriginalName(), $directory ?? $this->getType(), $this->isPrivate());
     }
 
 

@@ -31,6 +31,13 @@ class PostController extends Controller
         ]);
     }
 
+    public function show(Post $post)
+    {
+        return Responder::response([
+            'post' => $post
+        ]);
+    }
+
     public function store(PostRequest $request, Uploader $uploader)
     {
         $inputs = [

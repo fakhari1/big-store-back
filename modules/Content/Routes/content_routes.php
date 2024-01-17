@@ -47,6 +47,7 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::get('/', [PostController::class, 'index']);
                 Route::get('create', [PostController::class, 'create']);
                 Route::post('/', [PostController::class, 'store']);
+                Route::get('{post}', [PostController::class, 'show']);
                 Route::patch('{post}', [PostController::class, 'update']);
                 Route::delete('{post}', [PostController::class, 'destroy']);
                 Route::patch('{post}/update-status', [PostController::class, 'updateStatus']);
