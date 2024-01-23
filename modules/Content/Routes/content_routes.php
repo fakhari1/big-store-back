@@ -27,8 +27,8 @@ Route::middleware(['api'])->prefix('api')->group(function () {
 
             Route::prefix("faqs")->group(function () {
                 Route::get('/', [FaqController::class, 'index']);
-                Route::post('/', [FaqController::class, 'store']);
                 Route::get('{faq}', [FaqController::class, 'show']);
+                Route::post('/', [FaqController::class, 'store']);
                 Route::patch('{faq}', [FaqController::class, 'update']);
                 Route::delete('{faq}', [FaqController::class, 'destroy']);
                 Route::patch('{faq}/update-status', [FaqController::class, 'updateStatus']);
@@ -38,9 +38,11 @@ Route::middleware(['api'])->prefix('api')->group(function () {
             Route::prefix('pages')->group(function () {
                 Route::get('/', [PageController::class, 'index']);
                 Route::get('create', [PageController::class, 'create']);
+                Route::get('{page}', [PageController::class, 'show']);
                 Route::post('/', [PageController::class, 'store']);
                 Route::patch('{page}', [PageController::class, 'update']);
                 Route::delete('{page}', [PageController::class, 'destroy']);
+                Route::patch('{page}/update-status', [PageController::class, 'updateStatus']);
             });
 
 

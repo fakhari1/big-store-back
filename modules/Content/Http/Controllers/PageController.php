@@ -3,92 +3,91 @@
 namespace Modules\Content\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Content\PageBuilderRequest;
-use App\Models\Admin\Content\PageBuilder;
+use Illuminate\Http\Request;
+use Modules\Common\Utils\Responder;
+use Modules\Content\Http\Requests\PageRequest;
+use Modules\Content\Models\Page;
 
 class PageController extends Controller
 {
     public function index()
     {
-        $pages = PageBuilder::all();
-        return view('admin.content.page-builder.index', compact('pages'));
+        $pages = Page::orderBy('created_at', 'desc')->get();
+
+        return Responder::response([
+            'pages' => $pages
+        ]);
     }
 
-
-    public function create()
-    {
-        return view('admin.content.page-builder.create');
-    }
-
-
-    public function store(PageBuilderRequest $request)
+    public function store(PageRequest $request)
     {
         $inputs = [
-            'title' => $request->title,
-            'body' => $request->body,
-            'tags' => $request->tags,
+            'fa_title' => $request->fa_title,
+            'en_title' => $request->en_title,
+            'text' => $request->text,
+            'tags' => fix_tags_to_meta_format($request->tags),
             'status' => $request->status,
-            'slug' => $request->url
         ];
 
-        PageBuilder::create($inputs);
+        Page::create($inputs);
 
-        return redirect()->route('admin.content.builder.index')->with(['success_msg' => 'صفحه جدید با موفقیت ساخته شد!']);
+        return Responder::response([
+            'status' => true,
+            'message' => 'اطلاعات با موفقیت ذخیره شد'
+        ]);
     }
 
 
-    public function show($id)
+    public function show(Page $page)
     {
-        //
+        return Responder::response([
+            'page' => $page
+        ]);
     }
 
-
-    public function edit(PageBuilder $page)
-    {
-        return view('admin.content.page-builder.edit', compact('page'));
-    }
-
-
-    public function update(PageBuilderRequest $request, PageBuilder $page)
+    public function update(PageRequest $request, Page $page)
     {
         $inputs = [
-            'title' => $request->title,
-            'slug' => $request->url,
-            'body' => $request->body,
-            'tags' => $request->tags,
-            'status' => $request->status
+            'fa_title' => $request->fa_title,
+            'en_title' => $request->en_title,
+            'text' => $request->text,
+            'tags' => fix_tags_to_meta_format($request->tags),
+            'status' => $request->status,
         ];
 
         $page->update($inputs);
-        return redirect()->route('admin.content.builder.index')->with(['success_msg' => 'رکورد مورد نظر بروزرسانی شد!']);
+
+        return Responder::response([
+            'status' => true,
+            'message' => 'اطلاعات با موفقیت ذخیره شد'
+        ]);
     }
 
-    public function destroy(PageBuilder $page)
+    public function updateStatus(Request $request, Page $page)
     {
-        if ($page->delete()) {
-            return redirect()->back()->with(['success_msg' => 'رکورد مورد نظر حذف شد']);
+
+        try {
+            $page->update([
+                'status' => $request->status
+            ]);
+
+            return Responder::response([
+                'status' => true,
+                'data' => ['status' => $page->status],
+                'message' => 'اطلاعات با موفقیت بروزرسانی شد'
+            ]);
+        } catch (\Exception $ex) {
+            return 'خطا در انجام عملیات؛ دوباره تلاش کنید';
         }
     }
 
-    public function status(PageBuilder $page) {
-        $page->status = $page->status == 0 ? 1 : 0;
+    public function destroy(Page $page)
+    {
+        $page->delete();
 
-        if ($page->save()) {
-            if ($page->status == 0) {
-                return response()->json([
-                    'status' => true,
-                    'checked' => false
-                ]);
-            }
-
-            return response()->json([
-                'status' => true,
-                'checked' => true
-            ]);
-        }
-
-        return response()->json([
-            'status' => false
+        return Responder::response([
+            'status' => true,
+            'message' => 'صفحه مورد نظر با موفقیت حذف شد'
         ]);
     }
 }

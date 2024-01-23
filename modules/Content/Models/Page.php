@@ -11,21 +11,13 @@ class Page extends Model
 {
     use HasFactory, SoftDeletes, Sluggable;
 
-    protected $table = 'pages';
-
-    protected $fillable = [
-        'title',
-        'slug',
-        'body',
-        'status',
-        'tags'
-    ];
+    protected $guarded = [];
 
     public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'slug'
+                'source' => 'en_title'
             ]
         ];
     }
