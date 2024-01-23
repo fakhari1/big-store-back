@@ -133,7 +133,6 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        dd($post->delete());
         $post->deleteImage();
 
         $post->delete();

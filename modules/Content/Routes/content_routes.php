@@ -27,10 +27,11 @@ Route::middleware(['api'])->prefix('api')->group(function () {
 
             Route::prefix("faqs")->group(function () {
                 Route::get('/', [FaqController::class, 'index']);
-                Route::get('create', [FaqController::class, 'create']);
                 Route::post('/', [FaqController::class, 'store']);
+                Route::get('{faq}', [FaqController::class, 'show']);
                 Route::patch('{faq}', [FaqController::class, 'update']);
                 Route::delete('{faq}', [FaqController::class, 'destroy']);
+                Route::patch('{faq}/update-status', [FaqController::class, 'updateStatus']);
             });
 
 

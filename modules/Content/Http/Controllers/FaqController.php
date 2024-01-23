@@ -3,73 +3,89 @@
 namespace Modules\Content\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Content\FAQ;
 use Illuminate\Http\Request;
-use App\Http\Requests\Admin\Content\FAQRequest;
+use Modules\Common\Utils\Responder;
+use Modules\Content\Models\Faq;
+use Modules\Content\Http\Requests\FaqRequest;
 
 class FaqController extends Controller
 {
     public function index()
     {
-        $faqs = FAQ::paginate(15);
-        return view('admin.content.faq.index', compact('faqs'));
+        $faqs = Faq::orderBy('created_at', 'desc')->get();
+
+        return Responder::response([
+            'faqs' => $faqs
+        ]);
     }
 
-    public function create()
-    {
-        return view('admin.content.faq.create');
-    }
-
-    public function store(FAQRequest $request)
+    public function store(FaqRequest $request)
     {
         $inputs = [
             'question' => $request->question,
             'answer' => $request->answer,
             'status' => $request->status,
-            'tags' => $request->tags
+            'tags' => fix_tags_to_meta_format($request->tags),
         ];
 
-        FAQ::create($inputs);
+        Faq::create($inputs);
 
-        return redirect()->route('admin.content.faq.index')->with(['success_msg' => 'سوال و پاسخ با موفقیت ایجاد شد']);
+        return Responder::response([
+            'status' => true,
+            'message' => 'اطلاعات با موفقیت ذخیره شد'
+        ]);
     }
 
-    public function edit(FAQ $faq)
+    public function show(Faq $faq)
     {
-        return view('admin.content.faq.edit', compact('faq'));
+        return Responder::response([
+            'faq' => $faq
+        ]);
     }
 
-    public function update(FAQ $faq, FAQRequest $request)
+    public function update(FaqRequest $request, Faq $faq)
     {
         $inputs = [
             'question' => $request->question,
             'answer' => $request->answer,
             'status' => $request->status,
-            'tags' => $request->tags
+            'tags' => fix_tags_to_meta_format($request->tags),
         ];
 
         $faq->update($inputs);
 
-        return redirect()->route('admin.content.faq.index')->with(['success_msg' => "سوال مورد نظر با موفقیت بروزرسانی شد!"]);
+        return Responder::response([
+            'status' => true,
+            'message' => 'اطلاعات با موفقیت ذخیره شد'
+        ]);
     }
 
-    public function destroy(FAQ $faq)
+    public function updateStatus(Request $request, Faq $faq)
     {
-        if ($faq->delete()) {
-            return redirect()->back()->with(['success_msg' => 'رکورد مورد نظر با موفقیت حذف شد!']);
+
+        try {
+            $faq->update([
+                'status' => $request->status
+            ]);
+
+            return Responder::response([
+                'status' => true,
+                'data' => ['status' => $faq->status],
+                'message' => 'اطلاعات با موفقیت بروزرسانی شد'
+            ]);
+        } catch (\Exception $ex) {
+            return 'خطا در انجام عملیات؛ دوباره تلاش کنید';
         }
     }
 
-    public function status(FAQ $faq)
-    {
-        $faq->status = $faq->status === 0 ? 1 : 0;
 
-        if ($faq->save()) {
-            if ($faq->status == 0) {
-                return response()->json(['status' => true, 'checked' => false]);
-            }
-            return response()->json(['status' => true, 'checked' => true]);
-        }
-        return response()->json(['status' => false]);
+    public function destroy(Faq $faq)
+    {
+        $faq->delete();
+
+        return Responder::response([
+            'status' => true,
+            'message' => 'پست مورد نظر با موفقیت حذف شد'
+        ]);
     }
 }

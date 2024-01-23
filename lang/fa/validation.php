@@ -191,6 +191,8 @@ return [
         'summary' => 'خلاصه',
         'comment_ability' => 'امکان ارسال نظر',
         'category_id' => 'دسته بندی',
-        'published_at' => 'تاریخ انتشار'
+        'published_at' => 'تاریخ انتشار',
+        'question' => 'سوال',
+        'answer' => 'پاسخ'
     ],
 ];

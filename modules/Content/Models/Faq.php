@@ -11,15 +11,7 @@ class Faq extends Model
 {
     use HasFactory, SoftDeletes, Sluggable;
 
-    protected $table = 'faqs';
-
-    protected $fillable = [
-        'question',
-        'answer',
-        'slug',
-        'status',
-        'tags',
-    ];
+    protected $guarded = [];
 
     public function sluggable(): array
     {
@@ -29,7 +21,4 @@ class Faq extends Model
             ]
         ];
     }
-
-    protected $casts = ['image' => 'array'];
-
 }
