@@ -3,28 +3,34 @@
 namespace Modules\Category\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\Http\Requests\MenuRequest;
-use Modules\Models\Menu;
+use Illuminate\Http\Request;
+use Modules\Category\Http\Requests\MenuRequest;
+use Modules\Category\Models\Menu;
+use Modules\Common\Utils\Responder;
 
 
 class MenuController extends Controller
 {
     public function index()
     {
-        $menus = Menu::with('parent', 'children')->paginate(15);
-        return view('admin.content.menu.index', compact("menus"));
+        $menus = Menu::orderBy('created_at', 'desc')->with(['parent', 'children'])->get();
+        return Responder::response([
+            'menus' => $menus
+        ]);
     }
 
     public function create()
     {
-        $menus = Menu::all();
-        return view('admin.content.menu.create', compact('menus'));
+        $menus = Menu::orderBy('created_at', 'desc')->get();
+        return Responder::response([
+            'menus' => $menus
+        ]);
     }
 
     public function store(MenuRequest $request)
     {
         $inputs = [
-            'name' => $request->name,
+            'title' => $request->title,
             'url' => "#",
             'status' => $request->status,
             'parent_id' => $request->parent_id
@@ -32,52 +38,60 @@ class MenuController extends Controller
 
         Menu::create($inputs);
 
-        return redirect()->route('admin.content.menu.index')->with(['success_msg' => "منوی جدید با موفقیت ایجاد شد!"]);
+        return Responder::response([
+            'status' => true,
+            'message' => 'اطلاعات با موفقیت ذخیره شد'
+        ]);
     }
 
-    public function show($id)
+    public function show(Menu $menu)
     {
-        //
+        return Responder::response([
+            'menu' => $menu
+        ]);
     }
-
-    public function edit(Menu $menu)
-    {
-        $menus = Menu::all();
-        return view('admin.content.menu.edit', compact('menus', 'menu'));
-    }
-
     public function update(MenuRequest $request, Menu $menu)
     {
         $inputs = [
-            'name' => $request->name,
+            'title' => $request->title,
+            'url' => "#",
             'status' => $request->status,
-            'parent_id' => $request->parent_id,
-            'url' => '#'
+            'parent_id' => $request->parent_id
         ];
 
         $menu->update($inputs);
 
-        return redirect()->route('admin.content.menu.index')->with(['success_msg' => 'رکورد مورد نظر با موفقیت بروزرسانی شد!']);
+        return Responder::response([
+            'status' => true,
+            'message' => 'اطلاعات با موفقیت ذخیره شد'
+        ]);
     }
 
     public function destroy(Menu $menu)
     {
-        if ($menu->delete()) {
-            return redirect()->back()->with(['success_msg' => 'رکورد مورد نظر حذف شد']);
-        }
+        $menu->delete();
+
+        return Responder::response([
+            'status' => true,
+            'message' => 'منوی مورد نظر با موفقیت حذف شد'
+        ]);
     }
 
-    public function status(Menu $menu)
+    public function updateStatus(Request $request, Menu $menu)
     {
-        $menu->status = $menu->status == 0 ? 1 : 0;
+        try {
+            $menu->update([
+                'status' => $request->status
+            ]);
 
-        if ($menu->save()) {
-            if ($menu->status == 0) {
-                return response()->json(['status' => true, 'checked' => false]);
-            }
-            return response()->json(['status' => true, 'checked' => true]);
+            return Responder::response([
+                'status' => true,
+                'data' => ['status' => $menu->status],
+                'message' => 'اطلاعات با موفقیت بروزرسانی شد'
+            ]);
+        } catch (\Exception $ex) {
+            return 'خطا در انجام عملیات؛ دوباره تلاش کنید';
         }
 
-        return response()->json(['status' => false]);
     }
 }

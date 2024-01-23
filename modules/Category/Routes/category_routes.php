@@ -37,6 +37,7 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                     Route::post('/', [MenuController::class, 'store']);
                     Route::patch('{menu}', [MenuController::class, 'update']);
                     Route::delete('{menu}', [MenuController::class, 'destroy']);
+                    Route::patch('{menu}/update-status', [MenuController::class, 'updateStatus']);
                 });
             });
         });
