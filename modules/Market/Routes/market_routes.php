@@ -10,6 +10,7 @@ use Modules\Market\Http\Controllers\ProductGuarantyController;
 use Modules\Market\Http\Controllers\ProductPropertyController;
 use Modules\Market\Http\Controllers\ProductPropertyValueController;
 use Modules\Market\Http\Controllers\WarehouseController;
+use Modules\Order\Http\Controllers\OrderController;
 
 Route::middleware(['api'])->prefix('api')->group(function () {
 
@@ -77,16 +78,6 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::get('{delivery_method}', [DeliveryMethodController::class, 'show']);
                 Route::patch('{delivery_method}', [DeliveryMethodController::class, 'update']);
                 Route::delete('{delivery_method}', [DeliveryMethodController::class, 'destroy']);
-            });
-
-            Route::prefix('orders')->group(function () {
-                Route::get('/', [OrderController::class, 'index']);
-                Route::post('store', [OrderController::class, 'store']);
-                Route::get('sending', [OrderController::class, 'sendingOrders']);
-                Route::get('unpaid', [OrderController::class, 'unpaidOrders']);
-                Route::get('returned', [OrderController::class, 'returnedOrders']);
-                Route::get('canceled', [OrderController::class, 'canceledOrders']);
-                Route::patch('{order}', [OrderController::class, 'update']);
             });
 
             Route::prefix('warehouse')->group(function () {

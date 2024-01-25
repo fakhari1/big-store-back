@@ -4,7 +4,7 @@ namespace Modules\File\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\File\Models\File;
-use App\Services\Uploader\Uploader;
+use Modules\File\Services\Uploader\Uploader;
 use Illuminate\Http\Request;
 
 class FileController extends Controller

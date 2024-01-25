@@ -13,7 +13,9 @@ class MenuController extends Controller
 {
     public function index()
     {
-        $menus = Menu::orderBy('created_at', 'desc')->with(['parent', 'children'])->get();
+
+        $menus = Menu::where('parent_id', 0)->with(['children.children.children'])->get();
+
         return Responder::response([
             'menus' => $menus
         ]);
@@ -21,7 +23,8 @@ class MenuController extends Controller
 
     public function create()
     {
-        $menus = Menu::orderBy('created_at', 'desc')->get();
+        $menus = Menu::where('parent_id', '=', '0')->with('children.children.children')->get();
+
         return Responder::response([
             'menus' => $menus
         ]);
@@ -50,6 +53,7 @@ class MenuController extends Controller
             'menu' => $menu
         ]);
     }
+
     public function update(MenuRequest $request, Menu $menu)
     {
         $inputs = [

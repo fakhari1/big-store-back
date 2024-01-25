@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('url')->unique();
+            $table->string('url')/*->unique()*/;
             $table->tinyInteger('status')->default(1);
             $table->unsignedBigInteger('parent_id');
             $table->timestamps();

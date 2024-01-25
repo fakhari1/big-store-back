@@ -29,16 +29,16 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::patch('{post_category}/update-status', [PostCategoryController::class, 'updateStatus']);
                 Route::delete('{post_category}', [PostCategoryController::class, 'destroy']);
 
+            });
 
-                Route::prefix('menus')->group(function () {
-                    Route::get('/', [MenuController::class, 'index']);
-                    Route::get('create', [MenuController::class, 'create']);
-                    Route::get('{menu}', [MenuController::class, 'show']);
-                    Route::post('/', [MenuController::class, 'store']);
-                    Route::patch('{menu}', [MenuController::class, 'update']);
-                    Route::delete('{menu}', [MenuController::class, 'destroy']);
-                    Route::patch('{menu}/update-status', [MenuController::class, 'updateStatus']);
-                });
+            Route::prefix('menus')->group(function () {
+                Route::get('/', [MenuController::class, 'index']);
+                Route::get('create', [MenuController::class, 'create']);
+                Route::get('{menu}', [MenuController::class, 'show']);
+                Route::post('/', [MenuController::class, 'store']);
+                Route::patch('{menu}', [MenuController::class, 'update']);
+                Route::delete('{menu}', [MenuController::class, 'destroy']);
+                Route::patch('{menu}/update-status', [MenuController::class, 'updateStatus']);
             });
         });
     });

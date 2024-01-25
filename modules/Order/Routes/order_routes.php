@@ -1,15 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Market\Http\Controllers\BrandController;
-use Modules\Market\Http\Controllers\DeliveryMethodController;
-use Modules\Market\Http\Controllers\ProductColorController;
-use Modules\Market\Http\Controllers\ProductController;
-use Modules\Market\Http\Controllers\ProductGalleryController;
-use Modules\Market\Http\Controllers\ProductGuarantyController;
-use Modules\Market\Http\Controllers\ProductPropertyController;
-use Modules\Market\Http\Controllers\ProductPropertyValueController;
-use Modules\Market\Http\Controllers\WarehouseController;
+use Modules\Order\Http\Controllers\OrderController;
 
 Route::middleware(['api'])->prefix('api')->group(function () {
 
@@ -19,6 +11,7 @@ Route::middleware(['api'])->prefix('api')->group(function () {
 
             Route::prefix('orders')->group(function () {
                 Route::get('/', [OrderController::class, 'index']);
+                Route::get('{order}', [OrderController::class, 'show']);
                 Route::post('store', [OrderController::class, 'store']);
                 Route::get('sending', [OrderController::class, 'sendingOrders']);
                 Route::get('unpaid', [OrderController::class, 'unpaidOrders']);
