@@ -34,7 +34,7 @@ class MenuController extends Controller
     {
         $inputs = [
             'title' => $request->title,
-            'url' => "#",
+            'url' => $request->url,
             'status' => $request->status,
             'parent_id' => $request->parent_id
         ];
@@ -58,7 +58,7 @@ class MenuController extends Controller
     {
         $inputs = [
             'title' => $request->title,
-            'url' => "#",
+            'url' => $request->url,
             'status' => $request->status,
             'parent_id' => $request->parent_id
         ];
