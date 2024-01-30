@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->text('body');
+            $table->text('text');
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->unsignedBigInteger('author_id');
             $table->unsignedBigInteger('commentable_id');
             $table->string('commentable_type');
-            $table->boolean('is_seen')->default(false);
-            $table->boolean('is_confirmed')->default(false);
+            $table->tinyInteger('is_seen')->default(0);
+            $table->tinyInteger('is_confirmed')->default(0);
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
             $table->softDeletes();

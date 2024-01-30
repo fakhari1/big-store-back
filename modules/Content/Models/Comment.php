@@ -10,19 +10,13 @@ class Comment extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'body',
-        'author_id',
-        'commentable_id',
-        'commentable_type',
-        'parent_id',
-        'status',
-        'approved'
-    ];
+    protected $guarded = [];
+
+    protected $appends = ['commentable_title'];
 
     public function author()
     {
-        return $this->belongsTo(User::class, 'author_id', 'id');
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     public function commentable()
@@ -35,8 +29,17 @@ class Comment extends Model
         return $this->belongsTo(Comment::class, 'parent_id', 'id');
     }
 
-    public function answers() {
+    public function answers()
+    {
         return $this->hasMany(Comment::class, 'parent_id');
+    }
+
+    public function getCommentableTitleAttribute()
+    {
+        return [
+            'Modules\\Content\\Models\\Post' => 'پست',
+            'Modules\\Market\\Models\\Product' => 'محصول',
+        ][$this->commentable_type];
     }
 
 }

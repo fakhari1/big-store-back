@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('english_name');
             $table->string('persian_name');
+            $table->string('title');
             $table->text('introduction');
             $table->string('slug')->unique()->nullable();
             $table->unsignedBigInteger('image_id');

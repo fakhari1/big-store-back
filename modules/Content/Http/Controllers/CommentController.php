@@ -3,10 +3,11 @@
 namespace Modules\Content\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Content\CommentRequest;
-use App\Models\Admin\Content\Comment;
-use App\Models\Admin\Content\Post;
 use Illuminate\Http\Request;
+use Modules\Common\Utils\Responder;
+use Modules\Content\Http\Requests\CommentRequest;
+use Modules\Content\Models\Comment;
+use Modules\Content\Models\Post;
 
 
 class CommentController extends Controller
@@ -14,14 +15,16 @@ class CommentController extends Controller
 
     public function index()
     {
-        $unseen_comments = Comment::where('seen', 0)->get();
-        foreach ($unseen_comments as $key => $unseen_comment) {
-            $unseen_comment->seen = 1;
-            $unseen_comment->save();
+        $unseen_comments = Comment::where('is_seen', 0)->get();
+
+        foreach ($unseen_comments as $key => $comment) {
+            $comment->update(['is_seen' => 1]);
         }
 
-        $comments = Comment::with(['author', 'parent'])->paginate(15);
-        return view('admin.content.comments.index', compact('comments'));
+        $comments = Comment::orderBy('created_at', 'desc')->with(['author'])->get();
+        return Responder::response([
+            'comments' => $comments
+        ]);
     }
 
     public function store(Comment $comment, CommentRequest $request)
@@ -43,7 +46,30 @@ class CommentController extends Controller
 
     public function show(Comment $comment)
     {
-        return view('admin.content.comments.show', compact('comment'));
+        $adminAnswer = $comment->answers()->where('author_id', '=', 1)->first();
+
+        return Responder::response([
+            'comment' => $comment->load(['commentable', 'author']),
+            'answer' => $adminAnswer ?? null,
+        ]);
+    }
+
+    public function saveAnswer(CommentRequest $request, Comment $comment)
+    {
+        $answer = [
+            'text' => $request->text,
+            'author_id' => 1,
+            'parent_id' => $request->parent_id,
+            'commentable_id' => $comment->commentable_id,
+            'commentable_type' => $comment->commentable_type,
+        ];
+
+        Comment::create($answer);
+
+        return Responder::response([
+            'status' => true,
+            'message' => 'اطلاعات با موفقیت ذخیره شد'
+        ]);
     }
 
     public function destroy(Comment $comment)
@@ -51,52 +77,25 @@ class CommentController extends Controller
 
     }
 
-    public function status(Comment $comment)
+    public function updateStatus(Request $request, Comment $comment)
     {
-        $comment->status = $comment->status === 0 ? 1 : 0;
+        $comment->update(['status' => $request->status]);
 
-        if ($comment->save()) {
-            if ($comment->status == 0) {
-                return response()->json([
-                    'status' => true,
-                    'checked' => false
-                ]);
-            }
-
-            return response()->json([
-                'status' => true,
-                'checked' => true
-            ]);
-        }
-
-        return response()->json([
-            'status' => false
+        return Responder::response([
+            'status' => true,
+            'data' => ['status' => $comment->status],
+            'message' => 'اطلاعات با موفقیت بروزرسانی شد'
         ]);
     }
 
-    public function approved(Comment $comment)
+    public function updateConfirmationStatus(Request $request, Comment $comment)
     {
-        $comment->approved = $comment->approved == 0 ? 1 : 0;
+        $comment->update(['is_confirmed' => $request->is_confirmed]);
 
-        if ($comment->save()) {
-            if ($comment->approved == 1) {
-                return response()->json([
-                    'status' => true,
-                    'approved' => true,
-                    'text' => 'رد تایید',
-                    'class' => 'btn-outline-danger'
-                ]);
-            }
-            return response()->json([
-                'status' => true,
-                'approved' => false,
-                'text' => 'تایید کردن',
-                'class' => 'btn-outline-success'
-            ]);
-        }
-
-        return response()->json([
-            'status' => false
+        return Responder::response([
+            'status' => true,
+            'data' => ['is_confirmed' => $comment->is_confirmed],
+            'message' => 'اطلاعات با موفقیت بروزرسانی شد'
         ]);
     }
 }

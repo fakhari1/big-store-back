@@ -34,10 +34,10 @@ class Product extends Model
 
     protected $casts = ['image' => 'array'];
 
-//    public function comments()
-//    {
-//        return $this->morphMany(Content::class, 'commentable');
-//    }
+    public function comments()
+    {
+        return $this->morphMany(Content::class, 'commentable');
+    }
 //
 //    public function activeComments()
 //    {

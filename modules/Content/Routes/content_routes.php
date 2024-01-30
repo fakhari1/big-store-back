@@ -19,10 +19,16 @@ Route::middleware(['api'])->prefix('api')->group(function () {
 
             Route::prefix('comments')->group(function () {
                 Route::get('/', [CommentController::class, 'index']);
+                Route::patch('seen', [CommentController::class, 'seenComments']);
                 Route::post('/', [CommentController::class, 'store']);
-                Route::get('{comment}', [CommentController::class, 'show']);
-                Route::patch('{comment}', [CommentController::class, 'update']);
-                Route::delete('{comment}', [CommentController::class, 'destroy']);
+
+                Route::prefix('{comment}')->group(function () {
+                    Route::get('/', [CommentController::class, 'show']);
+                    Route::post('answer', [CommentController::class, 'saveAnswer']);
+                    Route::patch('/', [CommentController::class, 'update']);
+                    Route::patch('update-confirmation-status', [CommentController::class, 'updateConfirmationStatus']);
+                    Route::patch('update-status', [CommentController::class, 'updateStatus']);
+                });
             });
 
             Route::prefix("faqs")->group(function () {
