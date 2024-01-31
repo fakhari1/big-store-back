@@ -12,11 +12,11 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('sms', function (Blueprint $table) {
+        Schema::create('short_messages', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('body');
-            $table->tinyInteger('status')->default(0);
+            $table->text('text');
+            $table->unsignedTinyInteger('status')->default(0);
             $table->timestamp('published_at');
             $table->timestamps();
             $table->softDeletes();
