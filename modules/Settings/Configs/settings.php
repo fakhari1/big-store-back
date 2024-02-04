@@ -7,13 +7,13 @@ return [
      * put them (manually) here.
      */
     'settings' => [
-
+        Modules\Settings\Settings\GeneralSettings::class
     ],
 
     /*
      * The path where the settings classes will be created.
      */
-    'setting_class_path' => app_path('Settings'),
+    'setting_class_path' => module_path('Settings', 'Settings'),
 
     /*
      * In these directories settings migrations will be stored and ran when migrating. A settings
@@ -21,7 +21,7 @@ return [
      * a custom defined path when running the command.
      */
     'migrations_paths' => [
-        database_path('settings'),
+        module_path('Settings', 'Database\\Migrations'),
     ],
 
     /*
@@ -68,6 +68,7 @@ return [
         DateTimeZone::class => Spatie\LaravelSettings\SettingsCasts\DateTimeZoneCast::class,
 //        Spatie\DataTransferObject\DataTransferObject::class => Spatie\LaravelSettings\SettingsCasts\DtoCast::class,
         Spatie\LaravelData\Data::class => Spatie\LaravelSettings\SettingsCasts\DataCast::class,
+
     ],
 
     /*
@@ -75,7 +76,7 @@ return [
      * register them.
      */
     'auto_discover_settings' => [
-        app_path('Settings'),
+        module_path('Settings', 'Settings'),
     ],
 
     /*

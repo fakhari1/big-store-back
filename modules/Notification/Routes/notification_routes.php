@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Notification\Http\Controllers\SmsController;
+use Modules\Notification\Http\Controllers\EmailController;
 
 Route::middleware(['api'])->prefix('api')->group(function () {
 
@@ -18,6 +19,14 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::delete('{short_message}', [SmsController::class, 'destroy']);
             });
 
+            Route::prefix('emails')->group(function () {
+                Route::get('/', [EmailController::class, 'index']);
+                Route::get('create', [EmailController::class, 'create']);
+                Route::post('/', [EmailController::class, 'store']);
+                Route::patch('{email}', [EmailController::class, 'update']);
+                Route::patch('{email}/update-status', [EmailController::class, 'updateStatus']);
+                Route::delete('{email}', [EmailController::class, 'destroy']);
+            });
         });
 
     });
