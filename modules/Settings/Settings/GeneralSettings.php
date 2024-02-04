@@ -20,4 +20,9 @@ class GeneralSettings extends Settings
         return 'general';
     }
 
+    public function logo()
+    {
+
+    }
+
 }
