@@ -1,7 +1,8 @@
 <?php
 
-namespace Modules\Settings\Settings;
+namespace Modules\Settings\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Modules\File\Models\File;
 use Modules\User\Models\Address;
@@ -10,9 +11,8 @@ class Settings extends Model
 {
     protected $table = 'settings';
     protected $guarded = [];
-
     protected $casts = [
-        'landline_phones' => 'array',
+        'phones' => 'array',
         'keywords' => 'array'
     ];
 

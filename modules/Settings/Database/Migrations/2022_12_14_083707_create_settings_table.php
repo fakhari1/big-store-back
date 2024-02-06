@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->string('keywords')->nullable();
             $table->unsignedTinyInteger('logo_id')->nullable();
             $table->unsignedTinyInteger('icon_id')->nullable();
-            $table->string('landline_phones')->nullable();
+            $table->string('phones')->nullable();
             $table->unsignedBigInteger('address_id')->nullable();
             $table->string('instagram_username')->nullable();
             $table->string('telegram_username')->nullable();

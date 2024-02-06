@@ -4,18 +4,22 @@ namespace Modules\Settings\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Modules\Settings\Settings\Settings;
+use Modules\Settings\Models\Settings;
 
 class SettingsSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('settings')->insert([
+        Settings::create([
             'title' => 'فروشگاه اینترنتی من و ما',
-            'keywords' => 'فروشگاه اینترنتی من و ما',
+            'keywords' => [
+                'فروشگاه'
+            ],
             'logo_id' => 1,
             'icon_id' => 2,
-            'landline_phones' => '["03142362609"]',
+            'phones' => [
+                '03142362609'
+            ],
         ]);
     }
 }

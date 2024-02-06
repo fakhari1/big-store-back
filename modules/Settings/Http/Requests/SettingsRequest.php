@@ -23,8 +23,8 @@ class SettingsRequest extends FormRequest
                 'keywords' => ['required'],
                 'logo' => ['required'],
                 'icon' => ['required'],
-                'landline_phones' => ['required'],
-                'address_id' => ['required'],
+                'phones' => ['required'],
+                'address' => ['required'],
             ],
             default => [],
         };

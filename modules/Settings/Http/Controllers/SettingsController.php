@@ -4,40 +4,48 @@ namespace Modules\Settings\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Common\Utils\Responder;
-use Modules\Settings\Database\Seeders\GeneralSettingsSeeder;
+use Modules\File\Services\Uploader\Uploader;
+use Modules\Settings\Database\Seeders\SettingsSeeder;
 use Modules\Settings\Http\Requests\SettingsRequest;
-use Modules\Settings\Settings\Settings;
+use Modules\Settings\Models\Settings;
+use Modules\User\Models\Address;
 
 class SettingsController extends Controller
 {
-
-
-    public function create()
+    public function index()
     {
-        $settings = new Settings();
+        $settings = Settings::all();
+        if (!$settings) (new SettingsSeeder())->run();
 
-        if (!$settings) (new GeneralSettingsSeeder())->run();
-
-        return Responder::response([
-            'settings' => $settings
-        ]);
+        return Responder::response(['settings' => $settings]);
     }
 
-    public function store(SettingsRequest $request, Settings $settings)
+    public function store(SettingsRequest $request, Settings $settings, Uploader $uploader)
     {
-        $settings->site_name = $request->site_name;
-        $settings->doctor_name = $request->doctor_name;
-        $settings->specialization = $request->specialization;
-        $settings->description = $request->description ?? '';
-        $settings->landline_phones = $request->phones;
-        $settings->address = $request->address;
-        $settings->telegram_id = $request->telegram_id ?? '';
-        $settings->instagram_id = $request->instagram_id ?? '';
+        $inputs = [
+            'title' => $request->title,
+            'description' => $request->description,
+            'keywords' => explode(',', $request->keywords),
+            'phones' => explode(',', $request->phones),
+        ];
 
-        $settings->save();
+        $address = Address::create([
+            'text' => $request->address
+        ]);
 
-        return redirect()
-            ->route('dashboard.admin.index')
-            ->with(['success_msg' => 'تنظیمات با موفقیت  ثبت شد!']);
+        $inputs['address_id'] = $address->id;
+
+        $logo = $uploader->upload('general');
+        $inputs['logo_id'] = $logo->id;
+
+        $icon = $uploader->upload('general');
+        $inputs['icon_id'] = $icon->id;
+
+        $settings->update($inputs);
+
+        return Responder::response([
+            'status' => true,
+            'message' => 'اطلاعات با موفقیت ذخیره شد'
+        ]);
     }
 }
