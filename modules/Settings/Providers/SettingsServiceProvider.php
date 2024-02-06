@@ -4,7 +4,7 @@ namespace Modules\Settings\Providers;
 
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Support\ServiceProvider;
-use Modules\Settings\Database\Seeders\GeneralSettingsSeeder;
+use Modules\Settings\Database\Seeders\SettingsSeeder;
 
 class SettingsServiceProvider extends ServiceProvider
 {
@@ -15,9 +15,8 @@ class SettingsServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadRoutesFrom(__DIR__ . '/../Routes/settings_routes.php');
-        $this->mergeConfigFrom(module_path('Settings', 'Configs\\settings.php'), 'settings');
 
-        DatabaseSeeder::$seeders[7] = GeneralSettingsSeeder::class;
+        DatabaseSeeder::$seeders[7] = SettingsSeeder::class;
     }
 
     /**

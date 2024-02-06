@@ -4,7 +4,7 @@ namespace Modules\Settings\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GeneralSettingsRequest extends FormRequest
+class SettingsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,12 +18,13 @@ class GeneralSettingsRequest extends FormRequest
     {
         return match ($this->method()) {
             'POST', 'PUT', 'PATCH' => [
-                'app_name' => ['required'],
+                'title' => ['required'],
                 'description' => ['required'],
-                'landline_phones' => ['required', 'array'],
-                'address' => ['required'],
-                'instagram_id' => ['nullable', 'string', 'min:5'],
-                'telegram_id' => ['nullable', 'string', 'min:5'],
+                'keywords' => ['required'],
+                'logo' => ['required'],
+                'icon' => ['required'],
+                'landline_phones' => ['required'],
+                'address_id' => ['required'],
             ],
             default => [],
         };

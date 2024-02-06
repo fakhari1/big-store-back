@@ -3,21 +3,27 @@
 namespace Modules\Settings\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\Settings\Http\Requests\GeneralSettingsRequest;
-use Modules\Settings\Settings\GeneralSettings;
+use Modules\Common\Utils\Responder;
+use Modules\Settings\Database\Seeders\GeneralSettingsSeeder;
+use Modules\Settings\Http\Requests\SettingsRequest;
+use Modules\Settings\Settings\Settings;
 
-class GeneralSettingsController extends Controller
+class SettingsController extends Controller
 {
 
 
     public function create()
     {
-        $settings = new GeneralSettings();
+        $settings = new Settings();
 
-        return view('Settings::create', compact('settings'));
+        if (!$settings) (new GeneralSettingsSeeder())->run();
+
+        return Responder::response([
+            'settings' => $settings
+        ]);
     }
 
-    public function store(GeneralSettingsRequest $request, GeneralSettings $settings)
+    public function store(SettingsRequest $request, Settings $settings)
     {
         $settings->site_name = $request->site_name;
         $settings->doctor_name = $request->doctor_name;
