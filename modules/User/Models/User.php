@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-    protected $appends = ['fullName'];
+    protected $appends = ['fullName', 'role_names_as_string'];
 
     protected $fillable = [
         'first_name',
@@ -58,5 +58,17 @@ class User extends Authenticatable
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function getRoleNamesAsStringAttribute()
+    {
+        $str = '';
+        $roles = $this->getRoleNames();
+
+        foreach ($roles as $key => $role) {
+            $str .= $role . '-';
+        }
+
+        return rtrim($str, '-');
     }
 }

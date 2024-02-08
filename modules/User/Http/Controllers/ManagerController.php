@@ -12,11 +12,17 @@ class ManagerController extends Controller
 {
     public function index()
     {
-        $managers = User::query()->hasRole('manager')->get();
+        $managers = User::role('manager')->get();
 
         return Responder::response([
             'managers' => $managers
         ]);
+    }
+
+
+    public function show(User $manager)
+    {
+        return Responder::response(['manager' => $manager]);
     }
 
     public function create()
@@ -51,11 +57,6 @@ class ManagerController extends Controller
 
         User::create($inputs);
         return redirect()->route('admin.users.admins.index')->with(['success_msg' => 'مدیر جدید ایجاد شد!']);
-    }
-
-    public function show(User $user)
-    {
-
     }
 
     public function edit(User $admin)
