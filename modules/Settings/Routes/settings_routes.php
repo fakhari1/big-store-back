@@ -8,8 +8,9 @@ Route::middleware(['api'])->prefix('api')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::prefix('settings')->group(function () {
             Route::get('/', [SettingsController::class, 'index'])->name('admin.settings.general.index');
-            Route::post('create', [SettingsController::class, 'store'])->name('admin.settings.general.store');
-            Route::patch('{settings}', [SettingsController::class, 'store'])->name('admin.settings.general.store');
+            Route::get('{settings}', [SettingsController::class, 'show'])->name('admin.settings.general.index');
+//            Route::post('create', [SettingsController::class, 'store'])->name('admin.settings.general.store');
+            Route::patch('{settings}', [SettingsController::class, 'update'])->name('admin.settings.general.store');
         });
     });
 });

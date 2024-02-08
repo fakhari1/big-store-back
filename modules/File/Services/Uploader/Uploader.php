@@ -36,8 +36,10 @@ class Uploader
     }
 
 
-    public function upload($directory = '')
+    public function upload($requestFile = null, $directory = '')
     {
+        if ($requestFile != null) $this->file = $requestFile;
+
         if ($this->isFileExists($directory)) throw new FileHasExistsException('File has already uploaded');
 
         $this->putFileIntoStorage($directory);
@@ -91,6 +93,7 @@ class Uploader
     private function getType()
     {
         return [
+            'image/png' => 'image',
             'image/jpeg' => 'image',
             'video/mp4' => 'video',
             'application/zip' => 'archive'

@@ -20,7 +20,14 @@ class SettingsController extends Controller
         return Responder::response(['settings' => $settings]);
     }
 
-    public function store(SettingsRequest $request, Settings $settings, Uploader $uploader)
+    public function show(Settings $settings)
+    {
+        return Responder::response([
+            'settings' => $settings
+        ]);
+    }
+
+    public function update(SettingsRequest $request, Settings $settings, Uploader $uploader)
     {
         $inputs = [
             'title' => $request->title,
@@ -29,17 +36,27 @@ class SettingsController extends Controller
             'phones' => explode(',', $request->phones),
         ];
 
-        $address = Address::create([
-            'text' => $request->address
-        ]);
 
-        $inputs['address_id'] = $address->id;
+        if ($settings->address) {
+            $settings->address()->update([
+                'text' => $request->address_text
+            ]);
+        } else {
+            $address = $settings->address()->create([
+                'text' => $request->address_text
+            ]);
+            $inputs['address_id'] = $address->id;
+        }
 
-        $logo = $uploader->upload('general');
-        $inputs['logo_id'] = $logo->id;
+        if ($request->hasFile('logo')) {
+            $logo = $uploader->upload($request->file('logo'), 'general');
+            $inputs['logo_id'] = $logo->id;
+        }
 
-        $icon = $uploader->upload('general');
-        $inputs['icon_id'] = $icon->id;
+        if ($request->hasFile('icon')) {
+            $icon = $uploader->upload($request->file('icon'), 'general');
+            $inputs['icon_id'] = $icon->id;
+        }
 
         $settings->update($inputs);
 

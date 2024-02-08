@@ -12,6 +12,8 @@ class Address extends Model
 
     protected $appends = ['recipient'];
 
+    protected $guarded = [];
+
     public function city()
     {
         return $this->belongsTo(City::class);

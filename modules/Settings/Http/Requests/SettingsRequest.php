@@ -18,13 +18,13 @@ class SettingsRequest extends FormRequest
     {
         return match ($this->method()) {
             'POST', 'PUT', 'PATCH' => [
-                'title' => ['required'],
-                'description' => ['required'],
-                'keywords' => ['required'],
-                'logo' => ['required'],
-                'icon' => ['required'],
-                'phones' => ['required'],
-                'address' => ['required'],
+                'title' => ['nullable'],
+                'description' => ['nullable'],
+                'keywords' => ['nullable'],
+                'logo' => ['nullable'],
+                'icon' => ['nullable'],
+                'phones' => ['nullable'],
+                'address_text' => ['nullable'],
             ],
             default => [],
         };
