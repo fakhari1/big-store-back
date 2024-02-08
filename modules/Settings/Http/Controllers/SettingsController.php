@@ -15,7 +15,11 @@ class SettingsController extends Controller
     public function index()
     {
         $settings = Settings::all();
-        if (!$settings) (new SettingsSeeder())->run();
+
+        if (!$settings) {
+            (new SettingsSeeder())->run() ;
+            $settings = Settings::all();
+        }
 
         return Responder::response(['settings' => $settings]);
     }
