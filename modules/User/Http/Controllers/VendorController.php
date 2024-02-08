@@ -8,12 +8,11 @@ use Modules\User\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class ManagerController extends Controller
+class VendorController extends Controller
 {
     public function index()
     {
         $managers = User::query()->hasRole('manager')->get();
-
         return Responder::response([
             'managers' => $managers
         ]);
