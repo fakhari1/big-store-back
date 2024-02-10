@@ -2,9 +2,9 @@
 
 
 
-### Laravel
-### Restful-API (Dashboards)
-### Modular Structure
+### Laravel framework
+### Restful-API (Dashboards developed at Vue.js framework)
+### Modular structure with separate service providers
 
 ## برای اجرا 
 ```bash 
