@@ -7,6 +7,12 @@
 ### Modular structure with separate service providers
 
 ## برای اجرا 
+``
+copy .env.example file and create .env file
+``
+```bash
+composer install
+```
 ```bash 
 php artisan optimize:clear
 ```
@@ -16,3 +22,4 @@ php artisan migrate:fresh --seed
 ```bash
 php artisan serve
 ```
+<a href="http://localhost:5173/admin">داشبورد</a>
