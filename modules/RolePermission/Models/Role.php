@@ -2,7 +2,9 @@
 
 namespace Modules\RolePermission\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Spatie\Permission\Models\Role as SpatieRole;
+
 class Role extends SpatieRole
 {
     const ROLE_SUPER_ADMIN = 'super admin';
@@ -26,7 +28,6 @@ class Role extends SpatieRole
 
             Permission::PERMISSION_MANAGE_ROLE_PERMISSIONS,
             Permission::PERMISSION_VIEW_ROLE_PERMISSIONS,
-
 
 
             Permission::PERMISSION_MANAGE_DISCOUNTS,
@@ -123,7 +124,6 @@ class Role extends SpatieRole
 
             Permission::PERMISSION_MANAGE_ROLE_PERMISSIONS,
             Permission::PERMISSION_VIEW_ROLE_PERMISSIONS,
-
 
 
             Permission::PERMISSION_MANAGE_DISCOUNTS,
@@ -263,4 +263,11 @@ class Role extends SpatieRole
         ],
 
     ];
+
+    public function getNameAttribute()
+    {
+        return Attribute::make(function () {
+            return trans($this->name);
+        });
+    }
 }

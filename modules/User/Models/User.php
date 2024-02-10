@@ -21,18 +21,7 @@ class User extends Authenticatable
 
     protected $appends = ['fullName', 'role_names_as_string'];
 
-    protected $fillable = [
-        'first_name',
-        'last_name',
-        'national_code',
-        'mobile',
-        'mobile_verified_at',
-        'slug',
-        'avatar_id',
-        'activated',
-        'activated_at',
-        'current_team_id',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -71,4 +60,5 @@ class User extends Authenticatable
 
         return rtrim($str, '-');
     }
+
 }

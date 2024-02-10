@@ -193,6 +193,10 @@ return [
         'category_id' => 'دسته بندی',
         'published_at' => 'تاریخ انتشار',
         'question' => 'سوال',
-        'answer' => 'پاسخ'
+        'answer' => 'پاسخ',
+        'manager' => 'مدیر',
+        'observer' => 'ناظر',
+        'customer' => 'مشتری',
+        'vendor' => 'فروشنده'
     ],
 ];

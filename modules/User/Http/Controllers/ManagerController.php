@@ -20,9 +20,9 @@ class ManagerController extends Controller
     }
 
 
-    public function show(User $manager)
+    public function show(User $user)
     {
-        return Responder::response(['manager' => $manager]);
+        return Responder::response(['manager' => $user]);
     }
 
     public function create()
@@ -95,6 +95,23 @@ class ManagerController extends Controller
         return redirect()->route('admin.users.admins.index')->with(['success_msg' => 'مدیر مذکور بروزرسانی شد!']);
     }
 
+    public function updateStatus(Request $request, User $user)
+    {
+        try {
+            $user->update([
+                'status' => $request->status
+            ]);
+
+            return Responder::response([
+                'status' => true,
+                'data' => ['status' => $user->status],
+                'message' => 'اطلاعات با موفقیت بروزرسانی شد'
+            ]);
+        } catch (\Exception $ex) {
+            return 'خطا در انجام عملیات؛ دوباره تلاش کنید';
+        }
+    }
+
     public function destroy(User $admin, ImageService $imageService)
     {
         if ($admin->delete()) {
@@ -103,49 +120,4 @@ class ManagerController extends Controller
         }
     }
 
-    public function status(User $admin)
-    {
-        $admin->status = $admin->status == 0 ? 1 : 0;
-
-        if ($admin->save()) {
-            if ($admin->status == 1) {
-                return response()->json([
-                    'status' => true,
-                    'checked' => true,
-                ]);
-            }
-
-            return response()->json([
-                'status' => true,
-                'checked' => false
-            ]);
-        }
-
-        return response()->json([
-            'status' => false
-        ]);
-    }
-
-    public function activation(User $admin)
-    {
-        $admin->activation = $admin->activation == 0 ? 1 : 0;
-
-        if ($admin->save()) {
-            if ($admin->activation == 1) {
-                return response()->json([
-                    'status' => true,
-                    'checked' => true,
-                ]);
-            }
-
-            return response()->json([
-                'status' => true,
-                'checked' => false
-            ]);
-        }
-
-        return response()->json([
-            'status' => false
-        ]);
-    }
 }
