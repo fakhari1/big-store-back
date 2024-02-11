@@ -21,8 +21,6 @@ class SettingsController extends Controller
             $settings = Settings::with('address')->get();
         }
 
-        dd($settings);
-
         return Responder::response(['settings' => $settings]);
     }
 
