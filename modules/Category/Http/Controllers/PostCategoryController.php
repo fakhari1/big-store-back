@@ -35,8 +35,10 @@ class PostCategoryController extends Controller
             'tags' => fix_tags_to_meta_format($request->tags),
         ];
 
-        $file = $uploader->upload('post-categories');
-        $inputs['image_id'] = $file->id;
+        if ($request->hasFile('file')) {
+            $file = $uploader->upload($request->file('file'), 'post-categories');
+            $inputs['image_id'] = $file->id;
+        }
 
         PostCategory::create($inputs);
 
@@ -64,7 +66,7 @@ class PostCategoryController extends Controller
 
             $postCategory->deleteImage();
 
-            $file = $uploader->upload('post-categories');
+            $file = $uploader->upload($request->file('file'), 'post-categories');
 
             $inputs['image_id'] = $file->id;
         }
