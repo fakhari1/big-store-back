@@ -14,12 +14,14 @@ class SettingsController extends Controller
 {
     public function index()
     {
-        $settings = Settings::all();
+        $settings = Settings::with('address')->get();
 
         if (!$settings) {
             (new SettingsSeeder())->run() ;
-            $settings = Settings::all();
+            $settings = Settings::with('address')->get();
         }
+
+        dd($settings);
 
         return Responder::response(['settings' => $settings]);
     }

@@ -20,6 +20,7 @@ class SettingsSeeder extends Seeder
             'phones' => [
                 '03142362609'
             ],
+            'address_id' => 1
         ]);
     }
 }
