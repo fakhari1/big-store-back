@@ -28,6 +28,7 @@ Route::middleware(['api'])->prefix('api')->group(function () {
 
             Route::prefix('products')->group(function () {
                 Route::get('/', [ProductController::class, 'index']);
+                Route::get('/create', [ProductController::class, 'create']);
                 Route::post('/', [ProductController::class, 'store']);
                 Route::get('{product}', [ProductController::class, 'show']);
                 Route::patch('{product}', [ProductController::class, 'update']);
