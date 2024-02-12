@@ -3,66 +3,96 @@
 namespace Modules\Market\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Services\Images\ImageService;
-use App\Models\Admin\Market\Brand;
+
 use Illuminate\Http\Request;
+use Modules\Common\Utils\Responder;
+use Modules\File\Services\Uploader\Uploader;
+use Modules\Market\Models\Brand;
 
 class BrandController extends Controller
 {
 
     public function index()
     {
-        return view('admin.market.brand.index');
+        $brands = Brand::all();
+        return Responder::response([
+            'brands' => $brands
+        ]);
     }
 
-    public function create()
-    {
-        return view('admin.market.brand.create');
-    }
-
-    public function store(Request $request, ImageService $imageService)
+    public function store(Request $request, Uploader $uploader)
     {
         $inputs = [
-            'persian_name' => $request->p_name,
-            'original_name' => $request->e_name,
-            'tags' => $request->brand_tags,
+            'persian_name' => $request->persian_name,
+            'english_name' => $request->english_name,
+            'tags' => $request->tags,
+            'status' => $request->status
+        ];
+            if ($request->hasFile('file')) {
+                $file = $uploader->upload($request->file('file'), 'brands');
+                $inputs['logo_id'] = $file->id;
+            }
+        Brand::create($inputs);
+
+        return Responder::response([
+            'success_msg' => 'برند ثبت شد.'
+        ]);
+    }
+
+    public function show(Brand $brand)
+    {
+        return Responder::response([
+            'brand' => $brand
+        ]);
+    }
+
+    public function edit(Brand $brand)
+    {
+        return Responder::response([
+            'brand' => $brand
+        ]);
+    }
+
+    public function update(Request $request, Brand $brand)
+    {
+        $inputs = [
+            'persian_name' => $request->persian_name,
+            'english_name' => $request->english_name,
+            'tags' => $request->tags,
             'status' => $request->status
         ];
 
-        if ($request->hasFile('brand_logo')) {
+        if ($request->hasFile('file')) {
+            $uploader = app(Uploader::class);
 
-            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'brand');
-            $result = $imageService->createIndexAndSave($request->file('brand_logo'));
-
-            if ($result === false) {
-                return redirect()->back()->with('error_msg', 'آپلود تصویر با خطا مواجه شد');
+            // Delete the old logo file if it exists
+            if ($brand->logo) {
+                $uploader->delete($brand->logo);
             }
 
-            $inputs['logo'] = $result;
+            $file = $uploader->upload($request->file('file'), 'brands');
+            $inputs['logo_id'] = $file->id;
         }
 
-        $brand = Brand::create($inputs);
+        $brand->update($inputs);
 
-        return redirect()->route('admin.market.brand.index')->with(['success_msg' => 'برند ایجاد شد!']);
+        return Responder::response([
+            'success_msg' => 'برند بروزرسانی شد.'
+        ]);
     }
 
-    public function show($id)
+    public function destroy(Brand $brand)
     {
-        //
-    }
+        // Delete the logo file if it exists
+        if ($brand->logo) {
+            $uploader = app(Uploader::class);
+            $uploader->delete($brand->logo);
+        }
 
-    public function edit($id)
-    {
-        //
-    }
+        $brand->delete();
 
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
+        return Responder::response([
+            'success_msg' => 'برند حذف شد.'
+        ]);
     }
 }
