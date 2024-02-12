@@ -48,10 +48,10 @@ class Product extends Model
 //        return $this->comments()->where('approved', '=', '1')->whereNull('parent_id')->get();
 //    }
 //
-//    public function metas()
-//    {
-//        return $this->hasMany(ProductMeta::class);
-//    }
+    public function metas()
+    {
+        return $this->hasMany(ProductMeta::class);
+    }
 //
     public function category()
     {

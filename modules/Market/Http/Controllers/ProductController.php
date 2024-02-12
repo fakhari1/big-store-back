@@ -23,11 +23,6 @@ class ProductController extends Controller
 //        return view('admin.market.product.index', compact('products'));
     }
 
-    public function show(Product $product)
-    {
-        return $product;
-    }
-
     public function create()
     {
         $productCategories = ProductCategory::with(['parent', 'children'])->get();
@@ -91,6 +86,13 @@ class ProductController extends Controller
 //        return redirect()->route('admin.market.product.index')->with(['success_msg' => 'محصول ثبت شد.']);
     }
 
+    public function show(Product $product)
+    {
+        return Responder::response([
+            'product' => $product
+        ]);
+    }
+
     public function edit(Product $product)
     {
         $productCategories = ProductCategory::with(['parent', 'children'])->get();
@@ -143,11 +145,11 @@ class ProductController extends Controller
             $product->update($inputs);
 
             // Delete existing product meta entries
-            $product->meta()->delete();
+            $product->metas()->delete();
 
             // Create new product meta entries
             foreach ($productProperties as $key => $value) {
-                $product->meta()->create([
+                $product->metas()->create([
                     'meta_key' => $key,
                     'meta_value' => $value
                 ]);

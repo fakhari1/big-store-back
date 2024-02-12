@@ -1,7 +1,7 @@
 <?php
 
 namespace Modules\Market\Models;
-t;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
