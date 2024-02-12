@@ -5,7 +5,9 @@ namespace Modules\Category\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Utils\Responder;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 use Modules\Category\Models\ProductCategory;
+use Modules\File\Services\Uploader\Uploader;
 
 class ProductCategoryController extends Controller
 {
@@ -14,7 +16,7 @@ class ProductCategoryController extends Controller
         $productCategories = ProductCategory::all();
 
         return Responder::response([
-            'categories' => $productCategories
+            'productCategories' => $productCategories
         ]);
     }
 
@@ -24,51 +26,68 @@ class ProductCategoryController extends Controller
         return view('admin.market.category.create', compact('productCategories'));
     }
 
-    public function store(Request $request, ImageService $imageService)
+    public function store(Request $request, Uploader $uploader)
     {
         $inputs = [
-            'name' => $request->name,
+            'title' => $request->title,
             'description' => $request->description,
             'status' => $request->status,
             'show_in_menu' => $request->show_in_menu,
-            'tags' => $request->product_tags,
-            'parent_id' => $request->parent
+            'tags' => $request->tags,
+            'parent_id' => $request->parent_id
         ];
 
-        if ($request->hasFile('image')) {
-
-            $imageService->setExclusiveDirectory('images' . DIRECTORY_SEPARATOR . 'product-category');
-            $result = $imageService->save($request->file('image'));
-
-            if ($result === false) {
-                return redirect()->back()->with('error_msg', 'آپلود تصویر با خطا مواجه شد');
-            }
-
-            $inputs['image'] = $result;
+        if ($request->hasFile('file')) {
+            $file = $uploader->upload($request->file('file'), 'brands');
+            $inputs['image_id'] = $file->id;
         }
 
         ProductCategory::create($inputs);
-
-        return redirect()->route('admin.market.category.index')->with(['success_msg' => 'دسته بندی ثبت شد!']);
+        return Responder::response([
+            'success_msg' => 'دسته بندی ثبت شد!'
+        ]);
     }
 
-    public function show(ProductCategory $category)
+    public function show(ProductCategory $productCategory)
     {
-        return Responder::response(['category' => $category]);
+        return Responder::response(['productCategory' => $productCategory]);
     }
 
-    public function edit(ProductCategory $category)
+    public function edit(ProductCategory $productCategory)
     {
-
+        $productCategories = ProductCategory::all();
+        return view('admin.market.category.edit', compact('productCategory', 'productCategories'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, ProductCategory $productCategory, Uploader $uploader)
     {
-        //
+        $inputs = [
+            'title' => $request->title,
+            'description' => $request->description,
+            'status' => $request->status,
+            'show_in_menu' => $request->show_in_menu,
+            'tags' => $request->tags,
+            'parent_id' => $request->parent_id
+        ];
+
+        if ($request->hasFile('file')) {
+            $file = $uploader->upload($request->file('file'), 'brands');
+            $inputs['image_id'] = $file->id;
+        }
+
+        $productCategory->update($inputs);
+
+        return Responder::response([
+            'success_msg' => 'دسته بندی بروزرسانی شد!'
+        ]);
     }
 
-    public function destroy($id)
+    public function destroy(ProductCategory $productCategory)
     {
-        //
+        $productCategory->delete();
+
+        return Responder::response([
+            'success_msg' => 'دسته بندی حذف شد!'
+        ]);
     }
 }

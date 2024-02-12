@@ -17,7 +17,7 @@ class ProductCategory extends Model
         'title',
         'description',
         'slug',
-        'image',
+        'image_id',
         'status',
         'show_in_menu',
         'tags',
