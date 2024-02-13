@@ -26,6 +26,15 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::delete('{brand}', [BrandController::class, 'destroy']);
             });
 
+            Route::prefix('properties')->group(function () {
+                Route::get('/', [ProductPropertyController::class, 'index']);
+                Route::get('/create', [ProductPropertyController::class, 'create']);
+                Route::post('/', [ProductPropertyController::class, 'store']);
+                Route::get('{property}', [ProductPropertyController::class, 'show']);
+                Route::patch('{property}', [ProductPropertyController::class, 'update']);
+                Route::delete('{property}', [ProductPropertyController::class, 'destroy']);
+            });
+
             Route::prefix('products')->group(function () {
                 Route::get('/', [ProductController::class, 'index']);
                 Route::get('/create', [ProductController::class, 'create']);
