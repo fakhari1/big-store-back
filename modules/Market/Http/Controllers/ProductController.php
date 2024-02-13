@@ -25,7 +25,8 @@ class ProductController extends Controller
 
     public function create()
     {
-        $productCategories = ProductCategory::with(['parent', 'children'])->get();
+//        $productCategories = ProductCategory::with(['parent', 'children'])->get();
+        $productCategories = ProductCategory::all();
         $brands = Brand::all();
         return Responder::response([
             'categories' => $productCategories,
@@ -89,13 +90,13 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         return Responder::response([
-            'product' => $product
+            'product' => $product,
         ]);
     }
 
     public function edit(Product $product)
     {
-        $productCategories = ProductCategory::with(['parent', 'children'])->get();
+        $productCategories = ProductCategory::all();
         $brands = Brand::all();
 
         return Responder::response([
@@ -145,7 +146,7 @@ class ProductController extends Controller
             $product->update($inputs);
 
             // Delete existing product meta entries
-            $product->metas()->delete();
+//            $product->metas()->delete();
 
             // Create new product meta entries
             foreach ($productProperties as $key => $value) {
