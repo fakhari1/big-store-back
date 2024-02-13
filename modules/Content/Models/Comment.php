@@ -12,6 +12,17 @@ class Comment extends Model
 
     protected $guarded = [];
 
+    protected $fillable = [
+        'text',
+        'parent_id',
+        'author_id',
+        'commentable_id',
+        'commentable_type',
+        'is_seen',
+        'is_confirmed',
+        'status',
+    ];
+
     protected $appends = ['commentable_title'];
 
     public function author()

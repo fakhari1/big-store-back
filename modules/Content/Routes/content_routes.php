@@ -19,6 +19,7 @@ Route::middleware(['api'])->prefix('api')->group(function () {
 
             Route::prefix('comments')->group(function () {
                 Route::get('/', [CommentController::class, 'index']);
+                Route::get('/create', [CommentController::class, 'create']);
                 Route::patch('seen', [CommentController::class, 'seenComments']);
                 Route::post('/', [CommentController::class, 'store']);
 
