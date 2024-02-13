@@ -4,6 +4,7 @@ namespace Modules\Market\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Category\Models\ProductCategory;
 
 class Product extends Model
 {
@@ -12,7 +13,9 @@ class Product extends Model
     protected $appends = ['real_price'];
 
     protected $fillable = [
-        'name',
+        'title',
+        'english_name',
+        'persian_name',
         'introduction',
         'slug',
         'image',
@@ -28,7 +31,8 @@ class Product extends Model
         'frozen_count',
         'marketable_count',
         'brand_id',
-        'category_id',
+        'image_id',
+        'product_category_id',
         'published_at'
     ];
 
@@ -44,25 +48,25 @@ class Product extends Model
 //        return $this->comments()->where('approved', '=', '1')->whereNull('parent_id')->get();
 //    }
 //
-//    public function metas()
-//    {
-//        return $this->hasMany(ProductMeta::class);
-//    }
+    public function metas()
+    {
+        return $this->hasMany(ProductMeta::class);
+    }
 //
-//    public function category()
-//    {
-//        return $this->belongsTo(ProductCategory::class, 'category_id');
-//    }
+    public function category()
+    {
+        return $this->belongsTo(ProductCategory::class, 'product_category_id');
+    }
 //
 //    public function images()
 //    {
 //        return $this->hasMany(ProductImage::class);
 //    }
 //
-//    public function brand()
-//    {
-//        return $this->belongsTo(Brand::class, 'brand_id');
-//    }
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brand_id');
+    }
 //
 //    public function colors()
 //    {
@@ -93,14 +97,14 @@ class Product extends Model
 //        return $this->hasMany(ProductCategoryValue::class)->with('ProductCategoryAttribute');
 //    }
 //
-//    public function getRealPriceAttribute()
-//    {
-//        if ($this->weight >= 1000) {
-//            return $this->weight / 1000 . " کیلوگرم";
-//        } else {
-//            return $this->weight . " گرم";
-//        }
-//    }
+    public function getRealPriceAttribute()
+    {
+        if ($this->weight >= 1000) {
+            return $this->weight / 1000 . " کیلوگرم";
+        } else {
+            return $this->weight . " گرم";
+        }
+    }
 //
 //    public function users() {
 //        return $this->belongsToMany(User::class);

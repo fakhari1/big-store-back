@@ -11,9 +11,9 @@ class Brand extends Model
 
     protected $fillable = [
         'persian_name',
-        'original_name',
+        'english_name',
         'slug',
-        'logo',
+        'logo_id',
         'tags',
         'status'
     ];

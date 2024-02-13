@@ -27,6 +27,15 @@ class CommentController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        $comments = Comment::all();
+
+        return Responder::response([
+            'comment' => $comments,
+        ]);
+    }
+
     public function store(Comment $comment, CommentRequest $request)
     {
         $inputs = [
