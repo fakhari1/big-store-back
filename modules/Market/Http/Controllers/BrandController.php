@@ -35,8 +35,8 @@ class BrandController extends Controller
         Brand::create($inputs);
 
         return Responder::response([
-            'success_msg' => 'برند ثبت شد.'
-        ]);
+            'message' => 'برند ثبت شد.'
+        ], 201);
     }
 
     public function show(Brand $brand)
@@ -77,8 +77,8 @@ class BrandController extends Controller
         $brand->update($inputs);
 
         return Responder::response([
-            'success_msg' => 'برند بروزرسانی شد.'
-        ]);
+            'message' => 'برند بروزرسانی شد.'
+        ], 200);
     }
 
     public function destroy(Brand $brand)
@@ -92,7 +92,7 @@ class BrandController extends Controller
         $brand->delete();
 
         return Responder::response([
-            'success_msg' => 'برند حذف شد.'
-        ]);
+            'message' => 'برند حذف شد.'
+        ], 200);
     }
 }

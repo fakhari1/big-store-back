@@ -43,9 +43,10 @@ class ProductCategoryController extends Controller
         }
 
         ProductCategory::create($inputs);
+
         return Responder::response([
-            'success_msg' => 'دسته بندی ثبت شد!'
-        ]);
+            'message' => 'دسته بندی ثبت شد!'
+        ], 201);
     }
 
     public function show(ProductCategory $productCategory)
@@ -76,18 +77,17 @@ class ProductCategoryController extends Controller
         }
 
         $productCategory->update($inputs);
-
-        return Responder::response([
-            'success_msg' => 'دسته بندی بروزرسانی شد!'
-        ]);
+        return \Modules\Common\Utils\Responder::response([
+            'message' => 'دسته بندی بروزرسانی شد!'
+        ],200);
     }
 
     public function destroy(ProductCategory $productCategory)
     {
         $productCategory->delete();
 
-        return Responder::response([
-            'success_msg' => 'دسته بندی حذف شد!'
-        ]);
+        return \Modules\Common\Utils\Responder::response([
+            'message'  => 'دسته بندی حذف شد!'
+        ],200);
     }
 }

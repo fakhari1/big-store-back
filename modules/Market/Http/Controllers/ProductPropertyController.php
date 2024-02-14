@@ -30,14 +30,14 @@ class ProductPropertyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'product_id' => 'required',
+            'product_id' => 'required|exists:products,id',
             'property' => 'required|string',
             'value' => 'required|string',
         ]);
         ProductProperty::create($request->all());
 
         return Responder::response([
-            'success_msg' => 'ویژگی محصول ثبت شد.'
+            'message' => 'ویژگی محصول ثبت شد.'
         ]);
     }
 
@@ -58,15 +58,15 @@ class ProductPropertyController extends Controller
     public function update(Request $request, ProductProperty $property)
     {
         $request->validate([
-            'product_id' => 'required',
-            'property' => 'required',
-            'value' => 'required',
+            'product_id' => 'required|exists:products,id',
+            'property' => 'required|string',
+            'value' => 'required|string',
         ]);
 
         $property->update($request->all());
 
         return Responder::response([
-            'success_msg' => 'ویژگی محصول ویرایش شد.'
+            'message' => 'ویژگی محصول ویرایش شد.'
         ]);
     }
 
@@ -75,7 +75,7 @@ class ProductPropertyController extends Controller
         $property->delete();
 
         return Responder::response([
-            'success_msg' => 'ویژگی محصول حذف شد.'
+            'message' => 'ویژگی محصول حذف شد.'
         ]);
     }
 }

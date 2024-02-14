@@ -24,7 +24,7 @@ class DeliveryMethodController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'amount' => 'nullable|numeric',
-            'delivery_time' => 'nullable|date',
+            'delivery_time' => 'nullable|integer',
             'delivery_time_unit' => 'nullable|string',
             'status' => 'integer',
         ]);
@@ -51,7 +51,7 @@ class DeliveryMethodController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'string',
             'amount' => 'nullable|numeric',
-            'delivery_time' => 'nullable|date',
+            'delivery_time' => 'nullable|integer',
             'delivery_time_unit' => 'nullable|string',
             'status' => 'integer',
         ]);

@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->decimal('amount', 20, 3)->nullable();
-//            $table->unsignedTinyInteger('delivery_time')->nullable();
-            $table->timestamp('delivery_time')->useCurrent();
+            $table->unsignedTinyInteger('delivery_time')->nullable();
             $table->string('delivery_time_unit')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
