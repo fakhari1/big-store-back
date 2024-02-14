@@ -13,6 +13,9 @@ copy .env.example file and create .env file
 ```bash
 composer install
 ```
+```
+php artisan key:generate
+```
 ```bash 
 php artisan optimize:clear
 ```
