@@ -7,14 +7,15 @@ use Modules\Common\Utils\Responder;
 use Modules\User\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Modules\User\Models\Vendor;
 
 class VendorController extends Controller
 {
     public function index()
     {
-        $managers = User::query()->hasRole('manager')->get();
+        $vendors = Vendor::orderBy('created_at', 'desc')->get();
         return Responder::response([
-            'managers' => $managers
+            'vendors' => $vendors
         ]);
     }
 

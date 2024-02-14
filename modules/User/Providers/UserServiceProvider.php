@@ -6,6 +6,7 @@ use Database\Seeders\DatabaseSeeder;
 use Illuminate\Support\ServiceProvider;
 use Modules\User\Database\Seeders\AddressSeeder;
 use Modules\User\Database\Seeders\UserSeeder;
+use Modules\User\Database\Seeders\VendorSeeder;
 
 class UserServiceProvider extends ServiceProvider
 {
@@ -17,6 +18,7 @@ class UserServiceProvider extends ServiceProvider
 
         DatabaseSeeder::$seeders[1] = UserSeeder::class;
         DatabaseSeeder::$seeders[8] = AddressSeeder::class;
+        DatabaseSeeder::$seeders[9] = VendorSeeder::class;
     }
 
 }
