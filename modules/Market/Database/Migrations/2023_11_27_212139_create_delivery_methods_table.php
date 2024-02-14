@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('amount', 20, 3)->nullable();
             $table->unsignedTinyInteger('delivery_time')->nullable();
-            $table->string('delivery_time_unit')->nullable();
+            $table->enum('delivery_time_unit', \Modules\Market\Models\DeliveryMethod::$delivery_time_units)->default('weekly');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
             $table->softDeletes();

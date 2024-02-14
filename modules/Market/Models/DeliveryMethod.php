@@ -16,4 +16,17 @@ class DeliveryMethod extends Model
         "delivery_time_unit",
         "status"
     ];
+
+    const UNIT_WEEKLY = 'weekly';
+
+    const UNIT_DAILY = 'daily';
+
+    const UNIT_HOURLY = 'hourly';
+
+    public static $delivery_time_units = [
+        self::UNIT_WEEKLY,
+        self::UNIT_DAILY,
+        self::UNIT_HOURLY,
+    ];
+
 }
