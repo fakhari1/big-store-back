@@ -62,7 +62,7 @@ class AmazingDiscountController extends Controller
 
         $amazingDiscount->update($request->all());
         return Responder::response([
-            'message' => 'تخفیف شگفت انگیز با موفقیت .یرایش شد'
+            'message' => 'تخفیف شگفت انگیز با موفقیت ویرایش شد'
         ], 200);
     }
 
