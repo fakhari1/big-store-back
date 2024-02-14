@@ -1,15 +1,80 @@
 <?php
 
-namespace Models;
+namespace Modules\Order\Models;
 
+use App\Models\Admin\Market\Payment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Discount\Models\CommonDiscount;
+use Modules\Discount\Models\CouponDiscount;
+use Modules\Market\Models\DeliveryMethod;
+use Modules\User\Models\Address;
+use Modules\User\Models\User;
 
 class Order extends Model
 {
-    use HasFactory;
+    use SoftDeletes;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'user_id',
+        'address_id',
+        'sent_address',
+        'payment_id',
+        'payment_object',
+        'payment_type',
+        'payment_status',
+        'delivery_id',
+        'delivery_object',
+        'delivery_amount',
+        'delivery_status',
+        'delivery_date',
+        'final_amount',
+        'discount_amount',
+        'coupon_id',
+        'coupon_object',
+        'coupon_discount_amount',
+        'common_discount_id',
+        'common_discount_object',
+        'common_discount_amount',
+        'total_products_discount_amount',
+        'status',
+    ];
+
+    protected $dates = ['deleted_at'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
+
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class);
+    }
+
+    public function delivery()
+    {
+        return $this->belongsTo(DeliveryMethod::class);
+    }
+
+    public function coupon()
+    {
+        return $this->belongsTo(CouponDiscount::class);
+    }
+
+    public function commonDiscount()
+    {
+        return $this->belongsTo(CommonDiscount::class);
+    }
+
+    // Define any relationships or additional methods here
+
 
 //    protected $appends = ['order_status_label', 'payment_status_label', 'payment_type_label', 'payment_type_text', 'delivery_status_label', 'delivery_status_text'];
 
@@ -145,17 +210,17 @@ class Order extends Model
 //        return $label;
 //    }
 //
-//    public
-//    function getDeliveryStatusTextAttribute()
-//    {
-//        if ($this->delivery_status == 0 || $this->order_status == 3 || $this->payment_status == 0)
-//            return 'عدم ارسال';
-//        else if ($this->delivery_status == 1)
-//            return 'در حال ارسال';
-//        else if ($this->delivery_status == 2)
-//            return 'ارسال';
-//        else
-//            return 'تحویل';
-//    }
+    public
+    function getDeliveryStatusTextAttribute()
+    {
+        if ($this->delivery_status == 0 || $this->order_status == 3 || $this->payment_status == 0)
+            return 'عدم ارسال';
+        else if ($this->delivery_status == 1)
+            return 'در حال ارسال';
+        else if ($this->delivery_status == 2)
+            return 'ارسال';
+        else
+            return 'تحویل';
+    }
 //
 }
