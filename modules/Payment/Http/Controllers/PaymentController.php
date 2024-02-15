@@ -3,18 +3,24 @@
 namespace Modules\Payment\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Market\OfflinePayment;
-use App\Models\Admin\Market\OnlinePayment;
-use App\Models\Admin\Market\Payment;
+
 use Illuminate\Http\Request;
+use Modules\Common\Utils\Responder;
+use Modules\Payment\Models\OfflinePayment;
+use Modules\Payment\Models\OnDeliveredPayment;
+use Modules\Payment\Models\OnlinePayment;
+use Modules\Payment\Models\Payment;
 
 class PaymentController extends Controller
 {
 
     public function index()
     {
-        $payments = Payment::all();
-        return view('admin.market.payment.index', compact('payments'));
+        $payments = Payment::with('user')->get();
+        return Responder::response([
+            'payments' => $payments
+        ], 200);
+//        return view('admin.market.payment.index', compact('payments'));
     }
 
     public function show(Payment $payment)
@@ -23,22 +29,33 @@ class PaymentController extends Controller
     }
     public function getOfflinePayments()
     {
-        $payments = Payment::where('paymentable_type', OfflinePayment::class)->get();
-        return view('admin.market.payment.offline', compact('payments'));
+        $payments = OfflinePayment::all();
+
+        return Responder::response([
+            'payments' => $payments
+        ], 200);
     }
     public function getOnlinePayments()
     {
-        $payments = Payment::where('paymentable_type', OfflinePayment::class)->get();
-        return view('admin.market.payment.offline', compact('payments'));
+        $payments = OnlinePayment::all();
+
+        return Responder::response([
+            'payments' => $payments
+        ], 200);
     }
 
     public function getOnDeliveredPayments()
     {
-        $payments = Payment::where('paymentable_type', OfflinePayment::class)->get();
-        return view('admin.market.payment.offline', compact('payments'));
+        $payments = OnDeliveredPayment::all();
+
+        return Responder::response([
+            'payments' => $payments
+        ], 200);
+//        $payments = Payment::where('paymentable_type', OfflinePayment::class)->get();
+//        return view('admin.market.payment.offline', compact('payments'));
     }
 
-    public function update(Payment $payment, PaymentRequest $request)
+    public function update(Payment $payment, Request $request)
     {
         $payment->status = $request->status;
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Utils\Responder;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Modules\Category\Models\ProductCategory;
 use Modules\File\Services\Uploader\Uploader;
 
@@ -28,21 +29,27 @@ class ProductCategoryController extends Controller
 
     public function store(Request $request, Uploader $uploader)
     {
-        $inputs = [
-            'title' => $request->title,
-            'description' => $request->description,
-            'status' => $request->status,
-            'show_in_menu' => $request->show_in_menu,
-            'tags' => $request->tags,
-            'parent_id' => $request->parent_id
-        ];
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'status' => 'required|integer',
+            'show_in_menu' => 'required|boolean',
+            'tags' => 'required|string',
+//            'parent_id' => 'nullable|exists:product_categories,id',
+            'parent_id' => 'nullable',
+            'file' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
 
         if ($request->hasFile('file')) {
             $file = $uploader->upload($request->file('file'), 'brands');
             $inputs['image_id'] = $file->id;
         }
 
-        ProductCategory::create($inputs);
+        ProductCategory::create($request->all());
 
         return Responder::response([
             'message' => 'دسته بندی ثبت شد!'
@@ -62,21 +69,26 @@ class ProductCategoryController extends Controller
 
     public function update(Request $request, ProductCategory $productCategory, Uploader $uploader)
     {
-        $inputs = [
-            'title' => $request->title,
-            'description' => $request->description,
-            'status' => $request->status,
-            'show_in_menu' => $request->show_in_menu,
-            'tags' => $request->tags,
-            'parent_id' => $request->parent_id
-        ];
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'status' => 'required|integer',
+            'show_in_menu' => 'required|boolean',
+            'tags' => 'required|string',
+//            'parent_id' => 'nullable|exists:product_categories,id',
+            'file' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
 
         if ($request->hasFile('file')) {
             $file = $uploader->upload($request->file('file'), 'brands');
             $inputs['image_id'] = $file->id;
         }
 
-        $productCategory->update($inputs);
+        $productCategory->update($request->all());
         return \Modules\Common\Utils\Responder::response([
             'message' => 'دسته بندی بروزرسانی شد!'
         ],200);
