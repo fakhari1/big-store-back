@@ -12,7 +12,7 @@ Route::middleware(['api'])->prefix('api')->group(function () {
             Route::prefix('orders')->group(function () {
                 Route::get('/', [OrderController::class, 'index']);
                 Route::get('/create', [OrderController::class, 'create']);
-                Route::get('{order}', [OrderController::class, 'show']);
+                Route::get('{order}/edit', [OrderController::class, 'edit']);
                 Route::post('/', [OrderController::class, 'store']);
 //                Route::get('delivery-status/{deliveryStatus}', [OrderController::class, 'getOrdersByDeliveryStatus']);
                 Route::get('sending', [OrderController::class, 'sendingOrders']);

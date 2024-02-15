@@ -29,7 +29,7 @@ class OrderController extends Controller
         ]);
     }
 
-    public function show(Order $order)
+    public function edit(Order $order)
     {
         return Responder::response([
             'order' => $order,
@@ -116,6 +116,38 @@ class OrderController extends Controller
 
         return response()->json([
             'message' => 'سفارش حذف شد',
+        ]);
+    }
+
+    public function sendingOrders()
+    {
+        $orders = Order::where('delivery_status', '1')->get();
+        return Responder::response([
+            'orders' => $orders,
+        ]);
+    }
+
+    public function returnedOrders()
+    {
+        $orders = Order::where('delivery_status', '3')->get();
+        return Responder::response([
+            'orders' => $orders,
+        ]);
+    }
+
+    public function canceledOrders()
+    {
+        $orders = Order::where('delivery_status', '0')->get();
+        return Responder::response([
+            'orders' => $orders,
+        ]);
+    }
+
+    public function unpaidOrders()
+    {
+        $orders = Order::where('payment_status', false)->get();
+        return Responder::response([
+            'orders' => $orders,
         ]);
     }
 
