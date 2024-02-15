@@ -42,9 +42,7 @@ class OrderController extends Controller
             'user_id' => 'required|exists:users,id',
             'address_id' => 'nullable|exists:addresses,id',
             'sent_address' => 'nullable|string',
-//            'payment_id' => 'nullable|exists:payments,id',
-            'payment_id' => 'nullable',
-
+            'payment_id' => 'nullable|exists:payments,id',
             'payment_object' => 'nullable|string',
             'payment_type' => 'required|numeric',
             'payment_status' => 'required|numeric',
