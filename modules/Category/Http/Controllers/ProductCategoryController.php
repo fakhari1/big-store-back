@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Utils\Responder;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Modules\Category\Models\ProductCategory;
 use Modules\File\Services\Uploader\Uploader;
 
@@ -28,24 +30,41 @@ class ProductCategoryController extends Controller
 
     public function store(Request $request, Uploader $uploader)
     {
-        $inputs = [
-            'title' => $request->title,
-            'description' => $request->description,
-            'status' => $request->status,
-            'show_in_menu' => $request->show_in_menu,
-            'tags' => $request->tags,
-            'parent_id' => $request->parent_id
-        ];
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|unique:product_categories',
+            'description' => 'required|string',
+            'status' => 'required|integer',
+            'show_in_menu' => 'required|boolean',
+            'tags' => 'required|string',
+            'parent_id' => 'nullable',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        $slug = Str::slug($request->input('title')); // Generate a unique slug from the title
 
         if ($request->hasFile('file')) {
             $file = $uploader->upload($request->file('file'), 'brands');
             $inputs['image_id'] = $file->id;
         }
 
-        ProductCategory::create($inputs);
-        return Responder::response([
-            'success_msg' => 'دسته بندی ثبت شد!'
+        $productCategory = new ProductCategory([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'status' => $request->input('status'),
+            'show_in_menu' => $request->input('show_in_menu'),
+            'tags' => $request->input('tags'),
+            'parent_id' => $request->input('parent_id'),
+            'slug' => $slug,
         ]);
+
+        $productCategory->save();
+
+        return Responder::response([
+            'message' => 'دسته بندی ثبت شد!'
+        ], 201);
     }
 
     public function show(ProductCategory $productCategory)
@@ -59,35 +78,50 @@ class ProductCategoryController extends Controller
         return view('admin.market.category.edit', compact('productCategory', 'productCategories'));
     }
 
-    public function update(Request $request, ProductCategory $productCategory, Uploader $uploader)
+    public function update(Request $request, Uploader $uploader,ProductCategory $productCategory)
     {
-        $inputs = [
-            'title' => $request->title,
-            'description' => $request->description,
-            'status' => $request->status,
-            'show_in_menu' => $request->show_in_menu,
-            'tags' => $request->tags,
-            'parent_id' => $request->parent_id
-        ];
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|unique:product_categories,title,'.$productCategory->id,
+            'description' => 'required|string',
+            'status' => 'required|integer',
+            'show_in_menu' => 'required|boolean',
+            'tags' => 'required|string',
+            'parent_id' => 'nullable',
+//            'file' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        $slug = Str::slug($request->input('title')); // Generate a unique slug from the title
 
         if ($request->hasFile('file')) {
             $file = $uploader->upload($request->file('file'), 'brands');
-            $inputs['image_id'] = $file->id;
+            $productCategory->image_id = $file->id;
         }
 
-        $productCategory->update($inputs);
+        $productCategory->title = $request->input('title');
+        $productCategory->description = $request->input('description');
+        $productCategory->status = $request->input('status');
+        $productCategory->show_in_menu = $request->input('show_in_menu');
+        $productCategory->tags = $request->input('tags');
+        $productCategory->parent_id = $request->input('parent_id');
+        $productCategory->slug = $slug;
+
+        $productCategory->save();
 
         return Responder::response([
-            'success_msg' => 'دسته بندی بروزرسانی شد!'
-        ]);
+            'message' => 'دسته بندی بروزرسانی شد!'
+        ], 200);
     }
 
     public function destroy(ProductCategory $productCategory)
     {
         $productCategory->delete();
 
-        return Responder::response([
-            'success_msg' => 'دسته بندی حذف شد!'
-        ]);
+        return \Modules\Common\Utils\Responder::response([
+            'message'  => 'دسته بندی حذف شد!'
+        ],200);
     }
 }

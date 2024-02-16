@@ -2,18 +2,20 @@
 
 namespace Modules\Discount\Models;
 
-use App\Models\Admin\Market\Product;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Market\Models\Product;
 
 class AmazingDiscount extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
-    protected $guarded = [];
+    protected $fillable = ['product_id', 'percentage', 'status', 'start_date', 'end_date'];
 
-//    public function product()
-//    {
-//        return $this->belongsTo(Product::class);
-//    }
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

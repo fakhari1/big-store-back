@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Admin\Market;
+namespace Modules\Payment\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,6 +9,7 @@ class OnDeliveredPayment extends Model
 {
     use HasFactory;
 
+    protected $table = 'cash_payments';
     protected $appends = ["bank_label"];
 
     public function payments()

@@ -29,10 +29,10 @@ class OrderController extends Controller
         ]);
     }
 
-    public function show(Order $order)
+    public function edit(Order $order)
     {
-        return response()->json([
-            'data' => $order,
+        return Responder::response([
+            'order' => $order,
         ]);
     }
 
@@ -78,18 +78,19 @@ class OrderController extends Controller
             'user_id' => 'required|exists:users,id',
             'address_id' => 'nullable|exists:addresses,id',
             'sent_address' => 'nullable|string',
-            'payment_id' => 'nullable|exists:payments,id',
+//            'payment_id' => 'nullable|exists:payments,id',
+            'payment_id' => 'nullable',
             'payment_object' => 'nullable|string',
             'payment_type' => 'required|numeric',
             'payment_status' => 'required|numeric',
-            'delivery_id' => 'nullable|exists:deliveries,id',
+            'delivery_id' => 'nullable|exists:delivery_methods,id',
             'delivery_object' => 'nullable|string',
             'delivery_amount' => 'nullable|numeric',
             'delivery_status' => 'required|numeric',
             'delivery_date' => 'nullable|date',
             'final_amount' => 'nullable|numeric',
             'discount_amount' => 'nullable|numeric',
-            'coupon_id' => 'nullable|exists:coupons,id',
+            'coupon_id' => 'nullable|exists:coupon_discounts,id',
             'coupon_object' => 'nullable|string',
             'coupon_discount_amount' => 'nullable|numeric',
             'common_discount_id' => 'nullable|exists:common_discounts,id',
@@ -113,6 +114,38 @@ class OrderController extends Controller
 
         return response()->json([
             'message' => 'سفارش حذف شد',
+        ]);
+    }
+
+    public function sendingOrders()
+    {
+        $orders = Order::where('delivery_status', '1')->get();
+        return Responder::response([
+            'orders' => $orders,
+        ]);
+    }
+
+    public function returnedOrders()
+    {
+        $orders = Order::where('delivery_status', '3')->get();
+        return Responder::response([
+            'orders' => $orders,
+        ]);
+    }
+
+    public function canceledOrders()
+    {
+        $orders = Order::where('delivery_status', '0')->get();
+        return Responder::response([
+            'orders' => $orders,
+        ]);
+    }
+
+    public function unpaidOrders()
+    {
+        $orders = Order::where('payment_status', false)->get();
+        return Responder::response([
+            'orders' => $orders,
         ]);
     }
 

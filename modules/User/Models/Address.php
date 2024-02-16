@@ -2,7 +2,7 @@
 
 namespace Modules\User\Models;
 
-use App\Models\Admin\Market\City;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

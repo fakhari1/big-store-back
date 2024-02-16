@@ -4,60 +4,78 @@ namespace Modules\Market\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Modules\Common\Utils\Responder;
 use Modules\Market\Models\DeliveryMethod;
+
 
 class DeliveryMethodController extends Controller
 {
     public function index()
     {
-        $deliveryMethods = Delivery::all();
-        return view("admin.market.delivery.index", compact("deliveryMethods"));
+        $deliveryMethods = DeliveryMethod::all();
+        return Responder::response([
+            'deliveries' => $deliveryMethods
+        ]);
     }
-
-
-    public function create()
-    {
-        return view("admin.market.delivery.create");
-    }
-
 
     public function store(Request $request)
     {
-        $inputs = [
-            "name" => $request->name,
-            "amount" => $request->cost,
-            "delivery_time" => $request->time,
-            "delivery_time_unit" => $request->unit,
-            "status" => $request->status
-        ];
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'amount' => 'nullable|numeric',
+            'delivery_time' => 'nullable|integer',
+            'delivery_time_unit' => 'nullable|string',
+            'status' => 'integer',
+        ]);
 
-        Delivery::create($inputs);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
 
-        return redirect()->route('admin.market.delivery.index')->with(['success_msg' => "روش ارسال ثبت شد!"]);
+        DeliveryMethod::create($request->all());
+        return Responder::response([
+            'message' => 'روش های ارسال با موفقیت ایجاد شد'
+        ], 201);
     }
 
-
-    public function show($id)
+    public function show(DeliveryMethod $deliveryMethod)
     {
-        //
+        return Responder::response([
+            'delivery' => $deliveryMethod
+        ]);
     }
 
-    public function edit($id)
+    public function update(Request $request, DeliveryMethod $deliveryMethod)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'string',
+            'amount' => 'nullable|numeric',
+            'delivery_time' => 'nullable|integer',
+            'delivery_time_unit' => 'nullable|string',
+            'status' => 'integer',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        $deliveryMethod->update($request->all());
+        return Responder::response([
+            'message' => 'روش های ارسال با موفقیت ویرایش شد'
+        ], 200);
     }
 
-    public function update(Request $request, $id)
+    public function destroy(DeliveryMethod $deliveryMethod)
     {
-        //
+        $deliveryMethod->delete();
+        return Responder::response([
+            'message' => 'روش های ارسال با موفقیت حذف شد'
+        ], 200);
     }
 
-    public function destroy($id)
-    {
-        //
-    }
 
-    public function status(Delivery $delivery)
+    public function status(DeliveryMethod $delivery)
     {
         $delivery->status = $delivery->status == 1 ? 0 : 1;
         if ($delivery->update()) {

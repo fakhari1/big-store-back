@@ -54,7 +54,7 @@ class ProductController extends Controller
             'tags' => $request->tags,
             'marketable_number' => $request->marketable_number,
             'brand_id' => $request->brand_id,
-            'product_category_id' => $request->category_id,
+            'product_category_id' => $request->product_category_id,
             'published_at' => date("Y-m-d H:i:s", (int)$realTimestampStart)
         ];
 
@@ -82,8 +82,8 @@ class ProductController extends Controller
         });
 
         return Responder::response([
-            'success_msg' => 'محصول ثبت شد.'
-        ]);
+            'message' => 'محصول ثبت شد.'
+        ], 201);
 //        return redirect()->route('admin.market.product.index')->with(['success_msg' => 'محصول ثبت شد.']);
     }
 
@@ -128,7 +128,7 @@ class ProductController extends Controller
             'tags' => $request->tags,
             'marketable_number' => $request->marketable_number,
             'brand_id' => $request->brand_id,
-            'product_category_id' => $request->category_id,
+            'product_category_id' => $request->product_category_id,
             'published_at' => date("Y-m-d H:i:s", (int)$realTimestampStart)
         ];
 
@@ -157,8 +157,8 @@ class ProductController extends Controller
             }
         });
         return Responder::response([
-            'success_msg' => 'Product updated successfully.'
-        ]);
+            'message' => 'محصول با موفقیت ویرایش شد'
+        ], 200);
         // return redirect()->route('admin.market.product.index')->with(['success_msg' => 'Product updated successfully.']);
     }
 
@@ -173,8 +173,8 @@ class ProductController extends Controller
         });
 
         return Responder::response([
-            'success_msg' => 'Product deleted successfully.'
-        ]);
+            'message' => 'محصول یا موفقیت حذف شد'
+        ], 200);
         // return redirect()->route('admin.market.product.index')->with(['success_msg' => 'Product deleted successfully.']);
     }
 }

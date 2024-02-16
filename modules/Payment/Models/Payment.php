@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Admin\Market;
+namespace Modules\Payment\Models;
 
 use Modules\User\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;

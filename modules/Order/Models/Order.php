@@ -219,6 +219,8 @@ class Order extends Model
             return 'در حال ارسال';
         else if ($this->delivery_status == 2)
             return 'ارسال';
+        else if ($this->delivery_status == 3)
+            return 'مرجوعی';
         else
             return 'تحویل';
     }
