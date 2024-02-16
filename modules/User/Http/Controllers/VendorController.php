@@ -3,11 +3,11 @@
 namespace Modules\User\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\Common\Utils\Responder;
-use Modules\User\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Modules\User\Models\Vendor;
+use Modules\Common\Utils\Responder;
+use Modules\User\Models\User;
+use Vendor;
 
 class VendorController extends Controller
 {

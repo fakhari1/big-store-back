@@ -41,7 +41,8 @@
             "Modules\\Settings\\": "modules/Settings/",
             "Modules\\Ticket\\": "modules/Ticket/",
             "Modules\\User\\": "modules/User/",
-            "Modules\\Common\\": "modules/Common/"
+            "Modules\\Common\\": "modules/Common/",
+            "Modules\\Vendor\\": "modules/Vendor/"
         }
     },
     "autoload-dev": {

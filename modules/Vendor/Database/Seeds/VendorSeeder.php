@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\User\Database\Seeders;
+namespace Modules\Vendor\Database\Seeds;
 
-use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Modules\User\Models\Vendor;
+use Modules\Vendor\Models\Vendor;
+
 
 class VendorSeeder extends Seeder
 {
@@ -61,7 +61,7 @@ class VendorSeeder extends Seeder
             ], [
                 'type' => Vendor::TYPE_JURIDICAL,
                 'juridical_name' => 'تعاونی 1',
-                'juridical_type' => Vendor::TYPE_JURIDICAL_COOPERATIVE,
+                'juridical_type' => Vendor::TYPE_JURIDICAL_PUBLIC_STOCK,
                 'shop_name' => 'غرفه فروشگاهی 1',
                 'economic_code' => null,
                 'national_code' => '5550100503',
@@ -75,7 +75,7 @@ class VendorSeeder extends Seeder
             ], [
                 'type' => Vendor::TYPE_JURIDICAL,
                 'juridical_name' => 'تعاونی 2',
-                'juridical_type' => Vendor::TYPE_JURIDICAL_COOPERATIVE,
+                'juridical_type' => Vendor::TYPE_JURIDICAL_PUBLIC_STOCK,
                 'shop_name' => 'غرفه فروشگاهی 2',
                 'economic_code' => null,
                 'national_code' => '5550100504',
@@ -90,7 +90,7 @@ class VendorSeeder extends Seeder
             [
                 'type' => Vendor::TYPE_JURIDICAL,
                 'juridical_name' => 'تعاونی 3',
-                'juridical_type' => Vendor::TYPE_JURIDICAL_COOPERATIVE,
+                'juridical_type' => Vendor::TYPE_JURIDICAL_PUBLIC_STOCK,
                 'shop_name' => 'غرفه فروشگاهی 3',
                 'economic_code' => null,
                 'national_code' => '5550100505',

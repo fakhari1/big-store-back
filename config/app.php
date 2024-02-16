@@ -189,6 +189,8 @@ return [
         Modules\Ticket\Providers\TicketServiceProvider::class,
         Modules\User\Providers\UserServiceProvider::class,
         Modules\Order\Providers\OrderServiceProvider::class,
+        Modules\Vendor\Providers\VendorServiceProvider::class,
+
     ])->toArray(),
 
     /*
