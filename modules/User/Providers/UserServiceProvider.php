@@ -6,7 +6,7 @@ use Database\Seeders\DatabaseSeeder;
 use Illuminate\Support\ServiceProvider;
 use Modules\User\Database\Seeders\AddressSeeder;
 use Modules\User\Database\Seeders\UserSeeder;
-use Modules\User\Database\Seeders\VendorSeeder;
+use Modules\Vendor\Database\Seeds\VendorSeeder;
 
 class UserServiceProvider extends ServiceProvider
 {
