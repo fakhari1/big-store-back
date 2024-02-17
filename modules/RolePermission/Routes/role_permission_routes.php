@@ -1,17 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Modules\RolePermission\Http\Controllers\RoleController;
 
 Route::middleware(['api'])->prefix('api')->group(function () {
 
     Route::prefix('admin')->group(function () {
 
-        Route::prefix('roles_permissions')->group(function () {
+        Route::prefix('roles-permissions')->group(function () {
 
             Route::prefix('roles')->group(function () {
 
-                Route::get('/', []);
+                Route::get('/', [RoleController::class, 'index']);
                 Route::get('create', []);
                 Route::post('/', []);
                 Route::patch('{role}', []);

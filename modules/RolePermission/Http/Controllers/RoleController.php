@@ -3,15 +3,19 @@
 namespace Modules\RolePermission\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Modules\Common\Utils\Responder;
+use Modules\RolePermission\Models\Role;
 
 class RoleController extends Controller
 {
 
     public function index()
     {
+        $roles = Role::with('permissions')->get();
 
+        return Responder::response([
+            'roles' => $roles
+        ]);
     }
 
     public function create() {
