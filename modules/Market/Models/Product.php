@@ -5,6 +5,7 @@ namespace Modules\Market\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Category\Models\ProductCategory;
+use Modules\Vendor\Models\Vendor;
 
 class Product extends Model
 {
@@ -67,6 +68,12 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
+
+    public function vendors()
+    {
+        return $this->belongsToMany(Vendor::class);
+    }
+
 //
 //    public function colors()
 //    {
