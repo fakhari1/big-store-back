@@ -237,7 +237,7 @@ class Permission extends SpatiePermission
 
     ];
 
-    const PERMISSION_SUPER_ADMIN = 'مدیر کل';
+    const PERMISSION_SUPER_ADMIN = 'مدیریت کل فروشگاه';
     const PERMISSION_MANAGER = 'مدیر';
 
     public static function getPermissionsByModels()
