@@ -11,6 +11,7 @@ use Modules\Discount\Models\CouponDiscount;
 use Modules\Market\Models\DeliveryMethod;
 use Modules\User\Models\Address;
 use Modules\User\Models\User;
+use Modules\Vendor\Models\Vendor;
 
 class Order extends Model
 {
@@ -71,6 +72,11 @@ class Order extends Model
     public function commonDiscount()
     {
         return $this->belongsTo(CommonDiscount::class);
+    }
+
+    public function vendors()
+    {
+        return $this->belongsToMany(Vendor::class);
     }
 
     // Define any relationships or additional methods here

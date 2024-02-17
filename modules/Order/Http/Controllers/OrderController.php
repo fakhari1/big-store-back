@@ -61,9 +61,12 @@ class OrderController extends Controller
             'common_discount_amount' => 'nullable|numeric',
             'total_products_discount_amount' => 'nullable|numeric',
             'status' => 'required|numeric',
+            'vendor_id' => 'nullable|integer',
         ]);
 
         $order = Order::create($validatedData);
+
+        $order->vendors()->attach(1);
 
         return Responder::response([
             'message' => 'سفارش ایجاد شد',
@@ -98,9 +101,12 @@ class OrderController extends Controller
             'common_discount_amount' => 'nullable|numeric',
             'total_products_discount_amount' => 'nullable|numeric',
             'status' => 'required|numeric',
+            'vendor_id' => 'nullable|integer',
         ]);
 
         $order->update($validatedData);
+
+        $order->vendors()->sync(2);
 
         return Responder::response([
             'message' => 'سفارش ویرایش شد',
@@ -110,6 +116,8 @@ class OrderController extends Controller
 
     public function destroy(Order $order)
     {
+        $order->vendors()->detach();
+
         $order->delete();
 
         return response()->json([

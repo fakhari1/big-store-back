@@ -62,7 +62,8 @@ class BrandController extends Controller
             'persian_name' => $request->persian_name,
             'english_name' => $request->english_name,
             'tags' => $request->tags,
-            'status' => $request->status
+            'status' => $request->status,
+            'vendor_id' => $request->vendor_id,
         ];
 
         if ($request->hasFile('file')) {
