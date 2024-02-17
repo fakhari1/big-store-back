@@ -26,13 +26,16 @@ class BrandController extends Controller
             'persian_name' => $request->persian_name,
             'english_name' => $request->english_name,
             'tags' => $request->tags,
-            'status' => $request->status
+            'status' => $request->status,
+            'vendor_id' => $request->vendor_id,
         ];
             if ($request->hasFile('file')) {
                 $file = $uploader->upload($request->file('file'), 'brands');
                 $inputs['logo_id'] = $file->id;
             }
-        Brand::create($inputs);
+        $brand = Brand::create($inputs);
+
+        $brand->vendors()->attach(1);
 
         return Responder::response([
             'message' => 'برند ثبت شد.'
@@ -59,7 +62,8 @@ class BrandController extends Controller
             'persian_name' => $request->persian_name,
             'english_name' => $request->english_name,
             'tags' => $request->tags,
-            'status' => $request->status
+            'status' => $request->status,
+            'vendor_id' => $request->vendor_id,
         ];
 
         if ($request->hasFile('file')) {
@@ -76,6 +80,8 @@ class BrandController extends Controller
 
         $brand->update($inputs);
 
+        $brand->vendors()->sync(2);
+
         return Responder::response([
             'message' => 'برند بروزرسانی شد.'
         ], 200);
@@ -88,6 +94,8 @@ class BrandController extends Controller
             $uploader = app(Uploader::class);
             $uploader->delete($brand->logo);
         }
+
+        $brand->vendors()->detach();
 
         $brand->delete();
 

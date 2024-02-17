@@ -4,6 +4,9 @@ namespace Modules\Vendor\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Market\Models\Brand;
+use Modules\Market\Models\Product;
+use Modules\Order\Models\Order;
 
 class Vendor extends Model
 {
@@ -30,4 +33,19 @@ class Vendor extends Model
         self::TYPE_JURIDICAL_PRIVATE_STOCK,
         self::TYPE_JURIDICAL_OTHER,
     ];
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
+
+    public function brands()
+    {
+        return $this->belongsToMany(Brand::class);
+    }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
+    }
 }

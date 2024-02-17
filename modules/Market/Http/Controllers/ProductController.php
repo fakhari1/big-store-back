@@ -20,19 +20,16 @@ class ProductController extends Controller
         return Responder::response([
             'products' => $products
         ]);
-//        return view('admin.market.product.index', compact('products'));
     }
 
     public function create()
     {
-//        $productCategories = ProductCategory::with(['parent', 'children'])->get();
         $productCategories = ProductCategory::all();
         $brands = Brand::all();
         return Responder::response([
             'categories' => $productCategories,
             'brands' => $brands
         ]);
-//        return view('admin.market.product.create', compact('productCategories', 'brands'));
     }
 
     public function store(Request $request, Uploader $uploader)
@@ -55,7 +52,8 @@ class ProductController extends Controller
             'marketable_number' => $request->marketable_number,
             'brand_id' => $request->brand_id,
             'product_category_id' => $request->product_category_id,
-            'published_at' => date("Y-m-d H:i:s", (int)$realTimestampStart)
+            'published_at' => date("Y-m-d H:i:s", (int)$realTimestampStart),
+            'vendor_id' => $request->vendor_id,
         ];
 
         if ($request->hasFile('file')) {
@@ -70,6 +68,8 @@ class ProductController extends Controller
 
         DB::transaction(function () use ($request, $inputs, $productProperties) {
             $product = Product::query()->create($inputs);
+            $product->vendors()->attach(1);
+
             if (count($productProperties)) {
                 foreach ($productProperties as $key => $value) {
                     ProductMeta::query()->create([
@@ -84,7 +84,6 @@ class ProductController extends Controller
         return Responder::response([
             'message' => 'محصول ثبت شد.'
         ], 201);
-//        return redirect()->route('admin.market.product.index')->with(['success_msg' => 'محصول ثبت شد.']);
     }
 
     public function show(Product $product)
@@ -104,9 +103,6 @@ class ProductController extends Controller
             'categories' => $productCategories,
             'brands' => $brands
         ]);
-
-        // Alternatively, you can return the view with the necessary data:
-        // return view('admin.market.product.edit', compact('product', 'productCategories', 'brands'));
     }
 
     public function update(Request $request, Product $product, Uploader $uploader)
@@ -129,6 +125,7 @@ class ProductController extends Controller
             'marketable_number' => $request->marketable_number,
             'brand_id' => $request->brand_id,
             'product_category_id' => $request->product_category_id,
+            'vendor_id' => $request->vendor_id,
             'published_at' => date("Y-m-d H:i:s", (int)$realTimestampStart)
         ];
 
@@ -145,10 +142,8 @@ class ProductController extends Controller
         DB::transaction(function () use ($request, $inputs, $productProperties, $product) {
             $product->update($inputs);
 
-            // Delete existing product meta entries
-//            $product->metas()->delete();
+              $product->vendors()->sync(1);
 
-            // Create new product meta entries
             foreach ($productProperties as $key => $value) {
                 $product->metas()->create([
                     'meta_key' => $key,
@@ -159,22 +154,19 @@ class ProductController extends Controller
         return Responder::response([
             'message' => 'محصول با موفقیت ویرایش شد'
         ], 200);
-        // return redirect()->route('admin.market.product.index')->with(['success_msg' => 'Product updated successfully.']);
     }
 
     public function destroy(Product $product)
     {
         DB::transaction(function () use ($product) {
-            // Delete the associated product meta entries
+            $product->vendors()->detach();
             $product->meta()->delete();
 
-            // Delete the product
             $product->delete();
         });
 
         return Responder::response([
             'message' => 'محصول یا موفقیت حذف شد'
         ], 200);
-        // return redirect()->route('admin.market.product.index')->with(['success_msg' => 'Product deleted successfully.']);
     }
 }
