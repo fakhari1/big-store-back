@@ -75,24 +75,22 @@ class DeliveryMethodController extends Controller
     }
 
 
-    public function status(DeliveryMethod $delivery)
-    {
-        $delivery->status = $delivery->status == 1 ? 0 : 1;
-        if ($delivery->update()) {
-            if ($delivery->status == 1) {
-                return response()->json([
-                    'status' => true,
-                    'checked' => true
-                ]);
-            }
-            return response()->json([
-                'status' => true,
-                'checked' => false
-            ]);
-        }
 
-        return response()->json([
-            'status' => false
-        ]);
+
+    public function updateStatus(Request $request, DeliveryMethod $deliveryMethod)
+    {
+        try {
+            $deliveryMethod->update([
+                'status' => $request->status
+            ]);
+
+            return \App\Utils\Responder::response([
+                'status' => true,
+                'data' => ['status' => $deliveryMethod->status],
+                'message' => 'اطلاعات با موفقیت بروزرسانی شد'
+            ]);
+        } catch (\Exception $ex) {
+            return 'خطا در انجام عملیات؛ دوباره تلاش کنید';
+        }
     }
 }

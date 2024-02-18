@@ -190,6 +190,7 @@ return [
         Modules\User\Providers\UserServiceProvider::class,
         Modules\Order\Providers\OrderServiceProvider::class,
         Modules\Vendor\Providers\VendorServiceProvider::class,
+        Modules\Front\Providers\FrontServiceProvider::class,
 
     ])->toArray(),
 
