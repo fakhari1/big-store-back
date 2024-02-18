@@ -5,6 +5,7 @@ namespace Modules\Market\Database\Seeds;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Modules\Market\Models\Product;
 
 class ProductSeeder extends Seeder
 {
@@ -16,11 +17,10 @@ class ProductSeeder extends Seeder
                 'persian_name' => 'لپ تاپ ایسوز X512',
                 'introduction' => 'این لپ تاپ به شما امکان کار با سرعت بالا و عملکرد قوی را می‌دهد.',
                 'text' => 'این لپ تاپ به شما امکان کار با سرعت بالا و عملکرد قوی را می‌دهد.',
-                'slug' => 'لپ_تاپ_ایسوز_X512',
                 'image_id' => 1,
                 'weight' => 2.5,
-                'length' => 35.0,
-                'width' => 24.0,
+                'length' => 35,
+                'width' => 24,
                 'height' => 2.5,
                 'price' => 5000000,
                 'status' => 1,
@@ -38,12 +38,11 @@ class ProductSeeder extends Seeder
                 'persian_name' => 'مبل راحتی مدرن',
                 'introduction' => 'این مبل راحتی طراحی مدرن و راحتی بی‌نظیری دارد.',
                 'text' => 'این مبل راحتی طراحی مدرن و راحتی بی‌نظیری دارد.',
-                'slug' => 'مبل_راحتی_مدرن',
                 'image_id' => 2,
-                'weight' => 30.0,
-                'length' => 200.0,
-                'width' => 100.0,
-                'height' => 80.0,
+                'weight' => 30,
+                'length' => 200.,
+                'width' => 100,
+                'height' => 80,
                 'price' => 8000000,
                 'status' => 1,
                 'is_marketable' => true,
@@ -60,12 +59,11 @@ class ProductSeeder extends Seeder
                 'persian_name' => 'ماشین سواری تویوتا',
                 'introduction' => 'این ماشین سواری با کیفیت ساخت بالا و امکانات فراوان مورد استفاده قرار می‌گیرد.',
                 'text' => 'این ماشین سواری با کیفیت ساخت بالا و امکانات فراوان مورد استفاده قرار می‌گیرد.',
-                'slug' => 'ماشین_سواری_تویوتا',
                 'image_id' => 3,
-                'weight' => 1200.0,
-                'length' => 460.0,
-                'width' => 180.0,
-                'height' => 145.0,
+                'weight' => 1200,
+                'length' => 4600,
+                'width' => 1800,
+                'height' => 1450,
                 'price' => 150000000,
                 'status' => 1,
                 'is_marketable' => true,
@@ -82,7 +80,6 @@ class ProductSeeder extends Seeder
                 'persian_name' => 'خانه شهری',
                 'introduction' => 'این خانه شهری با طراحی زیبا و امکانات مدرن واقعدارد.',
                 'text' => 'این خانه شهری با طراحی زیبا و امکانات مدرن واقعدارد.',
-                'slug' => 'خانه_شهری',
                 'image_id' => 4,
                 'weight' => 0.0,
                 'length' => 0.0,
@@ -101,6 +98,8 @@ class ProductSeeder extends Seeder
             ],
         ];
 
-        DB::table('products')->insert($products);
+        foreach ($products as $key => $product) {
+            Product::create($products);
+        }
     }
 }
