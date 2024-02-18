@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Modules\Market\Models\DeliveryMethod;
 
 return new class extends Migration
 {
@@ -16,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('amount', 20, 3)->nullable();
             $table->unsignedTinyInteger('delivery_time')->nullable();
-            $table->enum('delivery_time_unit', \Modules\Market\Models\DeliveryMethod::$delivery_time_units)->default('weekly');
+            $table->enum('delivery_time_unit', DeliveryMethod::$delivery_time_units)->default(DeliveryMethod::UNIT_WEEKLY);
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
             $table->softDeletes();

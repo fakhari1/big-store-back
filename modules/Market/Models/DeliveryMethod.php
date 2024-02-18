@@ -17,11 +17,11 @@ class DeliveryMethod extends Model
         "status"
     ];
 
-    const UNIT_WEEKLY = 'weekly';
+    const UNIT_WEEKLY = 'هفته';
 
-    const UNIT_DAILY = 'daily';
+    const UNIT_DAILY = 'روز';
 
-    const UNIT_HOURLY = 'hourly';
+    const UNIT_HOURLY = 'ساعت';
 
     public static $delivery_time_units = [
         self::UNIT_WEEKLY,
