@@ -2,68 +2,56 @@
 
 namespace Modules\Market\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Category\Models\ProductCategory;
+use Modules\File\Models\File;
 use Modules\Vendor\Models\Vendor;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes, Sluggable;
 
-    protected $appends = ['real_price'];
+    protected $appends = ['real_price', 'image_path'];
 
-    protected $fillable = [
-        'title',
-        'english_name',
-        'persian_name',
-        'introduction',
-        'slug',
-        'image',
-        'weight',
-        'length',
-        'width',
-        'height',
-        'price',
-        'status',
-        'is_marketable',
-        'tags',
-        'sold_count',
-        'frozen_count',
-        'marketable_count',
-        'brand_id',
-        'image_id',
-        'product_category_id',
-        'published_at'
-    ];
+    protected $guarded = [];
 
-    protected $casts = ['image' => 'array'];
-
-    public function comments()
+    public function sluggable(): array
     {
-        return $this->morphMany(Content::class, 'commentable');
+        return [
+            'slug' => [
+                'source' => 'persian_name'
+            ]
+        ];
     }
+
+//    public function comments()
+//    {
+//        return $this->morphMany(Content::class, 'commentable');
+//    }
 //
 //    public function activeComments()
 //    {
 //        return $this->comments()->where('approved', '=', '1')->whereNull('parent_id')->get();
 //    }
-//
-    public function metas()
+
+    public function properties()
     {
-        return $this->hasMany(ProductMeta::class);
+        return $this->hasMany(ProductProperty::class);
     }
-//
+
     public function category()
     {
         return $this->belongsTo(ProductCategory::class, 'product_category_id');
     }
-//
-//    public function images()
-//    {
-//        return $this->hasMany(ProductImage::class);
-//    }
-//
+
+    public function images()
+    {
+        return $this->belongsToMany(File::class, 'image_product', 'product_id', 'file_id');
+    }
+
     public function brand()
     {
         return $this->belongsTo(Brand::class, 'brand_id');
@@ -112,8 +100,23 @@ class Product extends Model
             return $this->weight . " گرم";
         }
     }
+
+    public function image()
+    {
+        return $this->belongsTo(File::class, 'image_id');
+    }
 //
 //    public function users() {
 //        return $this->belongsToMany(User::class);
 //    }
+
+    public function getImagePathAttribute()
+    {
+        if ($this->image) {
+            $image = $this->image;
+            return env('APP_URL') . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . $image->path . DIRECTORY_SEPARATOR . $image->name;
+        } else {
+            return null;
+        }
+    }
 }

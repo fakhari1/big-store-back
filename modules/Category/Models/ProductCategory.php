@@ -5,6 +5,7 @@ namespace Modules\Category\Models;
 use Modules\File\Models\File;
 use Modules\File\Services\Uploader\StorageManager;
 use Modules\Market\Models\Product;
+
 //use App\Models\Admin\Market\ProductPropertyAttribute;
 //use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,10 +28,12 @@ class ProductCategory extends Model
             ]
         ];
     }
+
     public function image()
     {
         return $this->belongsTo(File::class, 'image_id');
     }
+
     public function products()
     {
         return $this->hasMany(Product::class);
@@ -50,7 +53,8 @@ class ProductCategory extends Model
 //    {
 //        return $this->hasMany(ProductPropertyAttribute::class);
 //    }
-    public function getParentCaptionAttribute() {
+    public function getParentCaptionAttribute()
+    {
         return $this->parent_id == 0 ? 'والد' : $this->parent->title;
     }
 

@@ -31,7 +31,7 @@ class ProductPropertyController extends Controller
     {
         $request->validate([
             'product_id' => 'required|exists:products,id',
-            'property' => 'required|string',
+            'key_value' => 'required|string',
             'value' => 'required|string',
         ]);
         ProductProperty::create($request->all());

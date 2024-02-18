@@ -15,8 +15,7 @@ return new class extends Migration {
         Schema::create('product_properties', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id');
-            $table->string('property');
-            $table->string('value');
+            $table->json('key_value');
             $table->timestamps();
             $table->softDeletes();
         });
