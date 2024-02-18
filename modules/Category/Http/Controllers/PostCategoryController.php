@@ -70,6 +70,7 @@ class PostCategoryController extends Controller
 
             $inputs['image_id'] = $file->id;
         }
+
         $postCategory->update($inputs);
 
         return Responder::response([

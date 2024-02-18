@@ -2,7 +2,9 @@
 
 namespace Modules\Category\Models;
 
-//use App\Models\Admin\Market\Product;
+use Modules\File\Models\File;
+use Modules\File\Services\Uploader\StorageManager;
+use Modules\Market\Models\Product;
 //use App\Models\Admin\Market\ProductPropertyAttribute;
 //use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,16 +15,9 @@ class ProductCategory extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'title',
-        'description',
-        'slug',
-        'image_id',
-        'status',
-        'show_in_menu',
-        'tags',
-        'parent_id'
-    ];
+    protected $guarded = [];
+
+    protected $appends = ['parent_caption', 'image_path'];
 
     public function sluggable(): array
     {
@@ -32,13 +27,14 @@ class ProductCategory extends Model
             ]
         ];
     }
-
-    protected $casts = ['image' => 'array'];
-
-//    public function products()
-//    {
-//        return $this->hasMany(Product::class);
-//    }
+    public function image()
+    {
+        return $this->belongsTo(File::class, 'image_id');
+    }
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 
     public function parent()
     {
@@ -54,4 +50,27 @@ class ProductCategory extends Model
 //    {
 //        return $this->hasMany(ProductPropertyAttribute::class);
 //    }
+    public function getParentCaptionAttribute() {
+        return $this->parent_id == 0 ? 'والد' : $this->parent->title;
+    }
+
+    public function getImagePathAttribute()
+    {
+        if ($this->image) {
+            $image = $this->image;
+            return env('APP_URL') . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . $image->path . DIRECTORY_SEPARATOR . $image->name;
+        } else {
+            return null;
+        }
+    }
+
+    public function deleteImage()
+    {
+        $image = $this->image;
+        $storageManager = new StorageManager();
+
+        $this->image->delete();
+
+        return $storageManager->deleteFile($image->name, $image->path, $image->is_private);
+    }
 }

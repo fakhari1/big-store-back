@@ -17,7 +17,7 @@ class ProductCategorySeeder extends Seeder
                 'status' => 1,
                 'show_in_menu' => true,
                 'tags' => 'لپ تاب,دیجیتال',
-                'parent_id' => null,
+                'parent_id' => 0,
             ],
             [
                 'title' => 'مبلمان راحتی',
@@ -27,7 +27,7 @@ class ProductCategorySeeder extends Seeder
                 'status' => 1,
                 'show_in_menu' => true,
                 'tags' => 'مبلمان,فرش',
-                'parent_id' => null,
+                'parent_id' => 0,
             ],
             [
                 'title' => 'خودرو سواری',
@@ -37,7 +37,7 @@ class ProductCategorySeeder extends Seeder
                 'status' => 1,
                 'show_in_menu' => true,
                 'tags' => 'خودرو,ماشین',
-                'parent_id' => null,
+                'parent_id' => 0,
             ],
             [
                 'title' => 'خانه و آپارتمان',
@@ -47,7 +47,7 @@ class ProductCategorySeeder extends Seeder
                 'status' => 1,
                 'show_in_menu' => true,
                 'tags' => 'خانه,آپارتمان',
-                'parent_id' => null,
+                'parent_id' => 0,
             ],
         ];
 

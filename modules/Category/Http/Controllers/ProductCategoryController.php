@@ -72,8 +72,11 @@ class ProductCategoryController extends Controller
         ]);
 
         if ($request->hasFile('file')) {
+
+            $productCategory->deleteImage();
             $file = $uploader->upload($request->file('file'), 'product-categories');
             $productCategory->image_id = $file->id;
+
         }
 
         $productCategory->title = $request->input('title');
@@ -81,7 +84,7 @@ class ProductCategoryController extends Controller
         $productCategory->status = $request->input('status');
         $productCategory->show_in_menu = $request->input('show_in_menu');
         $productCategory->tags = $request->input('tags');
-        $productCategory->parent_id = $request->input('parent_id') == 'null' ? null : $request->input('parent_id');
+        $productCategory->parent_id = $request->input('parent_id');
 
         $productCategory->save();
 

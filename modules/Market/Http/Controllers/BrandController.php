@@ -27,18 +27,17 @@ class BrandController extends Controller
             'english_name' => $request->english_name,
             'tags' => $request->tags,
             'status' => $request->status,
-            'vendor_id' => $request->vendor_id,
         ];
-            if ($request->hasFile('file')) {
-                $file = $uploader->upload($request->file('file'), 'brands');
-                $inputs['logo_id'] = $file->id;
-            }
-        $brand = Brand::create($inputs);
 
-        $brand->vendors()->attach(1);
+        if ($request->hasFile('file')) {
+            $file = $uploader->upload($request->file('file'), 'brands');
+            $inputs['logo_id'] = $file->id;
+        }
+
+        Brand::create($inputs);
 
         return Responder::response([
-            'message' => 'برند ثبت شد.'
+            'message' => 'اطلاعات با موفقیت ثبت شد'
         ], 201);
     }
 
@@ -56,51 +55,39 @@ class BrandController extends Controller
         ]);
     }
 
-    public function update(Request $request, Brand $brand)
+    public function update(Request $request, Brand $brand, Uploader $uploader)
     {
         $inputs = [
             'persian_name' => $request->persian_name,
             'english_name' => $request->english_name,
             'tags' => $request->tags,
             'status' => $request->status,
-            'vendor_id' => $request->vendor_id,
         ];
 
         if ($request->hasFile('file')) {
-            $uploader = app(Uploader::class);
 
-            // Delete the old logo file if it exists
-            if ($brand->logo) {
-                $uploader->delete($brand->logo);
-            }
+            $brand->deleteLogo();
 
             $file = $uploader->upload($request->file('file'), 'brands');
+
             $inputs['logo_id'] = $file->id;
         }
 
         $brand->update($inputs);
 
-        $brand->vendors()->sync(2);
-
         return Responder::response([
-            'message' => 'برند بروزرسانی شد.'
+            'message' => 'اطلاعات با موفقیت بروزرسانی شد.'
         ], 200);
     }
 
-    public function destroy(Brand $brand)
+    public function destroy(Brand $brand, Uploader $uploader)
     {
-        // Delete the logo file if it exists
-        if ($brand->logo) {
-            $uploader = app(Uploader::class);
-            $uploader->delete($brand->logo);
-        }
-
-        $brand->vendors()->detach();
+//        $brand->vendors()->detach();
 
         $brand->delete();
 
         return Responder::response([
-            'message' => 'برند حذف شد.'
+            'message' => 'برند مورد نظر با موفقیت حذف شد'
         ], 200);
     }
 }

@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('persian_name');
             $table->string('english_name');
             $table->string('slug')->unique()->nullable();
-            $table->unsignedBigInteger('logo_id');
+            $table->unsignedBigInteger('logo_id')->nullable();
             $table->string('tags');
             $table->tinyInteger('status')->default(1);
+            $table->unsignedBigInteger('vendor_id')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
