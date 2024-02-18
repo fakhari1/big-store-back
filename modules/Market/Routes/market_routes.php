@@ -87,6 +87,7 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::post('/', [DeliveryMethodController::class, 'store']);
                 Route::get('{delivery_method}', [DeliveryMethodController::class, 'show']);
                 Route::patch('{delivery_method}', [DeliveryMethodController::class, 'update']);
+                Route::patch('{delivery_method}/update-status', [DeliveryMethodController::class, 'updateStatus']);
                 Route::delete('{delivery_method}', [DeliveryMethodController::class, 'destroy']);
             });
 
