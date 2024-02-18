@@ -15,17 +15,11 @@ class ProductCategoryController extends Controller
 {
     public function index()
     {
-        $productCategories = ProductCategory::all();
+        $categories = ProductCategory::all();
 
         return Responder::response([
-            'productCategories' => $productCategories
+            'categories' => $categories
         ]);
-    }
-
-    public function create()
-    {
-        $productCategories = ProductCategory::all();
-        return view('admin.market.category.create', compact('productCategories'));
     }
 
     public function store(Request $request, Uploader $uploader)
@@ -39,14 +33,8 @@ class ProductCategoryController extends Controller
             'parent_id' => 'nullable',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
-        }
-
-        $slug = Str::slug($request->input('title')); // Generate a unique slug from the title
-
         if ($request->hasFile('file')) {
-            $file = $uploader->upload($request->file('file'), 'brands');
+            $file = $uploader->upload($request->file('file'), 'product-categories');
             $inputs['image_id'] = $file->id;
         }
 
@@ -57,31 +45,24 @@ class ProductCategoryController extends Controller
             'show_in_menu' => $request->input('show_in_menu'),
             'tags' => $request->input('tags'),
             'parent_id' => $request->input('parent_id'),
-            'slug' => $slug,
         ]);
 
         $productCategory->save();
 
         return Responder::response([
-            'message' => 'دسته بندی ثبت شد!'
+            'message' => 'دسته بندی ثبت شد'
         ], 201);
     }
 
     public function show(ProductCategory $productCategory)
     {
-        return Responder::response(['productCategory' => $productCategory]);
+        return Responder::response(['category' => $productCategory]);
     }
 
-    public function edit(ProductCategory $productCategory)
-    {
-        $productCategories = ProductCategory::all();
-        return view('admin.market.category.edit', compact('productCategory', 'productCategories'));
-    }
-
-    public function update(Request $request, Uploader $uploader,ProductCategory $productCategory)
+    public function update(Request $request, ProductCategory $productCategory, Uploader $uploader)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|unique:product_categories,title,'.$productCategory->id,
+            'title' => 'required|string|unique:product_categories,title,' . $productCategory->id,
             'description' => 'required|string',
             'status' => 'required|integer',
             'show_in_menu' => 'required|boolean',
@@ -90,14 +71,8 @@ class ProductCategoryController extends Controller
 //            'file' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
-        }
-
-        $slug = Str::slug($request->input('title')); // Generate a unique slug from the title
-
         if ($request->hasFile('file')) {
-            $file = $uploader->upload($request->file('file'), 'brands');
+            $file = $uploader->upload($request->file('file'), 'product-categories');
             $productCategory->image_id = $file->id;
         }
 
@@ -106,13 +81,12 @@ class ProductCategoryController extends Controller
         $productCategory->status = $request->input('status');
         $productCategory->show_in_menu = $request->input('show_in_menu');
         $productCategory->tags = $request->input('tags');
-        $productCategory->parent_id = $request->input('parent_id');
-        $productCategory->slug = $slug;
+        $productCategory->parent_id = $request->input('parent_id') == 'null' ? null : $request->input('parent_id');
 
         $productCategory->save();
 
         return Responder::response([
-            'message' => 'دسته بندی بروزرسانی شد!'
+            'message' => 'دسته بندی بروزرسانی شد'
         ], 200);
     }
 
@@ -121,7 +95,7 @@ class ProductCategoryController extends Controller
         $productCategory->delete();
 
         return \Modules\Common\Utils\Responder::response([
-            'message'  => 'دسته بندی حذف شد!'
-        ],200);
+            'message' => 'دسته بندی حذف شد!'
+        ], 200);
     }
 }
