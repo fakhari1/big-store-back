@@ -54,7 +54,7 @@ class Product extends Model
 
     public function images()
     {
-        return $this->belongsToMany(File::class, 'image_product', 'product_id', 'file_id');
+        return $this->belongsToMany(File::class, 'image_product', 'product_id', 'image_id');
     }
 
     public function brand()

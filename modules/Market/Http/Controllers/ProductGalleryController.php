@@ -22,7 +22,9 @@ class ProductGalleryController extends Controller
         if ($request->hasFile('file')) {
             $file = $uploader->upload($request->file('file'), 'products' . DIRECTORY_SEPARATOR . 'images');
             $inputs['image_id'] = $file->id;
+            $product->images()->attach($inputs['image_id']);
         }
+
 
         return Responder::response([
             'message' => 'اطلاعات با موفقیت ثبت شد'
