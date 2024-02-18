@@ -4,6 +4,7 @@ namespace Modules\User\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\Images\ImageService;
+use Modules\Common\Utils\Responder;
 use Modules\User\Models\User;
 use App\Notifications\NewUserRegistered;
 use Illuminate\Http\Request;
@@ -20,6 +21,12 @@ class CustomerController extends Controller
     public function create()
     {
         return view('admin.users.customer.create');
+    }
+
+    public function show(User $customer) {
+        return Responder::response([
+            'customer' => $customer
+        ]);
     }
 
     public function store(Request $request, ImageService $imageService)

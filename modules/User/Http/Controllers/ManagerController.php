@@ -4,6 +4,7 @@ namespace Modules\User\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Common\Utils\Responder;
+use Modules\RolePermission\Models\Role;
 use Modules\User\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -12,7 +13,7 @@ class ManagerController extends Controller
 {
     public function index()
     {
-        $managers = User::role('manager')->get();
+        $managers = User::role(Role::ROLE_MANAGER)->get();
 
         return Responder::response([
             'managers' => $managers
@@ -20,9 +21,9 @@ class ManagerController extends Controller
     }
 
 
-    public function show(User $user)
+    public function show(User $manager)
     {
-        return Responder::response(['manager' => $user]);
+        return Responder::response(['manager' => $manager]);
     }
 
     public function create()
