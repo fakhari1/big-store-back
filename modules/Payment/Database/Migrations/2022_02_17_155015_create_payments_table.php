@@ -17,6 +17,7 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->decimal('amount', 20, 3);
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('vendor_id');
             $table->tinyInteger('status')->default(0);
             $table->unsignedTinyInteger('type')->default(1)->comment('1 => online, 2 => offline, 3 => cash');
             $table->unsignedBigInteger('paymentable_id');

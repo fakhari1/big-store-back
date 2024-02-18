@@ -17,6 +17,7 @@ class CreateCashPaymentsTable extends Migration
             $table->id();
             $table->decimal('amount', 20, 3);
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('vendor_id');
             $table->string('cash_receiver')->nullable();
             $table->timestamp('payed_at');
             $table->string('status')->default(0);

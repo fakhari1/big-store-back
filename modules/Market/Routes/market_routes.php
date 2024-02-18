@@ -93,8 +93,8 @@ Route::middleware(['api'])->prefix('api')->group(function () {
 
             Route::prefix('warehouse')->group(function () {
                 Route::get('/', [WarehouseController::class, 'index']);
-                Route::get('increment', [WarehouseController::class, 'create']);
-                Route::post('increment', [WarehouseController::class, 'increment']);
+                Route::get('{product}/increment', [WarehouseController::class, 'create']);
+                Route::post('{product}/increment', [WarehouseController::class, 'increment']);
 
 //                Route::get('{warehouse}', [WarehouseController::class, 'show']);
 //                Route::post('/', [WarehouseController::class, 'store']);
