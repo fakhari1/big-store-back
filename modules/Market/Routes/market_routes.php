@@ -44,10 +44,10 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::delete('{product}', [ProductController::class, 'destroy']);
 
                 Route::prefix('{product}')->group(function () {
-                    Route::prefix('gallery')->group(function () {
+                    Route::prefix('images')->group(function () {
                         Route::get('/', [ProductGalleryController::class, 'index']);
                         Route::post('/', [ProductGalleryController::class, 'store']);
-                        Route::delete('{gallery}', [ProductGalleryController::class, 'destroy']);
+                        Route::delete('{image}', [ProductGalleryController::class, 'destroy']);
                     });
 
                     Route::prefix('colors')->group(function () {
