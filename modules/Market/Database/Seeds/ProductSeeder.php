@@ -32,6 +32,9 @@ class ProductSeeder extends Seeder
                 'brand_id' => 1,
                 'product_category_id' => 1,
                 'published_at' => Carbon::now(),
+                'properties' => [
+                    ['جنس', 'پشم و شیشه']
+                ]
             ],
             [
                 'english_name' => 'مبل راحتی مدرن',
@@ -53,6 +56,9 @@ class ProductSeeder extends Seeder
                 'brand_id' => 2,
                 'product_category_id' => 2,
                 'published_at' => Carbon::now(),
+                'properties' => [
+                    ['جنس', 'پشم و شیشه']
+                ]
             ],
             [
                 'english_name' => 'ماشین سواری تویوتا',
@@ -74,6 +80,9 @@ class ProductSeeder extends Seeder
                 'brand_id' => 3,
                 'product_category_id' => 3,
                 'published_at' => Carbon::now(),
+                'properties' => [
+                    ['جنس', 'پشم و شیشه']
+                ]
             ],
             [
                 'english_name' => 'خانه شهری',
@@ -95,11 +104,14 @@ class ProductSeeder extends Seeder
                 'brand_id' => 4,
                 'product_category_id' => 4,
                 'published_at' => Carbon::now(),
+                'properties' => [
+                    ['جنس', 'پشم و شیشه']
+                ]
             ],
         ];
 
         foreach ($products as $key => $product) {
-            Product::create($products);
+            Product::create($product);
         }
     }
 }

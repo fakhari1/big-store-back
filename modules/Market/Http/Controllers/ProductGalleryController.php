@@ -13,7 +13,7 @@ class ProductGalleryController extends Controller
     public function index(Product $product)
     {
         return Responder::response([
-            'images' => $product->images
+            'images' => $product->images ?? []
         ]);
     }
 

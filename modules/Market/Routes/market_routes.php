@@ -93,13 +93,14 @@ Route::middleware(['api'])->prefix('api')->group(function () {
 
             Route::prefix('warehouse')->group(function () {
                 Route::get('/', [WarehouseController::class, 'index']);
-                Route::get('{warehouse}', [WarehouseController::class, 'show']);
-                Route::post('/', [WarehouseController::class, 'store']);
-                Route::patch('{warehouse}', [WarehouseController::class, 'update']);
-                Route::delete('{warehouse}', [WarehouseController::class, 'destroy']);
+                Route::get('increment', [WarehouseController::class, 'create']);
+                Route::post('increment', [WarehouseController::class, 'increment']);
 
-                Route::get('add', [WarehouseController::class, 'add']);
-                Route::post('add', [WarehouseController::class, 'adding']);
+//                Route::get('{warehouse}', [WarehouseController::class, 'show']);
+//                Route::post('/', [WarehouseController::class, 'store']);
+//                Route::patch('{warehouse}', [WarehouseController::class, 'update']);
+
+
             });
 
         });

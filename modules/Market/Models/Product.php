@@ -24,7 +24,7 @@ class Product extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'properties' => 'array'
+        'properties' => 'array',
     ];
 
     public function sluggable(): array
