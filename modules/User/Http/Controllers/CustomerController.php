@@ -60,4 +60,11 @@ class CustomerController extends Controller
 
         return redirect()->route('admin.users.customer.index')->with(['success_msg' => 'مشتری جدید با موفقیت ثبت شد']);
     }
+
+    public function show(User $user)
+    {
+        return Responder::response([
+            'user' => $user
+        ]);
+    }
 }

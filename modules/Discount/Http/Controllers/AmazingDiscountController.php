@@ -73,4 +73,21 @@ class AmazingDiscountController extends Controller
             'message' => 'تخفیف شگفت انگیز با موفقیت حذف شد'
         ], 200);
     }
+
+    public function updateStatus(Request $request, AmazingDiscount $amazingDiscount)
+    {
+        try {
+            $amazingDiscount->update([
+                'status' => $request->status
+            ]);
+
+            return \App\Utils\Responder::response([
+                'status' => true,
+                'data' => ['status' => $amazingDiscount->status],
+                'message' => 'اطلاعات با موفقیت بروزرسانی شد'
+            ]);
+        } catch (\Exception $ex) {
+            return 'خطا در انجام عملیات؛ دوباره تلاش کنید';
+        }
+    }
 }

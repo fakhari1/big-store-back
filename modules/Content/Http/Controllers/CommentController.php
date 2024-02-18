@@ -21,7 +21,7 @@ class CommentController extends Controller
             $comment->update(['is_seen' => 1]);
         }
 
-        $comments = Comment::orderBy('created_at', 'desc')->with(['author'])->get();
+        $comments = Comment::orderBy('created_at', 'desc')->with(['author', 'parent'])->get();
         return Responder::response([
             'comments' => $comments
         ]);
