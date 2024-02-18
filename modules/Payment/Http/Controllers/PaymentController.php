@@ -17,7 +17,7 @@ class PaymentController extends Controller
     public function show(Payment $payment)
     {
         return Responder::response([
-            'payment' => $payment->load(['user', 'vendor']),
+            'payment' => $payment->load(['user', 'vendor', 'paymentable']),
         ]);
     }
 
@@ -45,6 +45,16 @@ class PaymentController extends Controller
 
         return Responder::response([
             'payments' => $payments
+        ]);
+    }
+
+    public function updateStatus(OnlinePayment $payment)
+    {
+        $payment->update(['status' => 2]);
+        Payment::where('paymentable_id', $payment->id)->update(['status' => 2]);
+
+        return Responder::response([
+            'payment' => $payment
         ]);
     }
 }

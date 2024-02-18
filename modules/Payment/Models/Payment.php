@@ -6,6 +6,7 @@ use Modules\User\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Vendor\Models\Vendor;
 
 class Payment extends Model
 {
@@ -13,16 +14,28 @@ class Payment extends Model
 
     protected $fillable = ["status_label", "status", "online_or_offline_label", "original_amount", "amount_as_tooman"];
 
-    protected $append = ["status_label", "online_or_offline_label", "original_amount", "amount_as_tooman"];
+    protected $appends = ['status_caption'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class);
+    }
+
     public function paymentable()
     {
         return $this->morphTo();
+    }
+
+    public function getStatusCaptionAttribute()
+    {
+        if ($this->status == 0) return 'ناموفق';
+        if ($this->status == 1) return 'موفق';
+        if ($this->status == 2) return 'مرجوع';
     }
 
     public function getStatusLabelAttribute(): string
@@ -65,16 +78,6 @@ class Payment extends Model
             "آفلاین پرداخت شده است"
             :
             "آنلاین پرداخت شده است";
-    }
-
-    public function getOriginalAmountAttribute()
-    {
-        return number_format($this->amount) . " ریال ";
-    }
-
-    public function getAmountAsToomanAttribute()
-    {
-        return number_format($this->amount / 10) . " تومان ";
     }
 
 
