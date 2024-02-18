@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Category\Models\ProductCategory;
+use Modules\Discount\Models\AmazingDiscount;
+use Modules\Discount\Models\CommonDiscount;
+use Modules\Discount\Models\CouponDiscount;
+use Modules\Discount\Models\Discount;
 use Modules\File\Models\File;
 use Modules\File\Services\Uploader\StorageManager;
 use Modules\Vendor\Models\Vendor;
@@ -66,6 +70,19 @@ class Product extends Model
     {
         return $this->belongsToMany(Vendor::class);
     }
+
+//    public function couponDicounts()
+//    {
+//        return $this->belongsToMany(CouponDiscount::class);
+//    }
+//    public function commonDicounts()
+//    {
+//        return $this->belongsToMany(CommonDiscount::class);
+//    }
+//    public function amazingDicounts()
+//    {
+//        return $this->belongsToMany(AmazingDiscount::class);
+//    }
 
 //
 //    public function colors()
