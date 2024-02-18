@@ -67,11 +67,10 @@ class Product extends Model
         return $this->belongsToMany(Vendor::class);
     }
 
-//
-//    public function colors()
-//    {
-//        return $this->hasMany(ProductColor::class);
-//    }
+    public function colors()
+    {
+        return $this->hasMany(ProductColor::class);
+    }
 //
 //    public function guarantees()
 //    {

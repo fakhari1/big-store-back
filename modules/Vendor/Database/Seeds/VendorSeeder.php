@@ -17,6 +17,20 @@ class VendorSeeder extends Seeder
     {
         $defaultVendors = [
             [
+                'type' => Vendor::TYPE_JURIDICAL,
+                'juridical_name' => 'شرکت آسان فروش ایرانیان',
+                'juridical_type' => Vendor::TYPE_JURIDICAL_PRIVATE_STOCK,
+                'shop_name' => 'فروشگاه اینترنتی بزرگ',
+                'economic_code' => null,
+                'national_code' => '1234567891011121314',
+                'card_number' => null,
+                'shaba_number' => '135791357913579135791357',
+                'phone' => '03142362609',
+                'mobile' => '',
+                'address_id' => 1,
+                'avatar_id' => 1,
+                'signatory' => null,
+            ],[
                 'type' => Vendor::TYPE_PERSONAL,
                 'juridical_name' => null,
                 'juridical_type' => null,

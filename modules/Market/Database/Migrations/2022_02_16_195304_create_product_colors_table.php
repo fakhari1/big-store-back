@@ -14,8 +14,8 @@ return new class extends Migration {
     {
         Schema::create('product_colors', function (Blueprint $table) {
             $table->id();
-            $table->string('color_name');
-            $table->string('color_code')->unique();
+            $table->string('name');
+            $table->string('code')->unique()->nullable();
             $table->unsignedBigInteger('product_id');
             $table->decimal('price_increase', 20, 3)->default(0);
             $table->tinyInteger('status')->default(0);
