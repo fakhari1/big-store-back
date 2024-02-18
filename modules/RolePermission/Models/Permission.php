@@ -8,135 +8,132 @@ use Spatie\Permission\Models\Permission as SpatiePermission;
 
 class Permission extends SpatiePermission
 {
+    const PERMISSION_MANAGE_ROLE_PERMISSIONS = 'مدیریت نقش کاربری و مجوز ها';
 
-    protected $appends = ['model', 'action'];
-
-    const PERMISSION_MANAGE_ROLE_PERMISSIONS = 'manage role permissions';
-
-    const PERMISSION_VIEW_ROLE_PERMISSIONS = 'view role permissions';
+    const PERMISSION_VIEW_ROLE_PERMISSIONS = 'مشاهده نقش کاربری و مجوز ها';
 
 
     /** @model User */
-    const PERMISSION_MANAGE_MANAGERS = 'manage managers';
-    const PERMISSION_VIEW_MANAGERS = 'view managers';
-    const PERMISSION_MANAGE_VENDORS = 'manage vendors';
-    const PERMISSION_VIEW_VENDORS = 'view vendors';
-    const PERMISSION_MANAGE_CUSTOMERS = 'manage customers';
-    const PERMISSION_VIEW_CUSTOMERS = 'view customers';
-    const PERMISSION_VIEW_OWN_CUSTOMERS = 'view own customers';
+    const PERMISSION_MANAGE_MANAGERS = 'مدیریت مدیران';
+    const PERMISSION_VIEW_MANAGERS = 'مشاهده مدیران';
+    const PERMISSION_MANAGE_VENDORS = 'مدیریت فروشندگان';
+    const PERMISSION_VIEW_VENDORS = 'مشاهده فروشندگان';
+    const PERMISSION_MANAGE_CUSTOMERS = 'مدیریت مشتریان';
+    const PERMISSION_VIEW_CUSTOMERS = 'مشاهده مشتریان';
+    const PERMISSION_VIEW_OWN_CUSTOMERS = 'مشاهده مشتریان خود';
     //Manage
-    const PERMISSION_MANAGE_OWN_PROFILE = 'view manage own profile';
+    const PERMISSION_MANAGE_OWN_PROFILE = 'مدیریت پروفایل خود';
 
     /** @model Discount */
-    const PERMISSION_MANAGE_DISCOUNTS = 'manage discounts';
-    const PERMISSION_VIEW_DISCOUNTS = 'view discounts';
-    const PERMISSION_MANAGE_OWN_DISCOUNTS = 'manage own discounts';
-    const PERMISSION_VIEW_OWN_DISCOUNTS = 'view own discounts';
+    const PERMISSION_MANAGE_DISCOUNTS = 'مدیریت تخفیف ها';
+    const PERMISSION_VIEW_DISCOUNTS = 'مشاهده تخفیف ها';
+    const PERMISSION_MANAGE_OWN_DISCOUNTS = 'مدیریت تخفیف های خود';
+    const PERMISSION_VIEW_OWN_DISCOUNTS = 'مشاهده تخفیف های خود';
 
 
     /** @model Category */
-    const PERMISSION_MANAGE_PRODUCT_CATEGORIES = 'manage product categories';
-    const PERMISSION_VIEW_PRODUCT_CATEGORIES = 'view product categories';
+    const PERMISSION_MANAGE_PRODUCT_CATEGORIES = 'مدیریت دسته بندی محصول';
+    const PERMISSION_VIEW_PRODUCT_CATEGORIES = 'مشاهده دسته بندی محصول';
 
-    const PERMISSION_MANAGE_POST_CATEGORIES = 'manage post categories';
-    const PERMISSION_VIEW_POST_CATEGORIES = 'manage post categories';
+    const PERMISSION_MANAGE_POST_CATEGORIES = 'مدیریت دسته بندی محتوا';
+    const PERMISSION_VIEW_POST_CATEGORIES = 'مدیریت دسته بندی محتوا';
 
 
     /** @model Banner */
-    const PERMISSION_MANAGE_BANNERS = 'manage banners';
-    const PERMISSION_VIEW_BANNERS = 'view banners';
+    const PERMISSION_MANAGE_BANNERS = 'مدیریت بنرها';
+    const PERMISSION_VIEW_BANNERS = 'مشاهده بنرها';
 
     /** @model Comment */
-    const PERMISSION_MANAGE_COMMENTS = 'manage comments';
-    const PERMISSION_VIEW_COMMENTS = 'view comments';
-    const PERMISSION_MANAGE_OWN_COMMENTS = 'manage own comments';
-    const PERMISSION_VIEW_OWN_COMMENTS = 'view own comments';
+    const PERMISSION_MANAGE_COMMENTS = 'مدیریت نظرات';
+    const PERMISSION_VIEW_COMMENTS = 'مشاهده نظرات';
+    const PERMISSION_MANAGE_OWN_COMMENTS = 'مدیریت نظرات خود';
+    const PERMISSION_VIEW_OWN_COMMENTS = 'مشاهده نظرات خود';
 
     /** @model Faq */
-    const PERMISSION_MANAGE_FAQS = 'manage faqs';
-    const PERMISSION_VIEW_FAQS = 'view faqs';
+    const PERMISSION_MANAGE_FAQS = 'مدیریت سوالات متداول';
+    const PERMISSION_VIEW_FAQS = 'مشاهده سوالات متداول';
 
     /** @model Menu */
-    const PERMISSION_MANAGE_MENUS = 'manage menus';
-    const PERMISSION_VIEW_MENUS = 'view menus';
+    const PERMISSION_MANAGE_MENUS = 'مدیریت منوها';
+    const PERMISSION_VIEW_MENUS = 'مشاهده منوها';
 
     /** @model Page */
-    const PERMISSION_MANAGE_PAGES = 'manage pages';
-    const PERMISSION_VIEW_PAGES = 'view pages';
+    const PERMISSION_MANAGE_PAGES = 'مدیریت صفحات';
+    const PERMISSION_VIEW_PAGES = 'مشاهده صفحات';
 
     /** @model Post */
-    const PERMISSION_MANAGE_POSTS = 'manage posts';
-    const PERMISSION_VIEW_POSTS = 'view posts';
+    const PERMISSION_MANAGE_POSTS = 'مدیریت مقالات';
+    const PERMISSION_VIEW_POSTS = 'مشاهده مقالات';
 
 
     /** @module Feature */
-    const PERMISSION_MANAGE_FEATURES = 'manage features';
-    const PERMISSION_VIEW_FEATURES = 'view features';
+    const PERMISSION_MANAGE_FEATURES = 'مدیریت ویژگی های فروشگاه';
+    const PERMISSION_VIEW_FEATURES = 'مشاهده ویژگی های فروشگاه';
 
 
     /** @model Brand */
-    const PERMISSION_MANAGE_BRANDS = 'manage brands';
-    const PERMISSION_VIEW_BRANDS = 'view brands';
+    const PERMISSION_MANAGE_BRANDS = 'مدیریت برندها';
+    const PERMISSION_VIEW_BRANDS = 'مشاهده برندها';
 
     /** @model DeliveryMethod */
-    const PERMISSION_MANAGE_DELIVERY_METHODS = 'manage delivery methods';
-    const PERMISSION_VIEW_DELIVERY_METHODS = 'view delivery methods';
+    const PERMISSION_MANAGE_DELIVERY_METHODS = 'مدیریت روش های ارسال';
+    const PERMISSION_VIEW_DELIVERY_METHODS = 'مشاهده روش های ارسال';
 
-    const PERMISSION_MANAGE_OWN_DELIVERY_METHODS = 'manage own delivery methods';
-    const PERMISSION_VIEW_OWN_DELIVERY_METHODS = 'view own delivery methods';
+    const PERMISSION_MANAGE_OWN_DELIVERY_METHODS = 'مدیریت روش های ارسال خود';
+    const PERMISSION_VIEW_OWN_DELIVERY_METHODS = 'مشاهده روش های ارسال خود';
 
     /** @model Guaranty */
-    const PERMISSION_MANAGE_GUARANTIES = 'manage guaranties';
-    const PERMISSION_VIEW_GUARANTIES = 'view guaranties';
+    const PERMISSION_MANAGE_GUARANTIES = 'مدیریت گارانتی ها';
+    const PERMISSION_VIEW_GUARANTIES = 'مشاهده گارانتی ها';
 
-    const PERMISSION_MANAGE_OWN_GUARANTIES = 'manage own guaranties';
-    const PERMISSION_VIEW_OWN_GUARANTIES = 'view own guaranties';
+    const PERMISSION_MANAGE_OWN_GUARANTIES = 'مدیریت گارانتی های خود';
+    const PERMISSION_VIEW_OWN_GUARANTIES = 'مشاهده گارانتی های خود';
 
 
     /** @model Order */
-    const PERMISSION_MANAGE_ORDERS = 'manage orders';
-    const PERMISSION_VIEW_ORDERS = 'view orders';
+    const PERMISSION_MANAGE_ORDERS = 'مدیریت سفارشات';
+    const PERMISSION_VIEW_ORDERS = 'مشاهده سفارشات';
 
-    const PERMISSION_MANAGE_OWN_ORDERS = 'manage own orders';
-    const PERMISSION_VIEW_OWN_ORDERS = 'view own orders';
+    const PERMISSION_MANAGE_OWN_ORDERS = 'مدیریت سفارشات خود';
+    const PERMISSION_VIEW_OWN_ORDERS = 'مشاهده سفارشات خود';
 
     /** @model Product */
-    const PERMISSION_MANAGE_PRODUCTS = 'manage products';
-    const PERMISSION_VIEW_PRODUCTS = 'view products';
+    const PERMISSION_MANAGE_PRODUCTS = 'مدیریت محصولات';
+    const PERMISSION_VIEW_PRODUCTS = 'مشاهده محصولات';
 
-    const PERMISSION_MANAGE_OWN_PRODUCTS = 'manage own products';
-    const PERMISSION_VIEW_OWN_PRODUCTS = 'view own products';
+    const PERMISSION_MANAGE_OWN_PRODUCTS = 'مدیریت محصولات خود';
+    const PERMISSION_VIEW_OWN_PRODUCTS = 'مشاهده محصولات خود';
 
     /** @model Notification */
-    const PERMISSION_MANAGE_NOTIFICATIONS = 'manage notifications';
-    const PERMISSION_VIEW_NOTIFICATIONS = 'view notifications';
+    const PERMISSION_MANAGE_NOTIFICATIONS = 'مدیریت اطلاع رسانی ها';
+    const PERMISSION_VIEW_NOTIFICATIONS = 'مشاهده اطلاع رسانی ها';
 
     /** @model Post */
-    const PERMISSION_MANAGE_PAYMENTS = 'manage payments';
-    const PERMISSION_VIEW_PAYMENTS = 'view payments';
+    const PERMISSION_MANAGE_PAYMENTS = 'مدیریت پرداخت ها';
+    const PERMISSION_VIEW_PAYMENTS = 'مشاهده پرداخت ها';
 
-    const PERMISSION_MANAGE_OWN_PAYMENTS = 'manage own payments';
-    const PERMISSION_VIEW_OWN_PAYMENTS = 'view own payments';
+    const PERMISSION_MANAGE_OWN_PAYMENTS = 'مدیریت پرداخت های خود';
+    const PERMISSION_VIEW_OWN_PAYMENTS = 'مشاهده پرداخت های خود';
 
     /** @model Post */
-    const PERMISSION_MANAGE_SETTINGS = 'manage settings';
-    const PERMISSION_VIEW_SETTINGS = 'view settings';
+    const PERMISSION_MANAGE_SETTINGS = 'مدیریت تنظیمات';
+    const PERMISSION_VIEW_SETTINGS = 'مشاهده تنظیمات';
 
     /** @model Ticket */
-    const PERMISSION_MANAGE_TICKETS = 'manage tickets';
-    const PERMISSION_VIEW_TICKETS = 'view tickets';
+    const PERMISSION_MANAGE_TICKETS = 'مدیریت تیکت ها';
+    const PERMISSION_VIEW_TICKETS = 'مشاهده تیکت ها';
 
-    const PERMISSION_MANAGE_OWN_TICKETS = 'manage own tickets';
-    const PERMISSION_VIEW_OWN_TICKETS = 'view own tickets';
+    const PERMISSION_MANAGE_OWN_TICKETS = 'مدیریت تیکت های خود';
+    const PERMISSION_VIEW_OWN_TICKETS = 'مشاهده تیکت های خود';
 
 
     /** @model Invoice */
-    const PERMISSION_MANAGE_INVOICES = 'manage invoices';
+    const PERMISSION_MANAGE_INVOICES = 'مدیریت فاکتورها';
 
-    const PERMISSION_VIEW_INVOICES = 'view invoices';
+    const PERMISSION_VIEW_INVOICES = 'مشاهده فاکتورها';
 
-    const PERMISSION_MANAGE_OWN_INVOICES = 'manage own invoices';
-    const PERMISSION_VIEW_OWN_INVOICES = 'view own invoices';
+    const PERMISSION_MANAGE_OWN_INVOICES = 'مدیریت فاکتورهای خود';
+    const PERMISSION_VIEW_OWN_INVOICES = 'مشاهده فاکتورهای خود';
 
     /** model permission */
     public static array $permissions = [
@@ -236,35 +233,6 @@ class Permission extends SpatiePermission
         self::PERMISSION_VIEW_SETTINGS,
 
     ];
-
-    const PERMISSION_SUPER_ADMIN = 'super admin';
-    const PERMISSION_MANAGER = 'manager';
-
-    public static function getPermissionsByModels()
-    {
-        $permissions = [];
-        foreach (self::$permissions as $permission) {
-            $arrayOfWords = explode(' ', $permission);
-            $lastWordOfString = array_pop($arrayOfWords);
-            $permissions[Str::singular($lastWordOfString)] =
-                implode(' ', $arrayOfWords);
-        }
-
-        return $permissions;
-    }
-
-    public function getModelAttribute()
-    {
-        $arrayOfWords = explode(' ', $this->name);
-
-        return Str::singular(last($arrayOfWords));
-    }
-
-    public function getActionAttribute()
-    {
-        $arrayOfWords = explode(' ', $this->name);
-        array_pop($arrayOfWords);
-
-        return implode(' ', $arrayOfWords);
-    }
+    const PERMISSION_SUPER_ADMIN = 'مدیریت کل فروشگاه';
+    const PERMISSION_MANAGER = 'مدیر';
 }

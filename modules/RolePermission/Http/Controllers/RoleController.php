@@ -3,27 +3,46 @@
 namespace Modules\RolePermission\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Modules\Common\Utils\Responder;
+use Modules\RolePermission\Http\Requests\RolePermissionRequest;
+use Modules\RolePermission\Models\Permission;
+use Modules\RolePermission\Models\Role;
 
 class RoleController extends Controller
 {
 
     public function index()
     {
+        $roles = Role::with('permissions')->get();
+
+        return Responder::response([
+            'roles' => $roles
+        ]);
+    }
+
+    public function show(Role $role)
+    {
+        return Responder::response([
+            'role' => $role->load('permissions'),
+            'permissions' => Permission::all(),
+        ]);
+    }
+
+    public function store()
+    {
 
     }
 
-    public function create() {
+    public function update(RolePermissionRequest $request, Role $role)
+    {
+        $role->update(['name' => $request->name]);
 
-    }
+        $role->syncPermissions($request->permissions);
 
-    public function store() {
-
-    }
-
-    public function update(Role $role) {
-
+        return Responder::response([
+            'status' => true,
+            'message' => 'اطلاعات با موفقیت ذخیره شد'
+        ]);
     }
 
     public function destroy(Role $role)

@@ -2,6 +2,7 @@
 
 namespace Modules\Market\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -9,7 +10,11 @@ class ProductProperty extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['product_id', 'property', 'value'];
+    protected $guarded = [];
+
+    protected $casts = [
+        'key_value' => 'array'
+    ];
 
     public function product()
     {

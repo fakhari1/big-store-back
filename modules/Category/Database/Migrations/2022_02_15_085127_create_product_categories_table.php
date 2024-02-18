@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->tinyInteger('status')->default(0);
             $table->boolean('show_in_menu')->default(false);
             $table->text('tags');
-            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->unsignedBigInteger('parent_id')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

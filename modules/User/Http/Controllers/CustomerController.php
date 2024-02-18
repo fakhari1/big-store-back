@@ -23,6 +23,12 @@ class CustomerController extends Controller
         return view('admin.users.customer.create');
     }
 
+    public function show(User $customer) {
+        return Responder::response([
+            'customer' => $customer
+        ]);
+    }
+
     public function store(Request $request, ImageService $imageService)
     {
         $inputs = $request->all();

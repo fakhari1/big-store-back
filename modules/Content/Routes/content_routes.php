@@ -2,9 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Content\Http\Controllers\CommentController;
-use Modules\Content\Http\Controllers\PostCategoryController;
 use Modules\Content\Http\Controllers\FaqController;
-use Modules\Content\Http\Controllers\MenuController;
 use Modules\Content\Http\Controllers\PageController;
 use Modules\Content\Http\Controllers\BannerController;
 use Modules\Content\Http\Controllers\PostController;

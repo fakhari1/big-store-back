@@ -7,13 +7,12 @@ use Spatie\Permission\Models\Role as SpatieRole;
 
 class Role extends SpatieRole
 {
-    const ROLE_SUPER_ADMIN = 'super admin';
-
-    const ROLE_CUSTOMER = 'customer';
-
-    const ROLE_VENDOR = 'vendor';
-
-    const ROLE_MANAGER = 'manager';
+    const ROLE_SUPER_ADMIN = 'مدیریت کل فروشگاه';
+    const ROLE_CUSTOMER = 'مشتری';
+    const ROLE_VENDOR = 'فروشنده';
+    const ROLE_MANAGER = 'مدیر';
+    const ROLE_OBSERVER = 'ناظر';
+    const ROLE_WRITER = 'نویسنده';
 
     public static $roles = [
 
@@ -262,12 +261,8 @@ class Role extends SpatieRole
             Permission::PERMISSION_VIEW_OWN_ORDERS,
         ],
 
+        self::ROLE_WRITER => [],
+
     ];
 
-    public function getNameAttribute()
-    {
-        return Attribute::make(function () {
-            return trans($this->name);
-        });
-    }
 }

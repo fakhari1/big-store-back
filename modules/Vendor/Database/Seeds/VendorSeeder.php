@@ -106,7 +106,7 @@ class VendorSeeder extends Seeder
         ];
 
         foreach ($defaultVendors as $vendor) {
-            Vendor::create($vendor);
+            Vendor::create($vendor)->products()->sync([1, 2, 3, 4]);
         }
 
     }

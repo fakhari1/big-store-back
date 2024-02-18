@@ -8,7 +8,6 @@ use App\Models\Admin\Ticket\Ticket;
 class TicketController extends Controller
 {
 
-
     public function getNewTickets()
     {
 

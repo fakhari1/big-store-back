@@ -24,8 +24,8 @@ class DeliveryMethodController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'amount' => 'nullable|numeric',
-            'delivery_time' => 'nullable|integer',
-            'delivery_time_unit' => 'nullable|string',
+            'delivery_time' => 'nullable',
+            'delivery_time_unit' => 'nullable',
             'status' => 'integer',
         ]);
 
@@ -34,6 +34,7 @@ class DeliveryMethodController extends Controller
         }
 
         DeliveryMethod::create($request->all());
+
         return Responder::response([
             'message' => 'روش های ارسال با موفقیت ایجاد شد'
         ], 201);
