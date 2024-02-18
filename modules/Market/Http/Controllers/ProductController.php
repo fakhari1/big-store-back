@@ -61,7 +61,7 @@ class ProductController extends Controller
                 'brand_id' => $request->brand_id,
                 'product_category_id' => $request->product_category_id,
                 'published_at' => Carbon::parse($request->published_at)->format('Y-m-d H:i:s'),
-
+                'properties' => $properties
             ];
 
             if ($request->hasFile('file')) {
@@ -69,15 +69,7 @@ class ProductController extends Controller
                 $inputs['image_id'] = $file->id;
             }
 
-            $product = Product::create($inputs);
-
-            foreach($properties as $property) {
-                ProductProperty::create([
-                    'product_id' => $product->id,
-                    'key_value' => $property
-                ]);
-            }
-
+            Product::create($inputs);
         });
 
         return Responder::response([
@@ -88,7 +80,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         return Responder::response([
-            'product' => $product->load('properties'),
+            'product' => $product,
         ]);
     }
 
@@ -106,53 +98,52 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product, Uploader $uploader)
     {
-        $realTimestampStart = substr($request->published_at, 0, 10);
+        $properties = [];
+        $keyValues = explode(',', $request->key_values);
 
-        $inputs = [
-            'title' => $request->title,
-            'english_name' => $request->english_name,
-            'persian_name' => $request->persian_name,
-            'introduction' => $request->description ?? 'test',
-            'weight' => $request->weight,
-            'length' => $request->length,
-            'width' => $request->width,
-            'height' => $request->height,
-            'price' => $request->price,
-            'status' => $request->status,
-            'marketable' => $request->marketable,
-            'tags' => $request->tags,
-            'marketable_number' => $request->marketable_number,
-            'brand_id' => $request->brand_id,
-            'product_category_id' => $request->product_category_id,
-            'vendor_id' => $request->vendor_id,
-            'published_at' => date("Y-m-d H:i:s", (int)$realTimestampStart)
-        ];
-
-        if ($request->hasFile('file')) {
-            $file = $uploader->upload($request->file('file'), 'products');
-            $inputs['image_id'] = $file->id;
+        foreach($keyValues as $key => $key_value) {
+            array_push($properties, explode(':', $key_value));
         }
 
-        $productProperties = [];
-        if (!is_null($request->keys) && !is_null($request->values)) {
-            $productProperties = array_combine(array_filter($request->keys), array_filter($request->values));
-        }
+        DB::transaction(function () use ($request, $uploader, $properties, $product) {
+            $inputs = [
+                'english_name' => $request->english_name,
+                'persian_name' => $request->persian_name,
+                'introduction' => $request->introduction,
+                'text' => $request->text,
+                'weight' => $request->weight,
+                'length' => $request->length,
+                'width' => $request->width,
+                'height' => $request->height,
+                'price' => $request->price,
+                'status' => $request->status,
+                'is_marketable' => $request->is_marketable,
+                'tags' => $request->tags,
+                'marketable_number' => $request->marketable_number,
+                'brand_id' => $request->brand_id,
+                'product_category_id' => $request->product_category_id,
+                'published_at' => Carbon::parse($request->published_at)->format('Y-m-d H:i:s'),
+                'properties' => $properties
 
-        DB::transaction(function () use ($request, $inputs, $productProperties, $product) {
+            ];
+
+            if ($request->hasFile('file')) {
+
+                $product->deleteImage();
+
+                $file = $uploader->upload($request->file('file'), 'products');
+                $inputs['image_id'] = $file->id;
+            }
+
+
+
             $product->update($inputs);
 
-            $product->vendors()->sync(1);
-
-            foreach ($productProperties as $key => $value) {
-                $product->metas()->create([
-                    'meta_key' => $key,
-                    'meta_value' => $value
-                ]);
-            }
         });
+
         return Responder::response([
-            'message' => 'محصول با موفقیت ویرایش شد'
-        ], 200);
+            'message' => 'اطلاعات با موفقیت بروزرسانی شد'
+        ]);
     }
 
     public function destroy(Product $product)

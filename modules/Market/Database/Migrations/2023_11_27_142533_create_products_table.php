@@ -26,6 +26,7 @@ return new class extends Migration {
             $table->tinyInteger('status')->default(0);
             $table->boolean('is_marketable')->default(true);
             $table->string('tags');
+            $table->json('properties')->nullable();
             $table->tinyInteger('sold_number')->default(0);
             $table->tinyInteger('quantity_in_cart')->default(0);
             $table->tinyInteger('marketable_number')->default(0);

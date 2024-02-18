@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Category\Models\ProductCategory;
 use Modules\File\Models\File;
+use Modules\File\Services\Uploader\StorageManager;
 use Modules\Vendor\Models\Vendor;
 
 class Product extends Model
@@ -17,6 +18,10 @@ class Product extends Model
     protected $appends = ['real_price', 'image_path'];
 
     protected $guarded = [];
+
+    protected $casts = [
+        'properties' => 'array'
+    ];
 
     public function sluggable(): array
     {
@@ -105,10 +110,19 @@ class Product extends Model
     {
         return $this->belongsTo(File::class, 'image_id');
     }
-//
-//    public function users() {
-//        return $this->belongsToMany(User::class);
-//    }
+
+    public function deleteImage()
+    {
+        $image = $this->image;
+        if ($image) {
+            $storageManager = new StorageManager();
+
+            $this->image->delete();
+
+            return $storageManager->deleteFile($image->name, $image->path, $image->is_private);
+        } else
+            return true;
+    }
 
     public function getImagePathAttribute()
     {
