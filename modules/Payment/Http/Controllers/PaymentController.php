@@ -23,7 +23,7 @@ class PaymentController extends Controller
 
     public function getOfflinePayments()
     {
-        $payments = OfflinePayment::all();
+        $payments = OfflinePayment::with(['user', 'vendor'])->get();
 
         return Responder::response([
             'payments' => $payments
@@ -32,7 +32,7 @@ class PaymentController extends Controller
 
     public function getOnlinePayments()
     {
-        $payments = OnlinePayment::all();
+        $payments = OnlinePayment::with(['user', 'vendor'])->get();
 
         return Responder::response([
             'payments' => $payments
@@ -41,7 +41,7 @@ class PaymentController extends Controller
 
     public function getCashPayments()
     {
-        $payments = CashPayment::all();
+        $payments = CashPayment::with(['user', 'vendor'])->get();
 
         return Responder::response([
             'payments' => $payments

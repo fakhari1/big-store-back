@@ -1,14 +1,29 @@
 <?php
 
 namespace Modules\Payment\Models;
+
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\User\Models\User;
+use Modules\Vendor\Models\Vendor;
+use Morilog\Jalali\Jalalian;
 
 class OnlinePayment extends Model
 {
     use HasFactory;
 
-    protected $appends = ["bank_label"];
+    protected $appends = ["bank_label", 'jalali_payed_at', 'status_caption'];
+
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function payments()
     {
@@ -35,5 +50,13 @@ class OnlinePayment extends Model
         }
         $tag = "<span class='btn btn-{$label} btn-sm w-50'>{$text}</span>";
         return $tag;
+    }
+
+    public function getStatusCaptionAttribute()
+    {
+        return $this->status == 1 ? 'موفق' : 'نا موفق';
+    }
+    public function getJalaliPayedAtAttribute() {
+        return Jalalian::fromCarbon(Carbon::parse($this->payed_at))->format('Y/m/d H:i');
     }
 }
