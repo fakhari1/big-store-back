@@ -149,9 +149,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         DB::transaction(function () use ($product) {
-            $product->vendors()->detach();
-            $product->meta()->delete();
-
             $product->delete();
         });
 
