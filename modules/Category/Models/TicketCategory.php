@@ -9,4 +9,6 @@ class TicketCategory extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
 }
