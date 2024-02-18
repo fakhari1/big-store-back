@@ -15,6 +15,7 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::get('offline', [PaymentController::class, 'getOfflinePayments']);
                 Route::get('on-delivered', [PaymentController::class, 'getOnDeliveredPayments']);
                 Route::patch('{payment}', [PaymentController::class, 'update']);
+                Route::patch('{payment}/update-status', [PaymentController::class, 'updateStatus']);
 
             });
         });

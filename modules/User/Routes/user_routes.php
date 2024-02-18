@@ -24,6 +24,7 @@ Route::middleware(['api'])->prefix('api')->group(function () {
             Route::prefix('customers')->group(function () {
                 Route::get('/', [CustomerController::class, 'index']);
                 Route::get('create', [CustomerController::class, 'create']);
+                Route::get('{user}', [CustomerController::class, 'show']);
                 Route::post('/', [CustomerController::class, 'store']);
                 Route::patch('{user}', [CustomerController::class, 'update']);
                 Route::delete('{user}', [CustomerController::class, 'destroy']);

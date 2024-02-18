@@ -4,6 +4,7 @@ namespace Modules\User\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\Images\ImageService;
+use Modules\Common\Utils\Responder;
 use Modules\User\Models\User;
 use App\Notifications\NewUserRegistered;
 use Illuminate\Http\Request;
@@ -52,5 +53,12 @@ class CustomerController extends Controller
         $adminUser->notify(new NewUserRegistered($details));
 
         return redirect()->route('admin.users.customer.index')->with(['success_msg' => 'مشتری جدید با موفقیت ثبت شد']);
+    }
+
+    public function show(User $user)
+    {
+        return Responder::response([
+            'user' => $user
+        ]);
     }
 }

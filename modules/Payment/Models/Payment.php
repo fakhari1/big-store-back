@@ -11,7 +11,9 @@ class Payment extends Model
 {
     use HasFactory;
 
-    protected $appends = ["status_label", "online_or_offline_label", "original_amount", "amount_as_tooman"];
+    protected $fillable = ["status_label", "status", "online_or_offline_label", "original_amount", "amount_as_tooman"];
+
+    protected $append = ["status_label", "online_or_offline_label", "original_amount", "amount_as_tooman"];
 
     public function user()
     {
