@@ -71,24 +71,11 @@ class Product extends Model
         return $this->belongsToMany(Vendor::class);
     }
 
-//    public function couponDicounts()
-//    {
-//        return $this->belongsToMany(CouponDiscount::class);
-//    }
-//    public function commonDicounts()
-//    {
-//        return $this->belongsToMany(CommonDiscount::class);
-//    }
-//    public function amazingDicounts()
-//    {
-//        return $this->belongsToMany(AmazingDiscount::class);
-//    }
+    public function colors()
+    {
+        return $this->hasMany(ProductColor::class);
+    }
 
-//
-//    public function colors()
-//    {
-//        return $this->hasMany(ProductColor::class);
-//    }
 //
 //    public function guarantees()
 //    {
