@@ -265,10 +265,4 @@ class Role extends SpatieRole
 
     ];
 
-    public function getNameAttribute()
-    {
-        return Attribute::make(function () {
-            return trans($this->name);
-        });
-    }
 }

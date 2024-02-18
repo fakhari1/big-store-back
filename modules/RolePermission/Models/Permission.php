@@ -8,9 +8,6 @@ use Spatie\Permission\Models\Permission as SpatiePermission;
 
 class Permission extends SpatiePermission
 {
-
-    protected $appends = ['model', 'action'];
-
     const PERMISSION_MANAGE_ROLE_PERMISSIONS = 'مدیریت نقش کاربری و مجوز ها';
 
     const PERMISSION_VIEW_ROLE_PERMISSIONS = 'مشاهده نقش کاربری و مجوز ها';
@@ -236,35 +233,6 @@ class Permission extends SpatiePermission
         self::PERMISSION_VIEW_SETTINGS,
 
     ];
-
     const PERMISSION_SUPER_ADMIN = 'مدیریت کل فروشگاه';
     const PERMISSION_MANAGER = 'مدیر';
-
-    public static function getPermissionsByModels()
-    {
-        $permissions = [];
-        foreach (self::$permissions as $permission) {
-            $arrayOfWords = explode(' ', $permission);
-            $lastWordOfString = array_pop($arrayOfWords);
-            $permissions[Str::singular($lastWordOfString)] =
-                implode(' ', $arrayOfWords);
-        }
-
-        return $permissions;
-    }
-
-    public function getModelAttribute()
-    {
-        $arrayOfWords = explode(' ', $this->name);
-
-        return Str::singular(last($arrayOfWords));
-    }
-
-    public function getActionAttribute()
-    {
-        $arrayOfWords = explode(' ', $this->name);
-        array_pop($arrayOfWords);
-
-        return implode(' ', $arrayOfWords);
-    }
 }
