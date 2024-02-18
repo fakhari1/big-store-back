@@ -84,4 +84,21 @@ class CommonDiscountController extends Controller
             'message' => ' تخفیف عمومی با موفقیت حذف شد'
         ], 200);
     }
+
+    public function updateStatus(Request $request, CommonDiscount $commonDiscount)
+    {
+        try {
+            $commonDiscount->update([
+                'status' => $request->status
+            ]);
+
+            return \App\Utils\Responder::response([
+                'status' => true,
+                'data' => ['status' => $commonDiscount->status],
+                'message' => 'اطلاعات با موفقیت بروزرسانی شد'
+            ]);
+        } catch (\Exception $ex) {
+            return 'خطا در انجام عملیات؛ دوباره تلاش کنید';
+        }
+    }
 }

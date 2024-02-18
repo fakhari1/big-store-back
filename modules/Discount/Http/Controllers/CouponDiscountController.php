@@ -51,7 +51,7 @@ class CouponDiscountController extends Controller
         ], 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, CouponDiscount $couponDiscount)
     {
         $validator = Validator::make($request->all(), [
             'code' => 'string',
@@ -69,7 +69,6 @@ class CouponDiscountController extends Controller
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
-        $couponDiscount = CouponDiscount::findOrFail($id);
         $couponDiscount->update($request->all());
         return Responder::response([
             'message' => 'کوپن با موفقیت ویرایش شد',
@@ -77,12 +76,28 @@ class CouponDiscountController extends Controller
         ], 200);
     }
 
-    public function destroy($id)
+    public function destroy(CouponDiscount $couponDiscount)
     {
-        $couponDiscount = CouponDiscount::findOrFail($id);
         $couponDiscount->delete();
         return Responder::response([
             'message' => 'کوپن با موفقیت حذف شد',
         ], 200);
+    }
+
+    public function updateStatus(Request $request, CouponDiscount $couponDiscount)
+    {
+        try {
+            $couponDiscount->update([
+                'status' => $request->status
+            ]);
+
+            return \App\Utils\Responder::response([
+                'status' => true,
+                'data' => ['status' => $couponDiscount->status],
+                'message' => 'اطلاعات با موفقیت بروزرسانی شد'
+            ]);
+        } catch (\Exception $ex) {
+            return 'خطا در انجام عملیات؛ دوباره تلاش کنید';
+        }
     }
 }

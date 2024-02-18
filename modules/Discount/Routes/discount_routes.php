@@ -18,6 +18,7 @@ Route::middleware('api')->prefix('api')->group(function () {
                     Route::post('/', [AmazingDiscountController::class, 'store']);
                     Route::get('{amazing_discount}', [AmazingDiscountController::class, 'show']);
                     Route::patch('{amazing_discount}', [AmazingDiscountController::class, 'update']);
+                    Route::patch('{amazing_discount}/update-status', [AmazingDiscountController::class, 'updateStatus']);
                     Route::delete('{amazing_discount}', [AmazingDiscountController::class, 'destroy']);
                 });
 
@@ -26,6 +27,7 @@ Route::middleware('api')->prefix('api')->group(function () {
                     Route::post('/', [CouponDiscountController::class, 'store']);
                     Route::get('{coupon_discount}', [CouponDiscountController::class, 'show']);
                     Route::patch('{coupon_discount}', [CouponDiscountController::class, 'update']);
+                    Route::patch('{coupon_discount}/update-status', [CouponDiscountController::class, 'updateStatus']);
                     Route::delete('{coupon_discount}', [CouponDiscountController::class, 'destroy']);
                 });
 
@@ -34,6 +36,7 @@ Route::middleware('api')->prefix('api')->group(function () {
                     Route::post('/', [CommonDiscountController::class, 'store']);
                     Route::get('{common_discount}', [CommonDiscountController::class, 'show']);
                     Route::patch('{common_discount}', [CommonDiscountController::class, 'update']);
+                    Route::patch('{common_discount}/update-status', [CommonDiscountController::class, 'updateStatus']);
                     Route::delete('{common_discount}', [CommonDiscountController::class, 'destroy']);
                 });
             });
