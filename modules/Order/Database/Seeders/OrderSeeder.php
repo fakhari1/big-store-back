@@ -49,6 +49,28 @@ class OrderSeeder extends Seeder
             ],
         ];
 
+        $order_items = [
+            [
+                'order_id' => 1,
+                'product_id' => 1,
+                'count' => '5',
+                'final_product_price' => '25000000',
+                'final_total_price' => '25000000',
+                'product_color_id' => '1',
+                'guaranty_id' => '1',
+            ],
+            [
+                'order_id' => 1,
+                'product_id' => 2,
+                'count' => '1',
+                'final_product_price' => '8000000',
+                'final_total_price' => '8000000',
+                'product_color_id' => '1',
+                'guaranty_id' => '1',
+            ],
+        ];
+
         DB::table('orders')->insert($orders);
+        DB::table('order_items')->insert($order_items);
     }
 }

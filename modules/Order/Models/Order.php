@@ -57,10 +57,12 @@ class Order extends Model
         'status_caption',
         'delivery_status_caption',
     ];
-//    public function orderItems()
-//    {
-//        return $this->hasMany(OrderItem::class);
-//    }
+
+    public function order_items()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
 //
 //    public function getOrderStatusLabelAttribute()
 //    {
