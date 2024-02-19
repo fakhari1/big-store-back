@@ -29,6 +29,25 @@ class OrderController extends Controller
         ]);
     }
 
+
+    public function show(Order $order)
+    {
+        return Responder::response([
+            'order' => $order->load([
+                'order_items',
+                'order_items.amazing_discount',
+                'order_items.product',
+                'vendor',
+                'user',
+                'address',
+                'payment',
+                'delivery_method',
+                'coupon_discount',
+                'common_discount',
+            ]),
+        ]);
+    }
+
     public function create()
     {
         $order = Order::all();

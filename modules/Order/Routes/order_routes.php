@@ -11,6 +11,7 @@ Route::middleware(['api'])->prefix('api')->group(function () {
             Route::get('/', [OrderController::class, 'index']);
             Route::get('create', [OrderController::class, 'create']);
             Route::post('/', [OrderController::class, 'store']);
+            Route::get('{order}/details', [OrderController::class, 'show']);
             Route::patch('{order}/update-status', [OrderController::class, 'updateStatus']);
             Route::patch('{order}/update-sending-status', [OrderController::class, 'updateSendingStatus']);
             Route::get('sending', [OrderController::class, 'sendingOrders']);
