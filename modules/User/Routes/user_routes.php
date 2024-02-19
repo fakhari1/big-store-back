@@ -33,17 +33,9 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::delete('{customer}', [CustomerController::class, 'destroy']);
             });
 
-//
-//            Route::prefix('vendors')->group(function () {
-//                Route::get('/', [VendorController::class, 'index']);
-//                Route::get('create', [VendorController::class, 'create']);
-//                Route::post('/', [VendorController::class, 'store']);
-//                Route::get('{vendor}', [VendorController::class, 'show']);
-//                Route::patch('{vendor}', [VendorController::class, 'update']);
-//                Route::delete('{vendor}', [VendorController::class, 'destroy']);
-//            });
-
-
+        });
+    });
+    //payment
     Route::prefix('user')->group(function () {
         //payment
         Route::prefix('payments')->group(function () {
