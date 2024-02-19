@@ -9,13 +9,7 @@ class DeliveryMethod extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        "name",
-        "amount",
-        "delivery_time",
-        "delivery_time_unit",
-        "status"
-    ];
+    protected $guarded = [];
 
     const UNIT_WEEKLY = 'هفته';
 
@@ -28,5 +22,6 @@ class DeliveryMethod extends Model
         self::UNIT_DAILY,
         self::UNIT_HOURLY,
     ];
+
 
 }
