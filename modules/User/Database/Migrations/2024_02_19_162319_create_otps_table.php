@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('token');
             $table->unsignedBigInteger('user_id');
             $table->string('otp_code');
-            $table->string('login_identity')->default('mobile');
+            $table->string('login_identity')->default(0);
             $table->boolean('used')->default(false);
             $table->timestamps();
         });

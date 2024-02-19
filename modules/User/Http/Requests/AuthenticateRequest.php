@@ -22,7 +22,7 @@ class AuthenticateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'mobile' => ['required', 'regex:/^[0-9\+]*$/']
+            'mobile' => ['required', 'regex:/^[0-9\+]*$/', 'numeric', 'min:11']
         ];
     }
 }

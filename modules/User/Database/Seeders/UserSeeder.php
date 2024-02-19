@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             [
                 'first_name' => 'حسین',
                 'last_name' => 'فخاری',
-                'mobile' => '9010335657',
+                'mobile' => '9010335658',
                 'activated' => '1',
                 'activated_at' => Carbon::now(),
                 'role' => Role::ROLE_SUPER_ADMIN,
