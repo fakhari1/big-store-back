@@ -7,9 +7,10 @@ use Modules\User\Http\Controllers\VendorController;
 use Modules\User\Http\Controllers\UserController;
 
 Route::middleware(['api'])->prefix('api')->group(function () {
-    Route::prefix('admin')->group(function () {
-        Route::prefix('users')->group(function () {
 
+    Route::prefix('admin')->group(function () {
+
+        Route::prefix('users')->group(function () {
 
             Route::prefix('managers')->group(function () {
                 Route::get('/', [ManagerController::class, 'index']);

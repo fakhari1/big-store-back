@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 use Modules\Common\Utils\Responder;
 use Modules\Discount\Models\CouponDiscount;
 use Illuminate\Support\Facades\Validator;
+use Modules\Discount\Models\Discount;
 
 class CouponDiscountController extends Controller
 {
     public function index()
     {
         $couponDiscounts = CouponDiscount::all();
+
         return Responder::response([
             'coupons' => $couponDiscounts
         ]);
@@ -32,48 +34,41 @@ class CouponDiscountController extends Controller
             'price' => 'nullable|numeric',
             'percentage' => 'nullable|numeric|max:100',
             'discount_ceiling' => 'nullable|numeric',
-            'is_private' => 'boolean',
+            'is_private' => 'required',
             'status' => 'integer',
             'start_date' => 'required|date|before_or_equal:end_date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'user_id' => 'nullable|exists:users,id',
         ]);
 
+        CouponDiscount::create($validator);
+        Discount::create($validator);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
-        }
 
-        $couponDiscount = CouponDiscount::create($request->all());
         return Responder::response([
-            'message' => 'کوپن با موفقیت ایجاد شد',
-            'coupon' => $couponDiscount,
+            'message' => 'اطلاعات با موفقیت ثبت شد',
         ], 201);
     }
 
     public function update(Request $request, CouponDiscount $couponDiscount)
     {
         $validator = Validator::make($request->all(), [
-            'code' => 'string',
-            'price' => 'nullable|numeric',
-            'percentage' => 'nullable|numeric|max:100',
-            'discount_ceiling' => 'nullable|numeric',
-            'is_private' => 'boolean',
-            'status' => 'integer',
-            'start_date' => 'date|before_or_equal:end_date',
-            'end_date' => 'date|after_or_equal:start_date',
-            'user_id' => 'nullable|exists:users,id',
+            'code' => 'required',
+            'price' => 'nullable',
+            'percentage' => 'required',
+            'discount_ceiling' => 'required',
+            'is_private' => 'required',
+            'status' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'user_id' => 'nullable',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
-        }
-
-        $couponDiscount->update($request->all());
+        $couponDiscount->update($validator->attributes());
+        $couponDiscount->discounts()->update($validator->attributes());
         return Responder::response([
-            'message' => 'کوپن با موفقیت ویرایش شد',
-            'coupon' => $couponDiscount,
-        ], 200);
+            'message' => 'اطلاعات با موفقیت بروزرسانی شد',
+        ]);
     }
 
     public function destroy(CouponDiscount $couponDiscount)

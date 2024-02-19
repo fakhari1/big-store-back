@@ -13,23 +13,8 @@ class CouponDiscount extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'code',
-        'price',
-        'percentage',
-        'discount_ceiling',
-        'is_private',
-        'status',
-        'start_date',
-        'end_date',
-        'user_id',
-    ];
+    protected $guarded = [];
 
-    protected $dates = [
-        'start_date',
-        'end_date',
-        'deleted_at',
-    ];
 
     protected $appends = ['jalali_start_date', 'jalali_end_date'];
 
@@ -44,6 +29,11 @@ class CouponDiscount extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function discounts()
+    {
+        return $this->morphMany(Discount::class, 'discountable');
     }
 
 }

@@ -12,8 +12,8 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('brand_vendor', function (Blueprint $table) {
-            $table->unsignedBigInteger('brand_id');
+        Schema::create('discount_vendor', function (Blueprint $table) {
+            $table->unsignedBigInteger('discount_id');
             $table->unsignedBigInteger('vendor_id');
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('brand_vendor');
+        Schema::dropIfExists('discount_vendor');
     }
 };
