@@ -20,11 +20,11 @@ return new class extends Migration
             $table->unsignedBigInteger('payment_id')->nullable();
             $table->unsignedBigInteger('delivery_id')->nullable();
             $table->tinyInteger('delivery_status')->default(0);
-            $table->decimal('final_amount', 20, 3)->nullable();
-            $table->decimal('total_discounts_amount', 20, 3)->nullable();
+            $table->unsignedInteger('final_amount')->nullable();
+            $table->unsignedInteger('total_discounts_amount')->nullable();
             $table->unsignedBigInteger('coupon_id')->nullable();
             $table->unsignedBigInteger('common_id')->nullable();
-            $table->decimal('total_products_discount_amount', 20, 3)->nullable();
+            $table->unsignedInteger('total_products_discount_amount')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
             $table->softDeletes();

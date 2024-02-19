@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('delivery_methods', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->decimal('amount', 20, 3)->nullable();
+            $table->unsignedInteger('amount')->nullable();
             $table->unsignedTinyInteger('delivery_time')->nullable();
             $table->enum('delivery_time_unit', DeliveryMethod::$delivery_time_units)->default(DeliveryMethod::UNIT_WEEKLY);
             $table->tinyInteger('status')->default(1);

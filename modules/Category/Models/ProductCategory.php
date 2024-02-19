@@ -70,11 +70,14 @@ class ProductCategory extends Model
 
     public function deleteImage()
     {
-        $image = $this->image;
-        $storageManager = new StorageManager();
+        if ($this->image) {
+            $image = $this->image;
+            $storageManager = new StorageManager();
 
-        $this->image->delete();
+            $this->image->delete();
 
-        return $storageManager->deleteFile($image->name, $image->path, $image->is_private);
+            return $storageManager->deleteFile($image->name, $image->path, $image->is_private);
+        }
+        return true;
     }
 }

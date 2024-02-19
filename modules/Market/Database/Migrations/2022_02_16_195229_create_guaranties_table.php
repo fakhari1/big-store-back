@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string('title')->unique();
             $table->unsignedBigInteger('product_id');
-            $table->decimal('price_increase', 10, 1)->default(0);
+            $table->unsignedInteger('price_increase')->default(0);
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
             $table->softDeletes();

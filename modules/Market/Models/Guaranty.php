@@ -2,29 +2,24 @@
 
 namespace Modules\Market\Models;
 
-use App\Models\Admin\Market\OrderItem;
-use App\Models\Admin\Market\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Order\Models\OrderItem;
 
 class Guaranty extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'product_id',
-        'price_increase',
-        'status',
-    ];
+    protected $guarded = [];
 
-    public function orderItem()
+
+    public function order_item()
     {
         return $this->hasOne(OrderItem::class);
     }
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Product::class);
     }
 }

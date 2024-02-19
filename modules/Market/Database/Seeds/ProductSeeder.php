@@ -110,6 +110,64 @@ class ProductSeeder extends Seeder
             ],
         ];
 
+        DB::table('guaranties')->insert([
+            [
+                'title' => 'گارانتی سه ماهه',
+                'product_id' => 1,
+                'price_increase' => '100000',
+                'status' => 1,
+            ],
+            [
+                'title' => 'گارانتی شش ماهه',
+                'product_id' => 1,
+                'price_increase' => '0',
+                'status' => 1,
+            ],
+            [
+                'title' => 'گارانتی سام سرویس',
+                'product_id' => 1,
+                'price_increase' => '0',
+                'status' => 1,
+            ],
+            [
+                'title' => 'گارانتی برتر',
+                'product_id' => 1,
+                'price_increase' => '0',
+                'status' => 1,
+            ],
+        ]);
+        DB::table('product_colors')->insert([
+            [
+                'name' => 'سفید',
+                'code' => 'FFFFFF',
+                'product_id' => 1,
+                'price_increase' => '1000000',
+                'status' => 1,
+                'sold_number' => '0',
+                'quantity_in_cart' => '0',
+                'marketable_number' => '10',
+            ],
+            [
+                'name' => 'مشکی',
+                'code' => '000000',
+                'product_id' => 1,
+                'price_increase' => 0,
+                'status' => 1,
+                'sold_number' => '0',
+                'quantity_in_cart' => '0',
+                'marketable_number' => '10',
+            ],
+            [
+                'name' => 'آبی',
+                'code' => '0000FF',
+                'product_id' => 1,
+                'price_increase' => 0,
+                'status' => 1,
+                'sold_number' => '0',
+                'quantity_in_cart' => '0',
+                'marketable_number' => '10',
+            ],
+        ]);
         foreach ($products as $key => $product) {
             Product::create($product);
         }

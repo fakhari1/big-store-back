@@ -16,10 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('amazing_discount_id')->nullable();
-            $table->decimal('amazing_discount_sale_amount', 20, 3)->nullable();
+            $table->unsignedInteger('amazing_discount_sale_amount')->nullable();
             $table->unsignedTinyInteger('count')->default(1);
-            $table->decimal('final_product_price', 20, 3)->nullable();
-            $table->decimal('final_total_price', 20, 3)->nullable();
+            $table->unsignedInteger('final_product_price')->nullable();
+            $table->unsignedInteger('final_total_price')->nullable();
             $table->unsignedBigInteger('product_color_id')->nullable();
             $table->unsignedBigInteger('guaranty_id')->nullable();
             $table->timestamps();

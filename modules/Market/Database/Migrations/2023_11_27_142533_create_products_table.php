@@ -18,10 +18,10 @@ return new class extends Migration {
             $table->text('text');
             $table->string('slug')->unique()->nullable();
             $table->unsignedBigInteger('image_id');
-            $table->decimal('weight', 10, 2);
-            $table->decimal('length', 10, 1);
-            $table->decimal('width', 10, 1);
-            $table->decimal('height', 10, 1);
+            $table->decimal('weight', 10);
+            $table->decimal('length', 10);
+            $table->decimal('width', 10);
+            $table->decimal('height', 10);
             $table->unsignedInteger('price');
             $table->tinyInteger('status')->default(0);
             $table->boolean('is_marketable')->default(true);

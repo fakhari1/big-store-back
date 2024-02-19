@@ -15,7 +15,7 @@ class CreateOnlinePaymentsTable extends Migration
     {
         Schema::create('online_payments', function (Blueprint $table) {
             $table->id();
-            $table->decimal('amount', 20, 3);
+            $table->unsignedInteger('amount', );
             $table->unsignedBigInteger('vendor_id');
             $table->unsignedBigInteger('user_id');
             $table->string('gateway')->nullable();

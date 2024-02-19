@@ -15,7 +15,7 @@ class CreateOfflinePaymentsTable extends Migration
     {
         Schema::create('offline_payments', function (Blueprint $table) {
             $table->id();
-            $table->decimal('amount', 20, 3);
+            $table->unsignedInteger('amount',);
             $table->unsignedBigInteger('vendor_id');
             $table->unsignedBigInteger('user_id');
             $table->string('transaction_id')->nullable();

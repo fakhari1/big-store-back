@@ -76,11 +76,11 @@ class Product extends Model
         return $this->hasMany(ProductColor::class);
     }
 
-//
-//    public function guarantees()
-//    {
-//        return $this->hasMany(Guarantee::class);
-//    }
+
+    public function guaranties()
+    {
+        return $this->hasMany(Guaranty::class);
+    }
 //
 //    public function amazingSales()
 //    {

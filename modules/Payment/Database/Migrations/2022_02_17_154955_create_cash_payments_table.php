@@ -15,7 +15,7 @@ class CreateCashPaymentsTable extends Migration
     {
         Schema::create('cash_payments', function (Blueprint $table) {
             $table->id();
-            $table->decimal('amount', 20, 3);
+            $table->unsignedInteger('amount');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('vendor_id');
             $table->string('cash_receiver')->nullable();

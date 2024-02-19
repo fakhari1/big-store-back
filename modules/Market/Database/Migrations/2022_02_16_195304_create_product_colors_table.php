@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('name');
             $table->string('code')->unique()->nullable();
             $table->unsignedBigInteger('product_id');
-            $table->decimal('price_increase', 20, 3)->default(0);
+            $table->unsignedInteger('price_increase')->default(0);
             $table->tinyInteger('status')->default(0);
             $table->tinyInteger('sold_number')->default(0);
             $table->tinyInteger('quantity_in_cart')->default(0);
