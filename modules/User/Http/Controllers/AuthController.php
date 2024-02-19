@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Modules\Common\Utils\Responder;
 use Modules\User\Http\Requests\AuthenticateRequest;
 use Modules\User\Models\Otp;
 use Modules\User\Models\User;
@@ -60,12 +61,12 @@ class AuthController extends Controller
         Otp::create($otp_inputs);
 
         // send sms
-        $sms_generator = new SimpleSmsGenerator();
-        $sms_generator->setTo($user->mobile)->setText($code)->send();
-
-        $msgService = new MessageService($sms_generator);
-
-        $msgService->send();
+//        $sms_generator = new SimpleSmsGenerator();
+//        $sms_generator->setTo($user->mobile)->setText($code)->send();
+//
+//        $msgService = new MessageService($sms_generator);
+//
+//        $msgService->send();
 
         return redirect()->route('auth.otp.show-confirmation-form', $token);
     }
@@ -101,6 +102,21 @@ class AuthController extends Controller
             $user->update(['mobile_verified_at' => Carbon::now()->toDateTimeString()]);
         }
 
+        $auth_token = $user->createToken($user->mobile)->plainTextToken;
+
         Auth::login($user);
+
+        if ($request->wantsJson()) {
+            return Responder::response([
+                'token' => $auth_token
+            ]);
+        }
+
+        return route('index');
+    }
+
+    public function getAuthUser()
+    {
+        return Auth::user();
     }
 }

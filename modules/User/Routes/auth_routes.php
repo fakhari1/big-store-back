@@ -9,5 +9,8 @@ Route::middleware('web')->group(function () {
 
     Route::get('confirmation/{token}', [AuthController::class, 'showConfirmationCodeForm'])->name('auth.otp.show-confirmation-form');
     Route::post('confirmation', [AuthController::class, 'confirmationCode'])->name('auth.otp.confirmation');
+});
 
+Route::middleware(['api','auth:sanctum'])->group(function () {
+    Route::get('user/auth', [AuthController::class, 'getAuthUser']);
 });
