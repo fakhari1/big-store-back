@@ -48,6 +48,7 @@ Route::middleware(['api'])->prefix('api')->group(function () {
         //payment
         Route::prefix('payments')->group(function () {
             Route::get('online', [UserPaymentController::class, 'getOnlinePayments']);
+            Route::get('{payment}/show', [UserPaymentController::class, 'show']);
         });
     });
 });
