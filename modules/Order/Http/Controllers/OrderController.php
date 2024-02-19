@@ -13,7 +13,16 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::all();
+        $orders = Order::with([
+            'vendor',
+            'user',
+            'address',
+            'payment',
+            'payment.paymentable',
+            'delivery_method',
+            'coupon_discount',
+            'common_discount'
+        ])->get();
 
         return Responder::response([
             'orders' => $orders,
@@ -24,13 +33,6 @@ class OrderController extends Controller
     {
         $order = Order::all();
 
-        return Responder::response([
-            'order' => $order,
-        ]);
-    }
-
-    public function edit(Order $order)
-    {
         return Responder::response([
             'order' => $order,
         ]);
@@ -74,7 +76,7 @@ class OrderController extends Controller
         ], 201);
     }
 
-    public function update(Request $request,Order $order)
+    public function update(Request $request, Order $order)
     {
 
         $validatedData = $request->validate([
@@ -114,6 +116,59 @@ class OrderController extends Controller
         ]);
     }
 
+    public function updateStatus(Order $order)
+    {
+        $status = null;
+
+        if ($order->status == 0) {
+            $status = 1;
+        }
+        if ($order->status == 1) {
+            $status = 2;
+        }
+        if ($order->status == 2) {
+            $status = 0;
+        }
+
+        $order->update(['status' => $status]);
+
+        return Responder::response([
+            'status' => true,
+            'data' => [
+                'status' => $order->status
+            ],
+            'message' => 'اطلاعات با موفقیت بروزرسانی شد'
+        ]);
+    }
+
+    public function updateSendingStatus(Order $order)
+    {
+        $delivery_status = null;
+
+        if ($order->delivery_status == 0) {
+            $delivery_status = 1;
+        }
+        if ($order->delivery_status == 1) {
+            $delivery_status = 2;
+        }
+        if ($order->delivery_status == 2) {
+            $delivery_status = 3;
+        }
+        if ($order->delivery_status == 3) {
+            $delivery_status = 0;
+        }
+
+        $order->update(['delivery_status' => $delivery_status]);
+
+        return Responder::response([
+            'status' => true,
+            'data' => [
+                'delivery_status' => $order->delivery_status
+            ],
+            'message' => 'اطلاعات با موفقیت بروزرسانی شد'
+        ]);
+    }
+
     public function destroy(Order $order)
     {
         $order->vendors()->detach();
@@ -127,7 +182,10 @@ class OrderController extends Controller
 
     public function sendingOrders()
     {
-        $orders = Order::where('delivery_status', '1')->get();
+        $orders = Order::whereHas('delivery_method', function ($query) {
+            return $query->where('status', '=', 2);
+        })->get();
+
         return Responder::response([
             'orders' => $orders,
         ]);

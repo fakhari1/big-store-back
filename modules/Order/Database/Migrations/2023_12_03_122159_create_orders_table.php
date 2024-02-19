@@ -19,6 +19,7 @@ return new class extends Migration
             $table->longText('sent_address')->nullable();
             $table->unsignedBigInteger('payment_id')->nullable();
             $table->unsignedBigInteger('delivery_id')->nullable();
+            $table->tinyInteger('delivery_status')->default(0);
             $table->decimal('final_amount', 20, 3)->nullable();
             $table->decimal('total_discounts_amount', 20, 3)->nullable();
             $table->unsignedBigInteger('coupon_id')->nullable();

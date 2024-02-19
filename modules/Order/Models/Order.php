@@ -18,9 +18,11 @@ class Order extends Model
 
     protected $guarded = [];
 
-    public function order() {
+    public function vendor()
+    {
         return $this->belongsTo(Vendor::class);
     }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -38,22 +40,22 @@ class Order extends Model
 
     public function delivery_method()
     {
-        return $this->belongsTo(DeliveryMethod::class);
+        return $this->belongsTo(DeliveryMethod::class, 'delivery_id');
     }
 
     public function coupon_discount()
     {
-        return $this->belongsTo(CouponDiscount::class);
+        return $this->belongsTo(CouponDiscount::class, 'coupon_id');
     }
 
     public function common_discount()
     {
-        return $this->belongsTo(CommonDiscount::class);
+        return $this->belongsTo(CommonDiscount::class, 'common_id');
     }
 
     protected $appends = [
         'status_caption',
-
+        'delivery_status_caption',
     ];
 //    public function orderItems()
 //    {
@@ -100,6 +102,15 @@ class Order extends Model
         if ($this->status == 0) return 'در انتظار تایید';
         if ($this->status == 1) return 'تایید';
         if ($this->status == 2) return 'عدم تایید';
+    }
+
+    public function getDeliveryStatusCaptionAttribute()
+    {
+        if ($this->delivery_status == 0) return 'عدم ارسال';
+        if ($this->delivery_status == 1) return 'ارسال';
+        if ($this->delivery_status == 2) return 'در حال ارسال';
+        if ($this->delivery_status == 3) return 'تحویل';
+
     }
 
 }
