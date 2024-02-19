@@ -102,21 +102,28 @@ class AuthController extends Controller
             $user->update(['mobile_verified_at' => Carbon::now()->toDateTimeString()]);
         }
 
-        $auth_token = $user->createToken($user->mobile)->plainTextToken;
+//        $auth_token = $user->createToken($user->mobile)->plainTextToken;
 
         Auth::login($user);
 
-        if ($request->wantsJson()) {
-            return Responder::response([
-                'token' => $auth_token
-            ]);
-        }
+//        if ($request->wantsJson()) {
+//            return Responder::response([
+//                'token' => $auth_token
+//            ]);
+//        }
 
-        return route('index');
+        return redirect()->route('index');
     }
 
     public function getAuthUser()
     {
         return Auth::user();
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return route('index');
     }
 }
