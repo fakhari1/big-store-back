@@ -3,10 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use Modules\User\Http\Controllers\ManagerController;
 use Modules\User\Http\Controllers\CustomerController;
+use Modules\User\Http\Controllers\UserOrderController;
 use Modules\User\Http\Controllers\UserPaymentController;
 use Modules\User\Http\Controllers\VendorController;
 use Modules\User\Http\Controllers\UserController;
 use Modules\User\Http\Controllers\AuthController;
+
+
 Route::middleware(['api'])->prefix('api')->group(function () {
 
     Route::prefix('admin')->group(function () {
@@ -42,6 +45,16 @@ Route::middleware(['api'])->prefix('api')->group(function () {
             Route::get('online', [UserPaymentController::class, 'getOnlinePayments']);
             Route::get('{payment}/show', [UserPaymentController::class, 'show']);
         });
+
+        Route::prefix('orders')->group(function () {
+            Route::get('/', [UserOrderController::class, 'index']);
+            Route::get('{order}/details', [UserOrderController::class, 'show']);
+        });
     });
+
+
+
+
+
 });
 
