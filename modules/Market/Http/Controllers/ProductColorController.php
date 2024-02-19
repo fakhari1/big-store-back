@@ -21,7 +21,7 @@ class ProductColorController extends Controller
     {
         $inputs = [
             'name' => $request->name,
-            'code' => $request->code ?? null,
+            'code' => $request->code,
             'price_increase' => $request->price_increase,
             'status' => $request->status,
             'marketable_number' => $request->marketable_number,

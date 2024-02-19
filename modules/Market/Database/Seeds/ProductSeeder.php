@@ -139,7 +139,7 @@ class ProductSeeder extends Seeder
         DB::table('product_colors')->insert([
             [
                 'name' => 'سفید',
-                'code' => 'FFFFFF',
+                'code' => '#FFFFFF',
                 'product_id' => 1,
                 'price_increase' => '1000000',
                 'status' => 1,
@@ -149,7 +149,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'name' => 'مشکی',
-                'code' => '000000',
+                'code' => '#000000',
                 'product_id' => 1,
                 'price_increase' => 0,
                 'status' => 1,
@@ -159,7 +159,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'name' => 'آبی',
-                'code' => '0000FF',
+                'code' => '#0000FF',
                 'product_id' => 1,
                 'price_increase' => 0,
                 'status' => 1,
