@@ -6,7 +6,7 @@ use Modules\User\Http\Controllers\CustomerController;
 use Modules\User\Http\Controllers\UserPaymentController;
 use Modules\User\Http\Controllers\VendorController;
 use Modules\User\Http\Controllers\UserController;
-
+use Modules\User\Http\Controllers\AuthController;
 Route::middleware(['api'])->prefix('api')->group(function () {
 
     Route::prefix('admin')->group(function () {
@@ -33,16 +33,16 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::delete('{customer}', [CustomerController::class, 'destroy']);
             });
 
-            Route::prefix('vendors')->group(function () {
-                Route::get('/', [VendorController::class, 'index']);
-                Route::get('create', [VendorController::class, 'create']);
-                Route::post('/', [VendorController::class, 'store']);
-                Route::get('{vendor}', [VendorController::class, 'show']);
-                Route::patch('{vendor}', [VendorController::class, 'update']);
-                Route::delete('{vendor}', [VendorController::class, 'destroy']);
-            });
-        });
-    });
+//
+//            Route::prefix('vendors')->group(function () {
+//                Route::get('/', [VendorController::class, 'index']);
+//                Route::get('create', [VendorController::class, 'create']);
+//                Route::post('/', [VendorController::class, 'store']);
+//                Route::get('{vendor}', [VendorController::class, 'show']);
+//                Route::patch('{vendor}', [VendorController::class, 'update']);
+//                Route::delete('{vendor}', [VendorController::class, 'destroy']);
+//            });
+
 
     Route::prefix('user')->group(function () {
         //payment
@@ -52,3 +52,4 @@ Route::middleware(['api'])->prefix('api')->group(function () {
         });
     });
 });
+

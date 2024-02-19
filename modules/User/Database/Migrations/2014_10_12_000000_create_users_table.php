@@ -15,11 +15,8 @@ return new class extends Migration {
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('national_code', 10)->unique()->nullable();
-//            $table->string('email')->unique()->nullable();
-//            $table->timestamp('email_verified_at')->nullable();
             $table->string('mobile', 10)->unique();
             $table->timestamp('mobile_verified_at')->nullable();
-//            $table->string('password');
             $table->string('slug')->unique()->nullable()->comment('id => @test');
             $table->unsignedBigInteger('avatar_id')->nullable();
             $table->tinyInteger('activated')->default(0);
