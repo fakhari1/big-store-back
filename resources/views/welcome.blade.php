@@ -832,8 +832,8 @@
 {{--                    <section class="border-start my-2 mx-1"></section>--}}
 {{--                    <section class="navbar-item"><a href="#">سوپرمارکت</a></section>--}}
 {{--                    <section class="navbar-item"><a href="#">تخفیف ها و پیشنهادها</a></section>--}}
-{{--                    <section class="navbar-item"><a href="#">آمازون من</a></section>--}}
-{{--                    <section class="navbar-item"><a href="#">آمازون پلاس</a></section>--}}
+{{--                    <section class="navbar-item"><a href="#">من و تو و ما من</a></section>--}}
+{{--                    <section class="navbar-item"><a href="#">من و تو و ما پلاس</a></section>--}}
 {{--                    <section class="navbar-item"><a href="#">درباره ما</a></section>--}}
 {{--                    <section class="navbar-item"><a href="#">فروشنده شوید</a></section>--}}
 {{--                    <section class="navbar-item"><a href="#">فرصت های شغلی</a></section>--}}
@@ -851,8 +851,8 @@
 
 {{--                        <section class="navbar-item"><a href="#">سوپرمارکت</a></section>--}}
 {{--                        <section class="navbar-item"><a href="#">تخفیف ها و پیشنهادها</a></section>--}}
-{{--                        <section class="navbar-item"><a href="#">آمازون من</a></section>--}}
-{{--                        <section class="navbar-item"><a href="#">آمازون پلاس</a></section>--}}
+{{--                        <section class="navbar-item"><a href="#">من و تو و ما من</a></section>--}}
+{{--                        <section class="navbar-item"><a href="#">من و تو و ما پلاس</a></section>--}}
 {{--                        <section class="navbar-item"><a href="#">درباره ما</a></section>--}}
 {{--                        <section class="navbar-item"><a href="#">فروشنده شوید</a></section>--}}
 {{--                        <section class="navbar-item"><a href="#">فرصت های شغلی</a></section>--}}
@@ -1880,14 +1880,14 @@
 {{--        </section>--}}
 {{--        <section class="row my-5">--}}
 {{--            <section class="col">--}}
-{{--                <section class="fw-bold">شرکت آمازون</section>--}}
-{{--                <section class="text-muted footer-intro">ما همواره تلاش می کنیم بهترین خدمات را به مشتریان آمازون ارائه کنیم. به شما کمک می کنیم بهترین انتخاب را داشته باشید و با اطمینان خاطر خرید را انجام بدهید و در کوتاه ترین زمان ممکن کالای خود را دریافت کنید. همچنین ما 24 ساعته در هفت روز هفته به مشتریان مان خدمات ارائه می دهیم. و 7 روز ضمانت برگشت برای تمامی کالاها داریم.</section>--}}
+{{--                <section class="fw-bold">شرکت من و تو و ما</section>--}}
+{{--                <section class="text-muted footer-intro">ما همواره تلاش می کنیم بهترین خدمات را به مشتریان من و تو و ما ارائه کنیم. به شما کمک می کنیم بهترین انتخاب را داشته باشید و با اطمینان خاطر خرید را انجام بدهید و در کوتاه ترین زمان ممکن کالای خود را دریافت کنید. همچنین ما 24 ساعته در هفت روز هفته به مشتریان مان خدمات ارائه می دهیم. و 7 روز ضمانت برگشت برای تمامی کالاها داریم.</section>--}}
 {{--            </section>--}}
 {{--        </section>--}}
 
 {{--        <section class="row border-top pt-4">--}}
 {{--            <section class="col">--}}
-{{--                <section class="text-muted footer-intro text-center">کلیه حقوق این وبسایت متعلق به شرکت آمازون می باشد.</section>--}}
+{{--                <section class="text-muted footer-intro text-center">کلیه حقوق این وبسایت متعلق به شرکت من و تو و ما می باشد.</section>--}}
 {{--            </section>--}}
 {{--        </section>--}}
 {{--    </section>--}}

@@ -31,18 +31,17 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::patch('{customer}', [CustomerController::class, 'update']);
                 Route::delete('{customer}', [CustomerController::class, 'destroy']);
             });
-
-            Route::prefix('vendors')->group(function () {
-                Route::get('/', [VendorController::class, 'index']);
-                Route::get('create', [VendorController::class, 'create']);
-                Route::post('/', [VendorController::class, 'store']);
-                Route::get('{vendor}', [VendorController::class, 'show']);
-                Route::patch('{vendor}', [VendorController::class, 'update']);
-                Route::delete('{vendor}', [VendorController::class, 'destroy']);
-            });
+//
+//            Route::prefix('vendors')->group(function () {
+//                Route::get('/', [VendorController::class, 'index']);
+//                Route::get('create', [VendorController::class, 'create']);
+//                Route::post('/', [VendorController::class, 'store']);
+//                Route::get('{vendor}', [VendorController::class, 'show']);
+//                Route::patch('{vendor}', [VendorController::class, 'update']);
+//                Route::delete('{vendor}', [VendorController::class, 'destroy']);
+//            });
 
         });
     });
 });
 
-Route::get('auth', [AuthController::class, 'showOtpForm'])->name('auth.otp.show-form');

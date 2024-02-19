@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     @include('Front::asset.styles')
     @yield('styles')
-    <title>فروشگاه آمازون</title>
+    <title>فروشگاه من و تو و ما</title>
 </head>
 <body>
 

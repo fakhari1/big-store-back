@@ -15,6 +15,7 @@ class UserServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadRoutesFrom(__DIR__ . '/../Routes/user_routes.php');
+        $this->loadRoutesFrom(__DIR__ . '/../Routes/auth_routes.php');
 
         DatabaseSeeder::$seeders[1] = UserSeeder::class;
         DatabaseSeeder::$seeders[8] = AddressSeeder::class;
