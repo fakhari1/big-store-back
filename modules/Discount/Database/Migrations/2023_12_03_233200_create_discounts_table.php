@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('discount_id');
-            $table->string('discount_type')->nullable();
+            $table->unsignedBigInteger('discountable_id');
+            $table->string('discountable_type');
+            $table->unsignedTinyInteger('percentage');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->tinyInteger('status')->default(0);
+            $table->timestamp('start_date')->useCurrent();
+            $table->timestamp('end_date')->useCurrent();
             $table->timestamps();
             $table->softDeletes();
         });

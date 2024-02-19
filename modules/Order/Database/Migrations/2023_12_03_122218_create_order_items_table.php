@@ -15,9 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
-            $table->longText('product_full_name');
             $table->unsignedBigInteger('amazing_discount_id')->nullable();
-            $table->longText('amazing_discount_object')->nullable();
             $table->decimal('amazing_discount_sale_amount', 20, 3)->nullable();
             $table->unsignedTinyInteger('count')->default(1);
             $table->decimal('final_product_price', 20, 3)->nullable();

@@ -3,10 +3,9 @@
 namespace Modules\User\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Services\Images\ImageService;
 use Modules\Common\Utils\Responder;
+use Modules\RolePermission\Models\Role;
 use Modules\User\Models\User;
-use App\Notifications\NewUserRegistered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,8 +13,11 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = User::query()->where('user_type', '=', 0)->get();
-        return view('admin.users.customer.index', compact('customers'));
+        $customers = User::role(Role::ROLE_CUSTOMER)->get();
+
+        return Responder::response([
+            'customers' => $customers
+        ]);
     }
 
     public function create()
@@ -61,10 +63,4 @@ class CustomerController extends Controller
         return redirect()->route('admin.users.customer.index')->with(['success_msg' => 'مشتری جدید با موفقیت ثبت شد']);
     }
 
-    public function show(User $user)
-    {
-        return Responder::response([
-            'user' => $user
-        ]);
-    }
 }
