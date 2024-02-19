@@ -1,6 +1,5 @@
 @extends('Front::layouts.master')
 
-
 @section('content')
     <!-- start main one col -->
     <main id="main-body-one-col" class="main-body">

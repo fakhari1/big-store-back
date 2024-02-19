@@ -1,9 +1,8 @@
 <?php
 
-namespace Modules\Front\Http\Controllers;
+namespace Modules\User\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\Market\Models\Product;
 
 class AuthController extends Controller
 {

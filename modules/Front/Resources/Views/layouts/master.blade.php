@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CSS -->
     @include('Front::asset.styles')
-
+    @yield('styles')
     <title>فروشگاه آمازون</title>
 </head>
 <body>
@@ -19,7 +19,6 @@
 
 @yield('content')
 
-
 <!-- start footer -->
 @include('Front::layouts.footer')
 <!-- end footer -->
@@ -27,5 +26,6 @@
 
 
 @include('Front::asset.scripts')
+@yield('scripts')
 </body>
 </html>

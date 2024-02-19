@@ -5,7 +5,7 @@ use Modules\User\Http\Controllers\ManagerController;
 use Modules\User\Http\Controllers\CustomerController;
 use Modules\User\Http\Controllers\VendorController;
 use Modules\User\Http\Controllers\UserController;
-
+use Modules\User\Http\Controllers\AuthController;
 Route::middleware(['api'])->prefix('api')->group(function () {
 
     Route::prefix('admin')->group(function () {
@@ -44,3 +44,5 @@ Route::middleware(['api'])->prefix('api')->group(function () {
         });
     });
 });
+
+Route::get('auth', [AuthController::class, 'showOtpForm'])->name('auth.otp.show-form');
