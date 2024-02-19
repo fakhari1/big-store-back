@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use Modules\Discount\Http\Controllers\AmazingDiscountController;
 use Modules\Discount\Http\Controllers\CouponDiscountController;
 use Modules\Discount\Http\Controllers\CommonDiscountController;
-use Modules\Discount\Http\Controllers\Vendor\VendorCouponDiscountController;
 
 Route::middleware('api')->prefix('api')->group(function () {
 
@@ -38,23 +37,6 @@ Route::middleware('api')->prefix('api')->group(function () {
                 Route::patch('{common_discount}/update-status', [CommonDiscountController::class, 'updateStatus']);
                 Route::delete('{common_discount}', [CommonDiscountController::class, 'destroy']);
             });
-        });
-
-    });
-
-    Route::prefix('vendor')->group(function () {
-
-        Route::prefix('discounts')->group(function () {
-
-            Route::prefix('coupons')->group(function () {
-                Route::get('/', [VendorCouponDiscountController::class, 'index']);
-                Route::post('/', [VendorCouponDiscountController::class, 'store']);
-                Route::get('{coupon_discount}', [VendorCouponDiscountController::class, 'show']);
-                Route::patch('{coupon_discount}', [VendorCouponDiscountController::class, 'update']);
-                Route::patch('{coupon_discount}/update-status', [VendorCouponDiscountController::class, 'updateStatus']);
-                Route::delete('{coupon_discount}', [VendorCouponDiscountController::class, 'destroy']);
-            });
-
         });
 
     });

@@ -5,14 +5,11 @@ use Modules\Market\Http\Controllers\BrandController;
 use Modules\Market\Http\Controllers\DeliveryMethodController;
 use Modules\Market\Http\Controllers\ProductColorController;
 use Modules\Market\Http\Controllers\ProductController;
-use Modules\Market\Http\Controllers\Vendor\VendorProductController;
-
 use Modules\Market\Http\Controllers\ProductGalleryController;
 use Modules\Market\Http\Controllers\ProductGuarantyController;
 use Modules\Market\Http\Controllers\ProductPropertyController;
 use Modules\Market\Http\Controllers\ProductPropertyValueController;
 use Modules\Market\Http\Controllers\WarehouseController;
-use Modules\Order\Http\Controllers\OrderController;
 
 Route::middleware(['api'])->prefix('api')->group(function () {
 
@@ -102,45 +99,6 @@ Route::middleware(['api'])->prefix('api')->group(function () {
 //                Route::post('/', [WarehouseController::class, 'store']);
 //                Route::patch('{warehouse}', [WarehouseController::class, 'update']);
 
-
-            });
-
-        });
-
-    });
-
-    //vendor routes
-    Route::prefix('vendor')->group(function () {
-
-        Route::prefix('market')->group(function () {
-
-            Route::prefix('products')->group(function () {
-                Route::get('/', [VendorProductController::class, 'index']);
-                Route::get('/create', [VendorProductController::class, 'create']);
-                Route::post('/', [VendorProductController::class, 'store']);
-                Route::get('{product}', [VendorProductController::class, 'show']);
-                Route::patch('{product}', [VendorProductController::class, 'update']);
-                Route::delete('{product}', [VendorProductController::class, 'destroy']);
-
-                Route::prefix('{product}')->group(function () {
-                    Route::prefix('images')->group(function () {
-                        Route::get('/', [ProductGalleryController::class, 'index']);
-                        Route::post('/', [ProductGalleryController::class, 'store']);
-                        Route::delete('{image}', [ProductGalleryController::class, 'destroy']);
-                    });
-
-                    Route::prefix('colors')->group(function () {
-                        Route::get('/', [ProductColorController::class, 'index']);
-                        Route::post('/', [ProductColorController::class, 'store']);
-                        Route::delete('{color}', [ProductColorController::class, 'destroy']);
-                    });
-
-                    Route::prefix('guaranties')->group(function () {
-                        Route::get('/', [ProductGuarantyController::class, 'index']);
-                        Route::post('/', [ProductGuarantyController::class, 'store']);
-                        Route::delete('{guaranty}', [ProductGuarantyController::class, 'destroy']);
-                    });
-                });
 
             });
 

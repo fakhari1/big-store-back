@@ -1,14 +1,11 @@
 <?php
 
-namespace Modules\Discount\Http\Controllers\Vendor;
+namespace Modules\Vendor\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Modules\Common\Utils\Responder;
 use Modules\Discount\Models\CouponDiscount;
-
-use Modules\Discount\Models\Discount;
 
 class VendorCouponDiscountController extends Controller
 {

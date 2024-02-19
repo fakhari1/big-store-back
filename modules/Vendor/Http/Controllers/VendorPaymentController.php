@@ -1,14 +1,11 @@
 <?php
 
-namespace Modules\Payment\Http\Controllers;
+namespace Modules\Vendor\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
 use Modules\Common\Utils\Responder;
-use Modules\Market\Models\DeliveryMethod;
-use Modules\Payment\Models\OfflinePayment;
 use Modules\Payment\Models\CashPayment;
+use Modules\Payment\Models\OfflinePayment;
 use Modules\Payment\Models\OnlinePayment;
 use Modules\Payment\Models\Payment;
 

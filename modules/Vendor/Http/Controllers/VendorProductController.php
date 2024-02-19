@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Market\Http\Controllers\Vendor;
+namespace Modules\Vendor\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
@@ -11,8 +11,6 @@ use Modules\Common\Utils\Responder;
 use Modules\File\Services\Uploader\Uploader;
 use Modules\Market\Models\Brand;
 use Modules\Market\Models\Product;
-use Modules\Market\Models\ProductMeta;
-use Modules\Market\Models\ProductProperty;
 
 class VendorProductController extends Controller
 {
