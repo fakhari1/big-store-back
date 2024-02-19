@@ -5,7 +5,7 @@ use Modules\Discount\Http\Controllers\AmazingDiscountController;
 use Modules\Discount\Http\Controllers\CouponDiscountController;
 use Modules\Discount\Http\Controllers\CommonDiscountController;
 
-Route::middleware('api')->prefix('api')->group(function () {
+Route::middleware('auth:api')->prefix('api')->group(function () {
 
     Route::prefix('admin')->group(function () {
 

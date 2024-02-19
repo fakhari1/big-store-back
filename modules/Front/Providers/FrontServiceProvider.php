@@ -12,7 +12,7 @@ class FrontServiceProvider extends ServiceProvider
     {
 //        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadRoutesFrom(__DIR__ . '/../Routes/front_routes.php');
-
+        $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Front');
     }
 
 }
