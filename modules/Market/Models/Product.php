@@ -2,6 +2,7 @@
 
 namespace Modules\Market\Models;
 
+use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -86,20 +87,20 @@ class Product extends Model
     {
         return $this->hasMany(Guaranty::class);
     }
+
+    public function amazing_discounts()
+    {
+        return $this->hasMany(AmazingDiscount::class);
+    }
 //
-//    public function amazingSales()
-//    {
-//        return $this->hasMany(AmazingSale::class);
-//    }
-//
-//    public function activeAmazingSale()
-//    {
-//        return $this
-//            ->amazingSales()
-//            ->where('start_date', '<', Carbon::now())
-//            ->where('end_date', '>', Carbon::now())
-//            ->first();
-//    }
+    public function activeAmazingDiscounts()
+    {
+        return $this
+            ->amazing_discounts()
+            ->where('start_date', '<', Carbon::now())
+            ->where('end_date', '>', Carbon::now())
+            ->first();
+    }
 //
 //    public function CategoryValues()
 //    {

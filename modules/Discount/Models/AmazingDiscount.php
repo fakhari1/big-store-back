@@ -15,7 +15,7 @@ class AmazingDiscount extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['product_id', 'percentage', 'status', 'start_date', 'end_date'];
+    protected $guarded = [];
 
     public function product()
     {

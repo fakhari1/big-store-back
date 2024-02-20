@@ -7,10 +7,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Market\Models\Product;
 use Modules\Order\Models\CartItem;
+use Modules\User\Models\User;
 use Modules\Vendor\Models\Vendor;
 
 class CartController extends Controller
 {
+//    public function __construct()
+//    {
+//        Auth::login(User::findOrFail(5));
+//    }
+
     public function addToCart(Request $request, Vendor $vendor, Product $product)
     {
         if (Auth::check()) {
@@ -36,7 +42,7 @@ class CartController extends Controller
                 if ($cartItem->product_color_id == $request->color &&
                     $cartItem->guaranty_id == $request->guaranty && $cartItem->vendor_id == $vendor->id) {
 //                    if ($cartItem->number != $request->number) {
-                        $cartItem->update(['number' => $cartItem->number + $request->number]);
+                    $cartItem->update(['number' => $cartItem->number + $request->number]);
 //                    }
                     return back()->with(['success' => 'سبد خرید بروزرسانی شد']);
                 }
@@ -63,12 +69,12 @@ class CartController extends Controller
     {
         if (Auth::check()) {
             $cartItems = CartItem::where('user_id', Auth::id())->with(['product', 'user', 'vendor', 'color', 'guaranty'])->get();
-            if ($cartItems->count() > 0) {
-                $relatedProducts = Product::all();
-                return view('Front::cart.index', compact('cartItems', 'relatedProducts'));
-            } else {
-                return redirect()->back();
-            }
+//            if ($cartItems->count() > 0) {
+            $relatedProducts = Product::all();
+            return view('Front::cart.index', compact('cartItems', 'relatedProducts'));
+//            } else {
+//                return redirect()->back();
+//            }
 
         } else {
             return redirect()->route('auth.otp.show-form');

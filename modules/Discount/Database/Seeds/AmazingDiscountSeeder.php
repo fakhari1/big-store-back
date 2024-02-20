@@ -13,7 +13,7 @@ class AmazingDiscountSeeder extends Seeder
         $discounts = [
             [
                 'product_id' => 1,
-                'percentage' => 10,
+                'percentage' => 0,
                 'status' => 1,
                 'start_date' => Carbon::now(),
                 'end_date' => Carbon::now()->addDays(7),

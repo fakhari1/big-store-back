@@ -9,6 +9,7 @@ use Modules\Market\Models\Guaranty;
 use Modules\Market\Models\Product;
 use Modules\Market\Models\ProductColor;
 use Modules\User\Models\User;
+use Modules\Vendor\Models\Vendor;
 
 class CartItem extends Model
 {
@@ -30,7 +31,7 @@ class CartItem extends Model
 
     public function vendor()
     {
-        return $this->belongsTo(CartItem::class);
+        return $this->belongsTo(Vendor::class);
     }
 
 
@@ -59,7 +60,7 @@ class CartItem extends Model
     public function cartItemProductDiscount()
     {
         $cartItemProductPrice = $this->cartItemProductPrice();
-        $productDiscount = empty($this->product->activeAmazingSales()) ? 0 : $cartItemProductPrice * ($this->product->activeAmazingSales()->percentage / 100);
+        $productDiscount = empty($this->product->activeAmazingDiscounts()) ? 0 : $cartItemProductPrice * ($this->product->activeAmazingDiscounts()->percentage / 100);
         return $productDiscount;
     }
 

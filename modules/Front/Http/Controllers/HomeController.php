@@ -10,9 +10,16 @@ use Modules\User\Models\User;
 
 class HomeController extends Controller
 {
+//    public function __construct()
+//    {
+//        Auth::login(User::findOrFail(5));
+//    }
+
     public function index()
     {
-        Auth::login(User::find(5));
+        Auth::login(User::findOrFail(5));
+//        Auth::logout();
+
         $brands = Brand::all();
 
         $most_viewed = Product::latest()->take(10)->get();

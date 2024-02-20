@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('vendor_id');
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('product_color_id');
-            $table->unsignedBigInteger('guaranty_id');
+            $table->unsignedBigInteger('product_color_id')->nullable();
+            $table->unsignedBigInteger('guaranty_id')->nullable();
             $table->unsignedTinyInteger('number')->default(1);
             $table->timestamps();
             $table->softDeletes();
