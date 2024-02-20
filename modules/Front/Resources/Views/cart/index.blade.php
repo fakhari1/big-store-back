@@ -26,13 +26,26 @@
                             <section class="col-md-9 mb-3">
                                 <section class="content-wrapper bg-white p-3 rounded-2">
 
-                                    <section class="cart-item d-md-flex py-3">
-                                        <section class="cart-img align-self-start flex-shrink-1"><img src="assets/images/products/1.jpg" alt=""></section>
+                                    @foreach($cartItems as $key => $item)
+                                        <section class="cart-item d-md-flex py-3">
+                                        <section class="cart-img align-self-start flex-shrink-1"><img src="{{ asset($item->product->image_path) }}" alt=""></section>
                                         <section class="align-self-start w-100">
-                                            <p class="fw-bold">کتاب اثر مرکب نوشته دارن هاردی</p>
-                                            <p><span style="background-color: #523e02;" class="cart-product-selected-color me-1"></span> <span> قهوه ای</span></p>
-                                            <p><i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i> <span> گارانتی اصالت و سلامت فیزیکی کالا</span></p>
-                                            <p><i class="fa fa-store-alt cart-product-selected-store me-1"></i> <span>کالا موجود در انبار</span></p>
+                                            <p class="fw-bold">
+                                                {{ $item->product->persian_name }}
+                                                -
+                                                {{ $item->product->english_name }}
+                                            </p>
+                                            <p>
+                                                <span style="background-color: {{ $item->color->code }}; border: 1px solid red; border-radius: 50%; " class="cart-product-selected-color me-1"></span>
+                                                <span>{{ $item->color->name }}</span>
+                                            </p>
+                                            <p>
+                                                <i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i>
+                                                <span>{{ $item->guaranty->name }}</span></p>
+                                            <p>
+                                                <i class="fa fa-store-alt cart-product-selected-store me-1"></i>
+                                                <span>{{ $item->product->marketable_number > 0 ? 'موجود در انبار' : 'در انبار موجود نیست' }}</span>
+                                            </p>
                                             <section>
                                                 <section class="cart-product-number d-inline-block ">
                                                     <button class="cart-number-down" type="button">-</button>
@@ -46,30 +59,7 @@
                                             <section class="text-nowrap fw-bold">56,000 ریال</section>
                                         </section>
                                     </section>
-
-
-                                    <section class="cart-item d-md-flex py-3">
-                                        <section class="cart-img align-self-start flex-shrink-1"><img src="assets/images/products/2.jpg" alt=""></section>
-                                        <section class="align-self-start w-100">
-                                            <p class="fw-bold">دستگاه آبمیوه گیری دنویر با کد 1016</p>
-                                            <p><span style="background-color: #523e02;" class="cart-product-selected-color me-1"></span> <span> قهوه ای</span></p>
-                                            <p><i class="fa fa-shield-alt cart-product-selected-warranty me-1"></i> <span> گارانتی اصالت و سلامت فیزیکی کالا</span></p>
-                                            <p><i class="fa fa-store-alt cart-product-selected-store me-1"></i> <span>کالا موجود در انبار</span></p>
-                                            <section>
-                                                <section class="cart-product-number d-inline-block ">
-                                                    <button class="cart-number-down" type="button">-</button>
-                                                    <input class="" type="number" min="1" max="5" step="1" value="1" readonly="readonly">
-                                                    <button class="cart-number-up" type="button">+</button>
-                                                </section>
-                                                <a class="text-decoration-none ms-4 cart-delete" href="#"><i class="fa fa-trash-alt"></i> حذف از سبد</a>
-                                            </section>
-                                        </section>
-                                        <section class="align-self-end flex-shrink-1">
-                                            <section class="cart-item-discount text-danger text-nowrap mb-1">تخفیف 78,000</section>
-                                            <section class="text-nowrap fw-bold">264,000 ریال</section>
-                                        </section>
-                                    </section>
-
+                                    @endforeach
 
                                 </section>
                             </section>

@@ -42,7 +42,7 @@ class CartItem extends Model
 
     public function color()
     {
-        return $this->belongsTo(ProductColor::class);
+        return $this->belongsTo(ProductColor::class, 'product_color_id');
     }
 
 
@@ -50,7 +50,7 @@ class CartItem extends Model
     public function cartItemProductPrice()
     {
         $guarantyPriceIncrease = empty($this->guaranty_id) ? 0 : $this->guaranty->price_increase;
-        $colorPriceIncrease = empty($this->color_id) ? 0 : $this->color->price_increase;
+        $colorPriceIncrease = empty($this->product_color_id) ? 0 : $this->color->price_increase;
         return $this->product->price + $guarantyPriceIncrease + $colorPriceIncrease;
     }
 
