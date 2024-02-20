@@ -46,10 +46,10 @@ class Product extends Model
 //        return $this->comments()->where('approved', '=', '1')->whereNull('parent_id')->get();
 //    }
 
-    public function properties()
-    {
-        return $this->hasMany(ProductProperty::class);
-    }
+//    public function properties()
+//    {
+//        return $this->hasMany(ProductProperty::class);
+//    }
 
     public function category()
     {
@@ -69,6 +69,11 @@ class Product extends Model
     public function vendors()
     {
         return $this->belongsToMany(Vendor::class);
+    }
+
+    public function hasVendor()
+    {
+        return count($this->vendors) > 0;
     }
 
     public function colors()

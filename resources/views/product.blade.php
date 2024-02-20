@@ -117,18 +117,18 @@
                                 <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
                                     <section class="d-flex justify-content-between align-items-center">
                                         <p class="text-muted">قیمت کالا</p>
-                                        <p class="text-muted">{{ number_format($product->price) }} <span class="small">تومان</span></p>
+                                        <p class="text-muted">{{ number_format($product->price) }} <span class="small">ریال</span></p>
                                     </section>
 
                                     <section class="d-flex justify-content-between align-items-center">
                                         <p class="text-muted">تخفیف کالا</p>
-                                        <p class="text-danger fw-bolder">260,000 <span class="small">تومان</span></p>
+                                        <p class="text-danger fw-bolder">260,000 <span class="small">ریال</span></p>
                                     </section>
 
                                     <section class="border-bottom mb-3"></section>
 
                                     <section class="d-flex justify-content-end align-items-center">
-                                        <p class="fw-bolder">1,066,000 <span class="small">تومان</span></p>
+                                        <p class="fw-bolder">1,066,000 <span class="small">ریال</span></p>
                                     </section>
 
                                     <section class="">
@@ -179,7 +179,7 @@
                                                     </section>
                                                     <section class="product-name"><h3>پکیج آموزش خطاطی و خوشنویسی با کد 624</h3></section>
                                                     <section class="product-price-wrapper">
-                                                        <section class="product-price">115,000 تومان</section>
+                                                        <section class="product-price">115,000 ریال</section>
                                                     </section>
                                                     <section class="product-colors">
                                                         <section class="product-colors-item" style="background-color: yellow;"></section>
@@ -208,7 +208,7 @@
                                                             <span class="product-old-price">230,000 </span>
                                                             <span class="product-discount-amount">10%</span>
                                                         </section>
-                                                        <section class="product-price">207،000 تومان</section>
+                                                        <section class="product-price">207،000 ریال</section>
                                                     </section>
                                                 </a>
                                             </section>
@@ -226,7 +226,7 @@
                                                     <section class="product-colors"></section>
                                                     <section class="product-name"><h3>کتاب اطلاعات عمومی انتشارات فارابی با کد 3087</h3></section>
                                                     <section class="product-price-wrapper">
-                                                        <section class="product-price">870,000 تومان</section>
+                                                        <section class="product-price">870,000 ریال</section>
                                                     </section>
                                                 </a>
                                             </section>
@@ -248,7 +248,7 @@
                                                             <span class="product-old-price">59,000 </span>
                                                             <span class="product-discount-amount">50%</span>
                                                         </section>
-                                                        <section class="product-price">29،000 تومان</section>
+                                                        <section class="product-price">29،000 ریال</section>
                                                     </section>
                                                 </a>
                                             </section>
@@ -266,7 +266,7 @@
                                                     <section class="product-colors"></section>
                                                     <section class="product-name"><h3>مجموعه داستان های قصه های مشهور جهان</h3></section>
                                                     <section class="product-price-wrapper">
-                                                        <section class="product-price">450,000 تومان</section>
+                                                        <section class="product-price">450,000 ریال</section>
                                                     </section>
                                                 </a>
                                             </section>
@@ -284,7 +284,7 @@
                                                     <section class="product-colors"></section>
                                                     <section class="product-name"><h3>کتاب برای سفر خودآموز مکالمات انگلیسی</h3></section>
                                                     <section class="product-price-wrapper">
-                                                        <section class="product-price">64,000 تومان</section>
+                                                        <section class="product-price">64,000 ریال</section>
                                                     </section>
                                                 </a>
                                             </section>
@@ -306,7 +306,7 @@
                                                             <span class="product-old-price">164,000 </span>
                                                             <span class="product-discount-amount">10%</span>
                                                         </section>
-                                                        <section class="product-price">147،600 تومان</section>
+                                                        <section class="product-price">147،600 ریال</section>
                                                     </section>
                                                 </a>
                                             </section>
@@ -324,7 +324,7 @@
                                                     <section class="product-colors"></section>
                                                     <section class="product-name"><h3>مجموعه کتاب من پیش از تو، پس از تو، باز هم من</h3></section>
                                                     <section class="product-price-wrapper">
-                                                        <section class="product-price">221,000 تومان</section>
+                                                        <section class="product-price">221,000 ریال</section>
                                                     </section>
                                                 </a>
                                             </section>
@@ -342,7 +342,7 @@
                                                     <section class="product-colors"></section>
                                                     <section class="product-name"><h3>کتاب سلخ اثر غزاله شکوهی</h3></section>
                                                     <section class="product-price-wrapper">
-                                                        <section class="product-price">870,000 تومان</section>
+                                                        <section class="product-price">870,000 ریال</section>
                                                     </section>
                                                 </a>
                                             </section>
@@ -360,7 +360,7 @@
                                                     <section class="product-colors"></section>
                                                     <section class="product-name"><h3>کتاب بیشعوری اثر جردن بلفورت</h3></section>
                                                     <section class="product-price-wrapper">
-                                                        <section class="product-price">57,000 تومان</section>
+                                                        <section class="product-price">57,000 ریال</section>
                                                     </section>
                                                 </a>
                                             </section>
@@ -378,7 +378,7 @@
                                                     <section class="product-colors"></section>
                                                     <section class="product-name"><h3>کتاب تختخوابت را مرتب کن اثر ژنرال ویلیام مک ریون</h3></section>
                                                     <section class="product-price-wrapper">
-                                                        <section class="product-price">89,000 تومان</section>
+                                                        <section class="product-price">89,000 ریال</section>
                                                     </section>
                                                 </a>
                                             </section>

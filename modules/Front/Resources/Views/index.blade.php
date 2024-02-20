@@ -25,7 +25,7 @@
 
 
         <!-- start ads section -->
-        @include('Front::second-ads')
+        @include('Front::sections.second-ads')
         <!-- end ads section -->
 
 

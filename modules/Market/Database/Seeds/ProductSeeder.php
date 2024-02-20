@@ -17,7 +17,7 @@ class ProductSeeder extends Seeder
                 'persian_name' => 'لپ تاپ ایسوز X512',
                 'introduction' => 'این لپ تاپ به شما امکان کار با سرعت بالا و عملکرد قوی را می‌دهد.',
                 'text' => 'این لپ تاپ به شما امکان کار با سرعت بالا و عملکرد قوی را می‌دهد.',
-                'image_id' => 1,
+                'image_id' => 2,
                 'weight' => 2.5,
                 'length' => 35,
                 'width' => 24,
