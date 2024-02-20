@@ -1,7 +1,6 @@
 @extends('Front::layouts.master')
 
 @section('content')
-
     <!-- start main one col -->
     <main id="main-body-one-col" class="main-body">
 
@@ -49,100 +48,111 @@
                             <section class="col-md-5">
 
                                 <section class="content-wrapper bg-white p-3 rounded-2 mb-4">
-
-                                    <!-- start vontent header -->
-                                    <section class="content-header mb-3">
-                                        <section class="d-flex justify-content-between align-items-center">
-                                            <h2 class="content-header-title content-header-title-small">
-                                                {{ $product->persian_name }}
-                                                -
-                                                {{ $product->english_name }}
-                                            </h2>
-                                            <section class="content-header-link">
-                                                <span>فروشنده: </span>
-                                                {{ $vendor->juridical_name ?? $vendor->shop_name }}
+                                    <form
+                                        id="form_add_to_cart"
+                                        action="{{ route('users.buys.add-to-cart', ['vendor' => $vendor, 'product' => $product]) }}"
+                                        method="post">
+                                        @csrf
+                                        <!-- start vontent header -->
+                                        <section class="content-header mb-3">
+                                            <section class="d-flex justify-content-between align-items-center">
+                                                <h2 class="content-header-title content-header-title-small">
+                                                    {{ $product->persian_name }}
+                                                    -
+                                                    {{ $product->english_name }}
+                                                </h2>
+                                                <section class="content-header-link">
+                                                    <span>فروشنده: </span>
+                                                    {{ $vendor->juridical_name ?? $vendor->shop_name }}
+                                                </section>
                                             </section>
                                         </section>
-                                    </section>
-                                    <section class="product-info">
+                                        <section class="product-info">
 
-                                        @if(count($product->colors))
-                                            <p>
-                                                <span>رنگ انتخاب شده:</span>
-                                                <span id="selected_color_name">
+                                            @if(count($product->colors))
+                                                <p>
+                                                    <span>رنگ انتخاب شده:</span>
+                                                    <span id="selected_color_name">
                                                     قهوه ای
                                                 </span>
-                                            </p>
-                                            <p>
-                                                @foreach($product->colors as $key => $color)
-                                                    <input type="radio"
-                                                           class="d-none"
-                                                           name="color"
-                                                           id="color-{{ $key }}"
-                                                           value="{{ $color->id }}"
-                                                           data-color-name="{{ $color->name }}"
-                                                           data-color-price="{{ $color->price_increase ?? 0 }}"
-                                                           @if($key ==0) checked @endif
-                                                    >
-                                                    <label
-                                                        for="color-{{ $key  }}"
-                                                        style="border: 1px solid black; background-color: {{ $color->code }}; cursor: pointer;"
-                                                        class="product-info-colors me-1"
-                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                        title="{{ $color->name }}"></label>
-                                                @endforeach
+                                                </p>
+                                                <p>
+                                                    @foreach($product->colors as $key => $color)
+                                                        <input type="radio"
+                                                               class="d-none"
+                                                               name="color"
+                                                               id="color-{{ $key }}"
+                                                               value="{{ $color->id }}"
+                                                               data-color-name="{{ $color->name }}"
+                                                               data-color-price="{{ $color->price_increase ?? 0 }}"
+                                                               @if($key ==0) checked @endif
+                                                        >
+                                                        <label
+                                                            for="color-{{ $key  }}"
+                                                            style="border: 1px solid black; background-color: {{ $color->code }}; cursor: pointer;"
+                                                            class="product-info-colors me-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                            title="{{ $color->name }}"></label>
+                                                    @endforeach
 
-                                            </p>
-                                        @endif
-                                        @if(count($product->guaranties))
-                                            <span>
+                                                </p>
+                                            @endif
+                                            @if(count($product->guaranties))
+                                                <span>
                                                 گارانتی:
                                             </span>
-                                            <select name="guaranty" id="guaranty"
-                                                    class="form-control form-select form-select-sm mb-3">
-                                                @foreach($product->guaranties as $key => $guaranty)
-                                                    <option value="{{ $guaranty->id }}"
-                                                            data-guaranty-price="{{ $guaranty->price_increase ?? 0 }}"
+                                                <select name="guaranty" id="guaranty"
+                                                        class="form-control form-select form-select-sm mb-3">
+                                                    @foreach($product->guaranties as $key => $guaranty)
+                                                        <option value="{{ $guaranty->id }}"
+                                                                data-guaranty-price="{{ $guaranty->price_increase ?? 0 }}"
 
-                                                            @if($key == 0) selected @endif>{{ $guaranty->title }}</option>
-                                                @endforeach
-                                            </select>
-                                        @endif
-                                        <p>
-                                            <i class="fa fa-store-alt cart-product-selected-store me-1"></i>
-                                            @if($product->marketable_number > 0)
-                                                <span class="text-success">کالا موجود در انبار</span>
-                                            @else
-                                                <span class="text-danger">کالا ناموجود در انبار</span>
+                                                                @if($key == 0) selected @endif>{{ $guaranty->title }}</option>
+                                                    @endforeach
+                                                </select>
                                             @endif
-                                        </p>
-                                        <p><a class="btn btn-light  btn-sm text-decoration-none" href="#"><i
-                                                    class="fa fa-heart text-danger"></i> افزودن به علاقه مندی</a></p>
-                                        <section>
-                                            <section class="cart-number cart-product-number d-inline-block ">
-                                                <button class="cart-number-down" type="button">-</button>
-                                                <input class=""
-                                                       name="number"
-                                                       id="number"
-                                                       type="number"
-                                                       min="1"
-                                                       max="5"
-                                                       step="1"
-                                                       value="1"
-                                                       readonly="readonly"
-                                                >
-                                                <button class="cart-number cart-number-up" type="button">+</button>
+                                            <p>
+                                                <i class="fa fa-store-alt cart-product-selected-store me-1"></i>
+                                                @if($product->marketable_number > 0)
+                                                    <span class="text-success">کالا موجود در انبار</span>
+                                                @else
+                                                    <span class="text-danger">کالا ناموجود در انبار</span>
+                                                @endif
+                                            </p>
+                                            <p><a class="btn btn-light  btn-sm text-decoration-none" href="#"><i
+                                                        class="fa fa-heart text-danger"></i> افزودن به علاقه مندی</a>
+                                            </p>
+                                            <section>
+                                                <section class=" cart-product-number d-inline-block ">
+                                                    <button class="cart-number cart-number-down" type="button">-</button>
+                                                    <input class=""
+                                                           name="number"
+                                                           id="number"
+                                                           type="number"
+                                                           min="1"
+                                                           max="5"
+                                                           step="1"
+                                                           value="1"
+                                                           readonly="readonly"
+                                                    >
+                                                    <button class="cart-number cart-number-up" type="button">+</button>
+                                                </section>
                                             </section>
+                                            <p class="mb-3 mt-5">
+                                                <i class="fa fa-info-circle me-1"></i>کاربر گرامی خرید شما هنوز نهایی
+                                                نشده
+                                                است. برای ثبت سفارش و تکمیل خرید باید ابتدا آدرس خود را انتخاب کنید و
+                                                سپس
+                                                نحوه ارسال را انتخاب کنید. نحوه ارسال انتخابی شما محاسبه و به این مبلغ
+                                                اضافه
+                                                شده خواهد شد. و در نهایت پرداخت این سفارش صورت میگیرد. پس از ثبت سفارش
+                                                کالا
+                                                بر اساس نحوه ارسال که شما انتخاب کرده اید کالا برای شما در مدت زمان
+                                                مذکور
+                                                ارسال می گردد.
+                                            </p>
                                         </section>
-                                        <p class="mb-3 mt-5">
-                                            <i class="fa fa-info-circle me-1"></i>کاربر گرامی خرید شما هنوز نهایی نشده
-                                            است. برای ثبت سفارش و تکمیل خرید باید ابتدا آدرس خود را انتخاب کنید و سپس
-                                            نحوه ارسال را انتخاب کنید. نحوه ارسال انتخابی شما محاسبه و به این مبلغ اضافه
-                                            شده خواهد شد. و در نهایت پرداخت این سفارش صورت میگیرد. پس از ثبت سفارش کالا
-                                            بر اساس نحوه ارسال که شما انتخاب کرده اید کالا برای شما در مدت زمان مذکور
-                                            ارسال می گردد.
-                                        </p>
-                                    </section>
+                                    </form>
                                 </section>
 
                             </section>
@@ -181,8 +191,11 @@
 
                                     <section class="">
                                         @if($product->marketable_number > 0)
-                                            <a id="next-level" href="#" class="btn btn-danger d-block">افزودن به سبد
-                                                خرید</a>
+                                            <button onclick="document.getElementById('form_add_to_cart').submit()"
+                                                    id="next-level" href="#" class="btn btn-danger d-block">
+                                                افزودن به سبد
+                                                خرید
+                                            </button>
                                         @else
                                             <button class="btn btn-danger d-block w-100" disabled>
                                                 موجود نیست
@@ -597,10 +610,14 @@
             console.log(selected_color_price, selected_guaranty_price, number, product_discount_price)
 
 
-                let
-            product_price = product_original_price + selected_color_price + selected_guaranty_price;
+            let product_price = product_original_price +
+                selected_color_price +
+                selected_guaranty_price;
+
             console.log('product price', product_price)
+
             let final_price = number * (product_price - product_discount_price);
+
             console.log('final price', final_price)
 
 

@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('vendor_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('product_color_id');
             $table->unsignedBigInteger('guaranty_id');
-            $table->unsignedTinyInteger('count');
+            $table->unsignedTinyInteger('number')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -3,13 +3,16 @@
 namespace Modules\Front\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Modules\Market\Models\Brand;
 use Modules\Market\Models\Product;
+use Modules\User\Models\User;
 
 class HomeController extends Controller
 {
     public function index()
     {
+        Auth::login(User::find(5));
         $brands = Brand::all();
 
         $most_viewed = Product::latest()->take(10)->get();

@@ -17,6 +17,21 @@
 @include('Front::layouts.header')
 <!-- end header -->
 
+<!-- start notification -->
+@if(session()->has('error'))
+    <div class="text-center">
+        <div class="badge bg-danger">{{ session('error') }}</div>
+    </div>
+
+@endif
+@if(session()->has('success'))
+    <div class="text-center">
+        <div class="badge bg-success">{{ session('success') }}</div>
+    </div>
+@endif
+<!-- end notification -->
+
+
 @yield('content')
 
 <!-- start footer -->
