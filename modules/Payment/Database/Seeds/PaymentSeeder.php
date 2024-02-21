@@ -132,8 +132,8 @@ class PaymentSeeder extends Seeder
 
         ];
 
-        DB::table('online_payments')->insert($onlinePayments);
-        DB::table('offline_payments')->insert($offlinePayments);
-        DB::table('payments')->insert($payments);
+//        DB::table('online_payments')->insert($onlinePayments);
+//        DB::table('offline_payments')->insert($offlinePayments);
+//        DB::table('payments')->insert($payments);
     }
 }

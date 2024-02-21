@@ -159,7 +159,9 @@ class PaymentController extends Controller
     {
         $amount = $onlinePayment->amount;
         $result = $paymentService->verify($amount, $onlinePayment);
-        $cartItems = CartItem::where('user_id', Auth::id())->get();
+        $cartItems = CartItem::where('user_id', '=', Auth::id())->get();
+
+        dd($amount, $result, $cartItems);
 
         foreach ($cartItems as $cartItem) {
             OrderItem::create([
