@@ -2,6 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
+use Modules\Vendor\Http\Controllers\VendorOrderController;
 use Modules\Vendor\Http\Controllers\VendorPaymentController;
 use Modules\Vendor\Http\Controllers\VendorProductController;
 use \Modules\Vendor\Http\Controllers\VendorCouponDiscountController;
@@ -42,6 +43,11 @@ Route::middleware(['api'])->prefix('api')->group(function () {
                 Route::delete('{coupon_discount}', [VendorCouponDiscountController::class, 'destroy']);
             });
 
+        });
+
+        Route::prefix('orders')->group(function () {
+            Route::get('/', [VendorOrderController::class, 'index']);
+            Route::get('{order}/details', [VendorOrderController::class, 'show']);
         });
 
 
