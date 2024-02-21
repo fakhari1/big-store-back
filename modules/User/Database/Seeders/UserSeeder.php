@@ -62,6 +62,7 @@ class UserSeeder extends Seeder
                 'mobile' => $user['mobile'],
             ], [
                 'mobile' => $user['mobile'],
+                'national_code' => $user['national_code'] ?? null,
                 'first_name' => $user['first_name'],
                 'last_name' => $user['last_name'],
             ])->assignRole($user['role']);

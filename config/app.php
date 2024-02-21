@@ -161,7 +161,7 @@ return [
          */
 
         Spatie\Permission\PermissionServiceProvider::class,
-
+        Shetabit\Payment\Provider\PaymentServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -207,6 +207,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'Payment' => Shetabit\Payment\Facade\Payment::class,
     ])->toArray(),
 
 ];

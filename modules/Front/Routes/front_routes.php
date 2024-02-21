@@ -31,6 +31,9 @@ Route::middleware('web')->group(function () {
     Route::get('payments/form', [PaymentController::class, 'showPaymentForm'])->name('users.payments.show');
     Route::post('coupon-discount', [PaymentController::class, 'couponDiscount'])->name('users.payments.coupon-discount');
 
+    Route::post('payment', [PaymentController::class, 'submit'])->name('users.payments.submit');
+    Route::any('/payment_verification/{order}/{online_payment}', [PaymentController::class, 'paymentCallback'])->name('users.payments.verify');
+
     Route::get('profile-completion', [ProfileController::class, 'profileCompletion'])->name('users.profile.show');
     Route::post('profile-completion', [ProfileController::class, 'update'])->name('users.profile.update');
 

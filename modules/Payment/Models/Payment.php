@@ -12,7 +12,7 @@ class Payment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["status_label", "status", "online_or_offline_label", "original_amount", "amount_as_tooman"];
+    protected $guarded = [];
 
     protected $appends = ['status_caption'];
 
