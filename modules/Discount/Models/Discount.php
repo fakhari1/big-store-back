@@ -10,6 +10,16 @@ class Discount extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'discountable_id',
+        'discountable_type',
+        'percentage',
+        'user_id',
+        'status',
+        'start_date',
+        'end_date',
+    ];
+
     protected $guarded = [];
 
     public function discountable()
