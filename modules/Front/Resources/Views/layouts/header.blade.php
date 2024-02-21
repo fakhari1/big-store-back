@@ -75,6 +75,7 @@
                         </a>
                     @endauth
                     @auth
+
                         <section class="header-cart d-inline ps-3 border-start position-relative">
                             <a class="btn btn-link position-relative text-dark header-cart-link"
                                href="javascript:void(0)">

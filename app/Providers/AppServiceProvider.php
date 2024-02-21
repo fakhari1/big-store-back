@@ -24,9 +24,11 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        if (Auth::check())
-            View::composer('Front::layouts.master', function ($view) {
+        View::composer('Front::layouts.master', function ($view) {
+            if (Auth::check())
                 $view->with('cartItems', CartItem::where('user_id', '=', Auth::id())->get());
-            });
+            else
+                $view->with('cartItems', 0);
+        });
     }
 }

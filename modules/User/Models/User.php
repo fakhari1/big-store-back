@@ -62,4 +62,9 @@ class User extends Authenticatable
         return rtrim($str, '-');
     }
 
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
+
 }

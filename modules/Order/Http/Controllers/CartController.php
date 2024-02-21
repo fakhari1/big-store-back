@@ -90,7 +90,7 @@ class CartController extends Controller
                 $cartItem->update(['number' => $inputs['number'][$cartItem->id]]);
             }
         }
-        return redirect()->route('customer.sales-process.address-and-delivery');
+        return redirect()->route('users.address-and-delivery.show');
     }
 
 

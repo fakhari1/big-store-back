@@ -99,7 +99,11 @@ class AuthController extends Controller
         $user = $otp->user()->first();
 
         if (empty($user->mobile_verified_at)) {
-            $user->update(['mobile_verified_at' => Carbon::now()->toDateTimeString()]);
+            $user->update([
+                'mobile_verified_at' => Carbon::now()->toDateTimeString(),
+                'activated' => 1,
+                'activated_at' => Carbon::now()->toDateTimeString()
+            ]);
         }
 
 //        $auth_token = $user->createToken($user->mobile)->plainTextToken;
