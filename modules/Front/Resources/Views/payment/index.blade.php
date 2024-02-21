@@ -7,9 +7,9 @@
         <section class="mb-4">
             <section class="container-xxl">
                 <section class="row">
-                    @if(session('copan'))
+                    @if(session('coupon'))
                         <div class="alert alert-success">
-                            {{ session('copan') }}
+                            {{ session('coupon') }}
                         </div>
                     @endif
                     @if ($errors->any())
@@ -58,11 +58,11 @@
 
                                     <section class="row">
                                         <section class="col-md-5">
-                                            <form action=""
+                                            <form action="{{ route('users.payments.coupon-discount') }}"
                                                   method="post">
                                                 @csrf
                                                 <section class="input-group input-group-sm">
-                                                    <input type="text" name="copan" class="form-control"
+                                                    <input type="text" name="coupon" class="form-control"
                                                            placeholder="کد تخفیف را وارد کنید">
                                                     <button class="btn btn-primary" type="submit">اعمال کد</button>
                                                 </section>
@@ -215,7 +215,7 @@
                                     <section class="d-flex justify-content-between align-items-center">
                                         <p class="text-muted">جمع سبد خرید</p>
                                         <p class="fw-bolder"><span
-                                                id="total_price">{{ priceFormat($order->order_final_amount) }}</span>
+                                                id="total_price">{{ priceFormat($order->final_amount) }}</span>
                                             تومان</p>
                                     </section>
 

@@ -42,10 +42,10 @@ class OrderController extends Controller
 
 
         $inputs['final_amount'] = $totalFinalPrice;
-        $inputs['discounts_amount'] = $totalFinalDiscountPriceWithNumbers;
+        $inputs['total_discounts_amount'] = $totalFinalDiscountPriceWithNumbers;
         $inputs['total_products_discount_amount'] = $totalFinalDiscountPriceWithNumbers;
 
-        Order::query()->updateOrCreate([
+        Order::updateOrCreate([
             'user_id' => Auth::id(),
             'status' => 0
         ],$inputs);

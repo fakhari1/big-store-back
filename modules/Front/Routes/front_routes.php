@@ -24,14 +24,14 @@ Route::middleware('web')->group(function () {
     Route::middleware('user_profile_is_completed')->prefix('address-and-delivery')->group(function () {
         Route::get('/', [MarketController::class, 'showAddressAndDeliveryMethodForm'])->name('users.address-and-delivery.show');
         Route::post('/', [MarketController::class, 'chooseAddressAndDelivery'])->name('users.address-and-delivery');
-
-        Route::get('payments/form', [PaymentController::class, 'showPaymentForm'])->name('users.payments.show');
-
-        Route::post('save-address-and-delivery', [OrderController::class, 'chooseAddressAndDelivery'])->name('users.orders.address-delivery.store');
     });
+
+    Route::post('save-address-and-delivery', [OrderController::class, 'chooseAddressAndDelivery'])->name('users.orders.address-delivery.store');
+
+    Route::get('payments/form', [PaymentController::class, 'showPaymentForm'])->name('users.payments.show');
+    Route::post('coupon-discount', [PaymentController::class, 'couponDiscount'])->name('users.payments.coupon-discount');
 
     Route::get('profile-completion', [ProfileController::class, 'profileCompletion'])->name('users.profile.show');
     Route::post('profile-completion', [ProfileController::class, 'update'])->name('users.profile.update');
-    Route::post('address', [Modules\Front\Http\Controllers\ProfileController::class, 'updateAddress'])->name('users.profile.address.store');
 
 });

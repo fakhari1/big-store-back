@@ -4,6 +4,7 @@ namespace Modules\Front\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\Payment\PaymentService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Order\Models\CartItem;
 use Modules\Discount\Models\CouponDiscount;
@@ -22,47 +23,68 @@ class PaymentController extends Controller
         return view('Front::payment.index', compact('cartItems', 'order'));
     }
 
-    public function copanDiscount(Request $request)
+    public function couponDiscount(Request $request)
     {
         $request->validate(
-            ['copan' => 'required']
+            ['coupon' => 'required']
         );
 
-        $copan = Copan::where([['code', $request->copan], ['status', 1], ['end_date', '>', now()], ['start_date', '<', now()]])->first();
-        if ($copan != null) {
-            if ($copan->user_id != null) {
-                $copan = Copan::where([['code', $request->copan], ['status', 1], ['end_date', '>', now()], ['start_date', '<', now()], ['user_id', auth()->user()->id]])->first();
-                if ($copan == null) {
-                    return redirect()->back()->withErrors(['copan' => ['کد تخفیف اشتباه وارد شده است']]);
+        $coupon = CouponDiscount::where([
+            ['code', $request->coupon],
+            ['status', 1],
+            ['end_date', '>', now()],
+            ['start_date', '<', now()]
+        ])->first();
+
+
+        if ($coupon != null) {
+            if ($coupon->user_id != null) {
+                $coupon = CouponDiscount::where([
+                    ['code', $request->coupon],
+                    ['status', 1],
+                    ['end_date', '>', now()],
+                    ['start_date', '<', now()],
+                    ['user_id', Auth::id()]
+                ])->first();
+                if ($coupon == null) {
+                    return redirect()->back()->withErrors(['error' => ['کد تخفیف اشتباه وارد شده است']]);
                 }
             }
 
-            $order = Order::where('user_id', Auth::user()->id)->where('order_status', 0)->where('copan_id', null)->first();
+            $order = Order::where([
+                ['user_id', Auth::id()],
+                ['status', 0],
+                ['coupon_id', null],
+            ])->first();
 
             if ($order) {
-                if ($copan->amount_type == 0) {
-                    $copanDiscountAmount = $order->order_final_amount * ($copan->amount / 100);
-                    if ($copanDiscountAmount > $copan->discount_ceiling) {
-                        $copanDiscountAmount = $copan->discount_ceiling;
+                if ($coupon->price == null) {
+                    $couponDiscountAmount = $order->final_amount * ($coupon->percentage / 100);
+                    if ($couponDiscountAmount > $coupon->discount_ceiling) {
+                        $couponDiscountAmount = $coupon->discount_ceiling;
                     }
                 } else {
-                    $copanDiscountAmount = $copan->amount;
+                    $couponDiscountAmount = $coupon->percentage;
                 }
 
-                $order->order_final_amount = $order->order_final_amount - $copanDiscountAmount;
+                $order->final_amount = $order->final_amount - $couponDiscountAmount;
 
-                $finalDiscount = $order->order_total_products_discount_amount + $copanDiscountAmount;
+                $order->total_products_discount_amount += $couponDiscountAmount;
+                $order->coupon_id = $coupon->id;
+                $order->save();
 
-                $order->update(
-                    ['copan_id' => $copan->id, 'order_copan_discount_amount' => $copanDiscountAmount, 'order_total_products_discount_amount' => $finalDiscount]
-                );
+                return redirect()->back()->with(['success' => 'کد تخفیف با موفقیت اعمال شد']);
 
-                return redirect()->back()->with(['copan' => 'کد تخفیف با موفقیت اعمال شد']);
+
             } else {
-                return redirect()->back()->withErrors(['copan' => ['کد تخفیف اشتباه وارد شده است']]);
+
+                return redirect()->back()->withErrors(['error' => ['کد تخفیف اشتباه وارد شده است']]);
+
             }
         } else {
-            return redirect()->back()->withErrors(['copan' => ['کد تخفیف اشتباه وارد شده است']]);
+
+            return redirect()->back()->withErrors(['error' => ['کد تخفیف منقضی شده یا اشتباه وارد شده است']]);
+
         }
     }
 
