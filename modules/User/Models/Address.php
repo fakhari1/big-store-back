@@ -31,6 +31,6 @@ class Address extends Model
     }
 
     public function vendor() {
-        return $this->belongsTo(Vendor::class, 'user_id');
+        return $this->belongsTo(Vendor::class, 'vendor_id');
     }
 }
