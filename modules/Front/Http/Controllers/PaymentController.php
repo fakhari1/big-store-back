@@ -166,14 +166,13 @@ class PaymentController extends Controller
         $result = $paymentService->verify($amount, $onlinePayment);
         $cartItems = CartItem::where('user_id', '=', Auth::id())->get();
 
-        dd($amount, $result, $cartItems);
 
         foreach ($cartItems as $cartItem) {
             OrderItem::create([
                 'order_id' => $order->id,
                 'product_id' => $cartItem->product_id,
                 'amazing_discount_id' => $cartItem->product->activeAmazingDiscounts()->id ?? null,
-                'amazing_discount_discount_amount' => empty($cartItem->product->activeAmazingDiscounts()) ? 0 : $cartItem->cartItemProductPrice() * ($cartItem->product->activeAmazingDiscounts()->percentage / 100),
+                'amazing_discount_sale_amount' => empty($cartItem->product->activeAmazingDiscounts()) ? 0 : $cartItem->cartItemProductPrice() * ($cartItem->product->activeAmazingDiscounts()->percentage / 100),
                 'count' => $cartItem->number,
                 'final_product_price' => empty($cartItem->product->activeAmazingDiscounts()) ? $cartItem->cartItemProductPrice() : ($cartItem->cartItemProductPrice() - $cartItem->cartItemProductPrice() * ($cartItem->product->activeAmazingDiscounts()->percentage / 100)),
                 'final_total_price' => empty($cartItem->product->activeAmazingDiscounts()) ? $cartItem->cartItemProductPrice() * ($cartItem->number) : ($cartItem->cartItemProductPrice() - $cartItem->cartItemProductPrice() * ($cartItem->product->activeAmazingDiscounts()->percentage / 100)) * ($cartItem->number),
