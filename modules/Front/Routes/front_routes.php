@@ -12,7 +12,7 @@ Route::middleware('web')->group(function () {
 //    Route::middleware('auth')->group(function () {
         Route::prefix('cart')->group(function () {
             Route::get('/', [CartController::class, 'cart'])->name('users.buys.cart');
-            Route::post('{vendor}', [CartController::class, 'updateCart'])->name('users.buys.update-cart');
+            Route::post('/', [CartController::class, 'updateCart'])->name('users.buys.update-cart');
             Route::post('add/{vendor}/{product:slug}', [CartController::class, 'addToCart'])->name('users.buys.add-to-cart');
             Route::get('remove/{cart_item}', [CartController::class, 'removeFromCart'])->name('users.buys.remove-from-cart');
         });

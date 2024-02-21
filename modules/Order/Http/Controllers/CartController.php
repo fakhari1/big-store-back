@@ -84,7 +84,7 @@ class CartController extends Controller
     public function updateCart(Request $request)
     {
         $inputs = $request->all();
-        $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
+        $cartItems = CartItem::where('user_id', Auth::id())->get();
         foreach ($cartItems as $cartItem) {
             if (isset($inputs['number'][$cartItem->id])) {
                 $cartItem->update(['number' => $inputs['number'][$cartItem->id]]);

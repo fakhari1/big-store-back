@@ -27,7 +27,7 @@
                                 <section class="col-md-9 mb-3">
                                     <section class="content-wrapper bg-white p-3 rounded-2">
                                         <form action="" id="cart_items" method="post">
-
+                                            @csrf
                                             @php
                                                 $totalProductPrice = 0;
                                                 $totalDiscount = 0;
@@ -78,6 +78,7 @@
                                                                         type="button">-
                                                                 </button>
                                                                 <input class="number"
+                                                                       name="number[{{ $item->id }}]"
                                                                        data-product-price="{{ $item->cartItemProductPrice() }}"
                                                                        data-product-discount="{{ $item->cartItemProductDiscount() }}"
                                                                        value="{{ $item->number }}"
@@ -101,6 +102,7 @@
                                                             class="cart-items-discount text-danger text-nowrap mb-1">
                                                             تخفیف
                                                             {{ priceFormat($item->cartItemProductDiscount()) }}
+                                                            ریال
                                                         </section>
                                                     @endif
                                                     <section class="align-self-end flex-shrink-1">
@@ -119,7 +121,6 @@
                                 <section class="col-md-3">
                                     <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
                                         <section class="d-flex justify-content-between align-items-center">
-                                            @dd($item->count())
                                             <p class="text-muted">
                                                 قیمت کالاها
                                                 ({{ $item->count() }})
@@ -164,7 +165,7 @@
 
 
                                         <section class="">
-                                            <a href="address.html" class="btn btn-danger d-block">تکمیل فرآیند خرید</a>
+                                            <button onclick="document.getElementById('cart_items').submit()" class="btn btn-danger d-block">تکمیل فرآیند خرید</button>
                                         </section>
 
                                     </section>
