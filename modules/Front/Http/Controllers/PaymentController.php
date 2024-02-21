@@ -12,10 +12,15 @@ use Modules\Payment\Models\OnlinePayment;
 use Modules\Order\Models\Order;
 use Modules\Order\Models\OrderItem;
 use Modules\Payment\Models\Payment;
+use Modules\User\Models\User;
 use Shetabit\Multipay\Invoice;
 use Shetabit\Multipay\Payment as ShetabitPayment;
 class PaymentController extends Controller
 {
+    public function __construct()
+    {
+        Auth::login(User::findOrFail(5));
+    }
     public function showPaymentForm()
     {
         $cartItems = CartItem::where('user_id', Auth::id())->get();

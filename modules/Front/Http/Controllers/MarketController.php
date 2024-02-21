@@ -13,10 +13,10 @@ use Modules\Vendor\Models\Vendor;
 
 class MarketController extends Controller
 {
-//    public function __construct()
-//    {
-//        Auth::login(User::findOrFail(5));
-//    }
+    public function __construct()
+    {
+        Auth::login(User::findOrFail(5));
+    }
     public function product(Vendor $vendor, Product $product)
     {
         $product->loadMissing(['vendors', 'guaranties', 'colors', 'images']);

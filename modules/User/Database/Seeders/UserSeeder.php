@@ -34,6 +34,11 @@ class UserSeeder extends Seeder
                 'last_name' => '2',
                 'mobile' => '9134567890',
                 'role' => Role::ROLE_MANAGER,
+            ],[
+                'first_name' => 'مدیر',
+                'last_name' => '3',
+                'mobile' => '9134567000',
+                'role' => Role::ROLE_MANAGER,
             ], [
                 'first_name' => 'مشتری',
                 'last_name' => '1',

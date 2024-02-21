@@ -12,10 +12,10 @@ use Modules\Vendor\Models\Vendor;
 
 class CartController extends Controller
 {
-//    public function __construct()
-//    {
-//        Auth::login(User::findOrFail(5));
-//    }
+    public function __construct()
+    {
+        Auth::login(User::findOrFail(5));
+    }
 
     public function addToCart(Request $request, Vendor $vendor, Product $product)
     {
