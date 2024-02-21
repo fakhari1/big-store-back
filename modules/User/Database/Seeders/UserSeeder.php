@@ -35,25 +35,23 @@ class UserSeeder extends Seeder
                 'mobile' => '9134567890',
                 'role' => Role::ROLE_MANAGER,
             ], [
-                'first_name' => 'فروشنده',
-                'last_name' => '1',
-                'mobile' => '9134567891',
-                'role' => Role::ROLE_VENDOR,
-            ], [
                 'first_name' => 'مشتری',
                 'last_name' => '1',
                 'mobile' => '9134567892',
+                'national_code' => '1231222344',
                 'role' => Role::ROLE_CUSTOMER,
             ],
             [
                 'first_name' => 'مشتری',
                 'last_name' => '2',
                 'mobile' => '9134567893',
+                'national_code' => '1231222345',
                 'role' => Role::ROLE_CUSTOMER,
             ], [
                 'first_name' => 'مشتری',
                 'last_name' => '3',
                 'mobile' => '9134567894',
+                'national_code' => '1231222346',
                 'role' => Role::ROLE_CUSTOMER,
             ],
 

@@ -38,83 +38,70 @@
 
                                     <section class="row pb-3">
 
-                                        @if(empty($user->first_name))
-                                            <section class="col-12 col-md-6 my-2">
-                                                <div class="form-group">
-                                                    <label for="first_name">نام</label>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                           name="first_name" id="first_name"
-                                                           value="{{ old('first_name') }}">
-                                                </div>
-                                                @error('first_name')
-                                                <span class="alert_required bg-danger text-white p-1 rounded"
-                                                      role="alert">
-                                            <strong>
-                                                {{ $message }}
-                                            </strong>
-                                        </span>
-                                                @enderror
+                                        @if(empty($user->first_name) or empty($user->last_name) or empty($user->national_code))
+                                            <section class="payment-alert alert alert-primary d-flex align-items-center p-2">
+                                                اطلاعات کاربری تکمیل نیست؛ لطفا از وارد کردن نام، نام خانوادگی و کدملی اطمینان حاصل کنید
                                             </section>
                                         @endif
 
 
-                                        @if(empty($user->last_name))
-                                            <section class="col-12 col-md-6 my-2">
-                                                <div class="form-group">
-                                                    <label for="last_name">نام خانوادگی</label>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                           name="last_name" id="last_name"
-                                                           value="{{ old('last_name') }}">
-                                                </div>
-                                                @error('last_name')
-                                                <span class="alert_required bg-danger text-white p-1 rounded"
-                                                      role="alert">
-                                            <strong>
-                                                {{ $message }}
-                                            </strong>
-                                        </span>
-                                                @enderror
-                                            </section>
-                                        @endif
+{{--                                        @if(empty($user->last_name))--}}
+{{--                                            <section class="col-12 col-md-6 my-2">--}}
+{{--                                                <div class="form-group">--}}
+{{--                                                    <label for="last_name">نام خانوادگی</label>--}}
+{{--                                                    <input type="text" class="form-control form-control-sm"--}}
+{{--                                                           name="last_name" id="last_name"--}}
+{{--                                                           value="{{ old('last_name') }}">--}}
+{{--                                                </div>--}}
+{{--                                                @error('last_name')--}}
+{{--                                                <span class="alert_required bg-danger text-white p-1 rounded"--}}
+{{--                                                      role="alert">--}}
+{{--                                            <strong>--}}
+{{--                                                {{ $message }}--}}
+{{--                                            </strong>--}}
+{{--                                        </span>--}}
+{{--                                                @enderror--}}
+{{--                                            </section>--}}
+{{--                                        @endif--}}
 
 
-                                        @if(empty($user->mobile))
-                                            <section class="col-12 col-md-6 my-2">
-                                                <div class="form-group">
-                                                    <label for="mobile">موبایل</label>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                           name="mobile" id="mobile" value="{{ old('mobile') }}">
-                                                </div>
-                                                @error('mobile')
-                                                <span class="alert_required bg-danger text-white p-1 rounded"
-                                                      role="alert">
-                                            <strong>
-                                                {{ $message }}
-                                            </strong>
-                                        </span>
-                                                @enderror
-                                            </section>
-                                        @endif
+{{--                                        @if(empty($user->mobile))--}}
+{{--                                            <section class="col-12 col-md-6 my-2">--}}
+{{--                                                <div class="form-group">--}}
+{{--                                                    <label for="mobile">موبایل</label>--}}
+{{--                                                    <input type="text" class="form-control form-control-sm"--}}
+{{--                                                           name="mobile" id="mobile" value="{{ old('mobile') }}">--}}
+{{--                                                </div>--}}
+{{--                                                @error('mobile')--}}
+{{--                                                <span class="alert_required bg-danger text-white p-1 rounded"--}}
+{{--                                                      role="alert">--}}
+{{--                                            <strong>--}}
+{{--                                                {{ $message }}--}}
+{{--                                            </strong>--}}
+{{--                                        </span>--}}
+{{--                                                @enderror--}}
+{{--                                            </section>--}}
+{{--                                        @endif--}}
 
 
-                                        @if(empty($user->national_code))
-                                            <section class="col-12 col-md-6 my-2">
-                                                <div class="form-group">
-                                                    <label for="national_code">کد ملی</label>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                           name="national_code" id="national_code"
-                                                           value="{{ old('national_code') }}">
-                                                </div>
-                                                @error('national_code')
-                                                <span class="alert_required bg-danger text-white p-1 rounded"
-                                                      role="alert">
-                                            <strong>
-                                                {{ $message }}
-                                            </strong>
-                                        </span>
-                                                @enderror
-                                            </section>
-                                        @endif
+{{--                                        @if(empty($user->national_code))--}}
+{{--                                            <section class="col-12 col-md-6 my-2">--}}
+{{--                                                <div class="form-group">--}}
+{{--                                                    <label for="national_code">کد ملی</label>--}}
+{{--                                                    <input type="text" class="form-control form-control-sm"--}}
+{{--                                                           name="national_code" id="national_code"--}}
+{{--                                                           value="{{ old('national_code') }}">--}}
+{{--                                                </div>--}}
+{{--                                                @error('national_code')--}}
+{{--                                                <span class="alert_required bg-danger text-white p-1 rounded"--}}
+{{--                                                      role="alert">--}}
+{{--                                            <strong>--}}
+{{--                                                {{ $message }}--}}
+{{--                                            </strong>--}}
+{{--                                        </span>--}}
+{{--                                                @enderror--}}
+{{--                                            </section>--}}
+{{--                                        @endif--}}
 
                                     </section>
                                 </form>
