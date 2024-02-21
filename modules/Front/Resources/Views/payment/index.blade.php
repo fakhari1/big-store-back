@@ -48,29 +48,40 @@
                                         </section>
                                     </section>
 
-                                    <section class="payment-alert alert alert-primary d-flex align-items-center p-2"
-                                             role="alert">
-                                        <i class="fa fa-info-circle flex-shrink-0 me-2"></i>
-                                        <secrion>
-                                            کد تخفیف خود را در این بخش وارد کنید.
-                                        </secrion>
-                                    </section>
-
-                                    <section class="row">
-                                        <section class="col-md-5">
-                                            <form action="{{ route('users.payments.coupon-discount') }}"
-                                                  method="post">
-                                                @csrf
-                                                <section class="input-group input-group-sm">
-                                                    <input type="text" name="coupon" class="form-control"
-                                                           placeholder="کد تخفیف را وارد کنید">
-                                                    <button class="btn btn-primary" type="submit">اعمال کد</button>
-                                                </section>
-                                            </form>
-
+                                    @if($order->total_products_discount_amount > 0)
+                                        <section class="payment-alert alert alert-primary d-flex align-items-center p-2"
+                                                 role="alert">
+                                            <i class="fa fa-info-circle flex-shrink-0 me-2"></i>
+                                            <secrion>
+                                                کد تخفیف قبلا اعمال شده است.
+                                                ({{ $order->coupon_discount->code }})
+                                            </secrion>
+                                        </section>
+                                    @else
+                                        <section class="payment-alert alert alert-primary d-flex align-items-center p-2"
+                                                 role="alert">
+                                            <i class="fa fa-info-circle flex-shrink-0 me-2"></i>
+                                            <secrion>
+                                                کد تخفیف خود را در این بخش وارد کنید.
+                                            </secrion>
                                         </section>
 
-                                    </section>
+                                        <section class="row">
+                                            <section class="col-md-5">
+                                                <form action="{{ route('users.payments.coupon-discount') }}"
+                                                      method="post">
+                                                    @csrf
+                                                    <section class="input-group input-group-sm">
+                                                        <input type="text" name="coupon" class="form-control"
+                                                               placeholder="کد تخفیف را وارد کنید">
+                                                        <button class="btn btn-primary" type="submit">اعمال کد</button>
+                                                    </section>
+                                                </form>
+
+                                            </section>
+
+                                        </section>
+                                    @endif
                                 </section>
 
 
@@ -152,10 +163,6 @@
                             </section>
                             <section class="col-md-3">
                                 <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
-                                    @php
-                                        $totalProductPrice = 0;
-                                        $totalDiscount = 0;
-                                    @endphp
 
                                     @foreach ($cartItems as $cartItem)
                                         @php
@@ -168,18 +175,16 @@
                                         <p class="text-muted">قیمت کالاها ({{ $cartItems->count() }})</p>
                                         <p class="text-muted"><span
                                                 id="total_product_price">{{ priceFormat($totalProductPrice) }}</span>
-                                            تومان
+                                            ریال
                                         </p>
                                     </section>
 
-                                    @if ($totalDiscount != 0)
-                                        <section class="d-flex justify-content-between align-items-center">
-                                            <p class="text-muted">تخفیف کالاها</p>
-                                            <p class="text-danger fw-bolder"><span
-                                                    id="total_discount">{{ priceFormat($totalDiscount) }}</span> تومان
-                                            </p>
-                                        </section>
-                                    @endif
+                                    <section class="d-flex justify-content-between align-items-center">
+                                        <p class="text-muted">تخفیف کالاها</p>
+                                        <p class="text-danger fw-bolder"><span
+                                                id="total_discount">{{ priceFormat($totalDiscount) }}</span> ریال
+                                        </p>
+                                    </section>
 
                                     <section class="border-bottom mb-3"></section>
 
@@ -196,7 +201,7 @@
                                             <p class="text-muted">میزان حداکثر تخفیف عمومی</p>
                                             <p class="text-danger fw-bolder"><span
                                                     id="total_discount">{{ priceFormat($order->commonDiscount->discount_ceiling) }}</span>
-                                                تومان</p>
+                                                ریال</p>
                                         </section>
 
 
@@ -205,7 +210,7 @@
                                             <p class="text-muted">حداقل موجودی سبد خرید</p>
                                             <p class="text-danger fw-bolder"><span
                                                     id="total_discount">{{ priceFormat($order->commonDiscount->minimal_order_amount) }}</span>
-                                                تومان</p>
+                                                ریال</p>
                                         </section>
 
                                     @endif
@@ -216,7 +221,7 @@
                                         <p class="text-muted">جمع سبد خرید</p>
                                         <p class="fw-bolder"><span
                                                 id="total_price">{{ priceFormat($order->final_amount) }}</span>
-                                            تومان</p>
+                                            ریال</p>
                                     </section>
 
                                     <p class="my-3">

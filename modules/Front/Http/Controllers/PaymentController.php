@@ -18,16 +18,18 @@ class PaymentController extends Controller
     public function showPaymentForm()
     {
         $cartItems = CartItem::where('user_id', Auth::id())->get();
-        $order = Order::where('user_id', Auth::id())->where('status', 0)->first();
+        $order = Order::where([
+            ['user_id', Auth::id()],
+            ['status', 0]]
+        )->first();
+        $totalProductPrice = 0;
+        $totalDiscount = $order->total_products_discount_amount;
 
-        return view('Front::payment.index', compact('cartItems', 'order'));
+        return view('Front::payment.index', compact('cartItems', 'order', 'totalProductPrice', 'totalDiscount'));
     }
 
     public function couponDiscount(Request $request)
     {
-        $request->validate(
-            ['coupon' => 'required']
-        );
 
         $coupon = CouponDiscount::where([
             ['code', $request->coupon],
