@@ -80,7 +80,9 @@
                             <a class="btn btn-link position-relative text-dark header-cart-link"
                                href="javascript:void(0)">
                                 <i class="fa fa-shopping-cart"></i> <span style="top: 80%;"
-                                                                          class="position-absolute start-0 translate-middle badge rounded-pill bg-danger">2</span>
+                                                                          class="position-absolute start-0 translate-middle badge rounded-pill bg-danger">
+                                    {{ convertEnglishToPersian($cartItems->count()) }}
+                                </span>
                             </a>
                             <section class="header-cart-dropdown">
                                 <section class="border-bottom d-flex justify-content-between p-2">

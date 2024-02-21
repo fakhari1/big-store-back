@@ -68,7 +68,8 @@ class AddressSeeder extends Seeder
                 'mobile' => $address['mobile'],
             ], [
                 'mobile' => $address['mobile'],
-                'user_id' => $address['user_id'],
+                'user_id' => $address['user_id'] ?? null,
+                'vendor_id' => $address['vendor_id'] ?? null,
                 'text' => $address['text'],
             ]);
         }
