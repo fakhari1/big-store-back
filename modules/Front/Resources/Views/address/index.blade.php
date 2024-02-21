@@ -52,6 +52,7 @@
 
                                             @foreach($user->addresses as $key => $address)
                                                 <input type="radio" name="address_id" value="{{ $address->id }}"
+                                                       form="my_form"
                                                        id="address-{{ $address->id }}"/>
                                                 <!--checked="checked"-->
                                                 <label for="address-{{ $address->id }}"
@@ -257,7 +258,7 @@
                                         </section>
 
                                         @foreach($deliveryMethods as $key => $deliver)
-                                            <input type="radio" name="delivery_id" value="{{ $deliver->id }}"
+                                            <input type="radio" form="my_form" name="delivery_id" value="{{ $deliver->id }}"
                                                    id="d-{{ $deliver }}"/>
                                             <label for="d-{{ $deliver }}"
                                                    class="col-12 col-md-4 delivery-wrapper mb-2 pt-2">
@@ -278,8 +279,15 @@
                                     </section>
                                 </section>
 
+                                <form action="{{ route('users.orders.address-delivery.store') }}" method="post" id="my_form">
+                                    @csrf
 
+                                    <input type="hidden" name="vendor_id" value="{{ $vendor->id }}">
+                                </form>
                             </section>
+
+
+
                             <section class="col-md-3">
                                 <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">
                                     @php
@@ -327,7 +335,7 @@
 
                                     <section class="">
                                         <button type="button"
-                                                onclick="document.getElementById('profile_completion').submit();"
+                                                onclick="document.getElementById('my_form').submit();"
                                                 class="btn btn-danger d-block w-100">تکمیل فرآیند خرید
                                         </button>
                                     </section>

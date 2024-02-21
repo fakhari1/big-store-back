@@ -35,8 +35,9 @@ class MarketController extends Controller
         $user->loadMissing('addresses');
         $cartItems = CartItem::where('user_id', $user->id)->get();
         $deliveryMethods = DeliveryMethod::where('status', 1)->get();
+        $vendor = $cartItems->first()->vendor;
 
-        return view('Front::address.index', compact('cartItems', 'deliveryMethods', 'user'));
+        return view('Front::address.index', compact('cartItems', 'deliveryMethods', 'user', 'vendor'));
     }
 
     public function chooseAddressAndDelivery()
