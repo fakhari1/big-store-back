@@ -184,13 +184,13 @@ class PaymentController extends Controller
         }
         if ($result) {
             $order->update(
-                ['status' => 3]
+                ['payment_id' => $onlinePayment->id, 'status' => 3]
             );
 
             return redirect()->route('index')->with('success', 'پرداخت شما با موفقیت انجام شد');
         } else {
             $order->update(
-                ['status' => 2]
+                ['payment_id' => $onlinePayment->id, 'status' => 2]
             );
             return redirect()->route('index')->with('error', 'پرداخت شما با  خطا مواجه شد');
         }

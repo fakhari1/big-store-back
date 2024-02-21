@@ -20,7 +20,7 @@ class VendorOrderController extends Controller
             'delivery_method',
             'coupon_discount',
             'common_discount'
-        ])->where('vendor_id', "2")->get();
+        ])->where('vendor_id', '=', 1)->get();
 
         return Responder::response([
             'orders' => $orders,
