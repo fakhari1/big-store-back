@@ -10,7 +10,6 @@ use Modules\Market\Http\Controllers\ProductGuarantyController;
 use Modules\Market\Http\Controllers\ProductPropertyController;
 use Modules\Market\Http\Controllers\ProductPropertyValueController;
 use Modules\Market\Http\Controllers\WarehouseController;
-use Modules\Order\Http\Controllers\OrderController;
 
 Route::middleware(['api'])->prefix('api')->group(function () {
 
